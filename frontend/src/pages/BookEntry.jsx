@@ -205,6 +205,42 @@ function BookEntry() {
               </div>
             </div>
           </div>
+          <div className="row mt-1">
+            <h6>Reviews </h6>
+            <ul className = "list-group mt-2" >
+              <li className="card list-group-item ">
+              
+                <div className="card-body">
+
+                 <img className = 
+                 "img-responsive comment-img me-2"  src = "https://64.media.tumblr.com/8b920a4af835ef5f38deaae90ef2c95c/2e9ae72b084d1dd9-b3/s1280x1920/b8f570cd0c43b41c1c9e42f97518e2953bb060f6.png"/>
+                 <a href = "#" className="card-title">User name</a>
+                  <div>
+                  <span className="card-subtitle mb-2 text-muted pe-4">November 22,2012</span>
+                  <span className = "card-subtitle mb-2 text-muted">Rating: 10</span>
+                </div>
+                  <p className="card-text">Example review </p>
+                
+                </div>
+                </li>
+                <li className="card list-group-item">
+                <div className="card-body">
+
+                 <img className = 
+                 "img-responsive comment-img me-2"  src = "https://64.media.tumblr.com/8b920a4af835ef5f38deaae90ef2c95c/2e9ae72b084d1dd9-b3/s1280x1920/b8f570cd0c43b41c1c9e42f97518e2953bb060f6.png"/>
+                 <a href = "#" className="card-title">User name</a>
+                  <div>
+                  <span className="card-subtitle mb-2 text-muted pe-4">November 22,2012</span>
+                  <span className = "card-subtitle mb-2 text-muted">Rating: 10</span>
+                </div>
+                  <p className="card-text">Example review </p>
+                
+                </div>
+                </li>
+                
+
+            </ul>
+          </div>
         </div>
         
       </div>

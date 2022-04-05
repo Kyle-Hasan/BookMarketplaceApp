@@ -11,3 +11,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.comment-img {
+  width:3em; height:3em;
+}
