@@ -1,6 +1,4 @@
-from django import views
 from django.shortcuts import render
-from rest_framework import viewsets
 from .serializers import LoginSerializer
 from .models import Login
 from django.contrib.auth.models import User
@@ -44,5 +42,5 @@ class LoginView(APIView):
         return Response(401)
     
 
-# ef BookMarketplaceApp(request):
- #   return render(request, 'BookMarketplaceApp.html', {})
+def BookMarketplaceApp(request):
+    return render(request, 'BookMarketplaceApp.html', {})

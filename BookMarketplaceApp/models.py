@@ -43,6 +43,7 @@ class Book(models.Model):
     Stock = models.IntegerField()
     Damage = models.IntegerField()
     LocationID = models.IntegerField()
+    Image = models.CharField(max_length=50)
 
 class Author(models.Model):
     AuthorID = models.IntegerField(primary_key=True)
@@ -94,7 +95,7 @@ class Assigned_to_order(models.Model):
     Book_ID = models.OneToOneField(Book, primary_key=True, on_delete=models.CASCADE)
     Order_ID = models.OneToOneField(Order, on_delete=models.CASCADE)
     Policy_no = models.OneToOneField(InsurancePlan, on_delete=models.CASCADE)
-    Amount_of_book = models.IntegerField()
+    Quantity = models.IntegerField()
     # InsuranceProvider_ID = models.ForeignKey(InsurancePlan, on_delete=models.SET_NULL, null=True)
 
 class Publishes(models.Model):
