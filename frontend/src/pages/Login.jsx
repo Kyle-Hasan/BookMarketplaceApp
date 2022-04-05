@@ -2,6 +2,8 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import { useState } from 'react'
 import { useNavigate,Link } from 'react-router-dom'
+import axios from "axios";
+
 function Login() {
     const navigate = useNavigate()
     const [loginInfo, setLoginInfo] = useState({
@@ -11,6 +13,25 @@ function Login() {
     const [error,setError] = useState(false)
     const onSubmit = async(e) =>{
         e.preventDefault()
+
+        axios({
+            method: 'post',
+            url: 'http://127.0.0.1:8000/logins/',
+            data: {
+                LoginID: loginInfo.email,
+                Password: loginInfo.password
+            }
+          })
+            .then(function (response) {
+                if (response.data == 201) {
+                    navigate('/')
+                }
+                else {
+                    setError(true)
+                }
+            });
+
+            /*
         //probably needs something to validate the login first
         if(loginInfo.email === "ai" && loginInfo.password === "hayasaka"){
             //probably needs to set the state in the context
@@ -19,6 +40,7 @@ function Login() {
         else {
             setError(true)
         }
+        */
     }
     const setInput = (e) => {
         setLoginInfo((oldState) => {

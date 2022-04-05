@@ -2,8 +2,11 @@ from django.db import models
 from django.forms import CharField
 
 class Login(models.Model):
-    LoginID = models.IntegerField(primary_key=True)
+    LoginID = models.CharField(primary_key=True, max_length=50)
     Password = models.CharField(max_length=50)
+    
+    def _str_(self):
+        return self.LoginID
 
 class Payment(models.Model):
     CardNo = models.IntegerField(primary_key=True)
@@ -91,6 +94,7 @@ class Assigned_to_order(models.Model):
     Book_ID = models.OneToOneField(Book, primary_key=True, on_delete=models.CASCADE)
     Order_ID = models.OneToOneField(Order, on_delete=models.CASCADE)
     Policy_no = models.OneToOneField(InsurancePlan, on_delete=models.CASCADE)
+    Amount_of_book = models.IntegerField()
     # InsuranceProvider_ID = models.ForeignKey(InsurancePlan, on_delete=models.SET_NULL, null=True)
 
 class Publishes(models.Model):
