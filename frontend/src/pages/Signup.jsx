@@ -2,6 +2,8 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import { useState } from "react";
 import { useNavigate,Link } from "react-router-dom";
+import axios from "axios";
+
 function Signup() {
   const navigate = useNavigate();
   const [registerInfo, setRegisterInfo] = useState({
@@ -30,9 +32,26 @@ function Signup() {
     else if(  regex.test(registerInfo.email) === false) {
           setError("Invalid email")
       }
-        else {
+    else {
       //add user to database, set state for user as if they logged in
-      navigate("/");
+      axios({
+        method: 'post',
+        url: 'http://127.0.0.1:8000/signup/',
+        data: {
+            Email: registerInfo.email,
+            FName: registerInfo.fname,
+            LName: registerInfo.lname,         
+            Password: registerInfo.password
+        }
+        })
+        .then(function (response) {
+            if (response.status == 201) {
+                navigate('/')
+            }
+            else {
+                setError(true)
+            }
+        });
     }
   };
   const setInput = (e) => {

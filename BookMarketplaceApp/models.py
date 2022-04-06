@@ -1,35 +1,34 @@
 from django.db import models
-from django.forms import CharField
+from django.forms import CharField, EmailField
 
 class Login(models.Model):
-    LoginID = models.CharField(primary_key=True, max_length=50)
+    User_Email = models.CharField(primary_key=True, max_length=50)
     Password = models.CharField(max_length=50)
     
     def _str_(self):
-        return self.LoginID
+        return self.Email
 
 class Payment(models.Model):
     CardNo = models.IntegerField(primary_key=True)
     CVV = models.IntegerField()
     BillingAddress = models.CharField(max_length=50)
     NameOnCard = models.CharField(max_length=50)
-    LoginID = models.ForeignKey(Login, on_delete=models.CASCADE)
+    User_Email = models.ForeignKey(Login, on_delete=models.CASCADE)
 
 class Order(models.Model):
     OrderID = models.IntegerField(primary_key=True)
     OrderDate = models.DateField()
     CardNo = models.ForeignKey(Payment, on_delete=models.CASCADE)
-    LoginID = models.ForeignKey(Login, on_delete=models.CASCADE)
+    User_Email = models.ForeignKey(Login, on_delete=models.CASCADE)
 
 class User(models.Model):
-    LoginID = models.OneToOneField(Login, primary_key=True, on_delete=models.CASCADE)
+    Email = models.OneToOneField(Login, primary_key=True, on_delete=models.CASCADE)
     Address = models.CharField(max_length=50)
-    Email = models.CharField(max_length=50)
-    DOB = models.DateField()
+    DOB = models.DateField(null=True)
     FName = models.CharField(max_length=50)
     LName = models.CharField(max_length=50)
     AdminFlag = models.BooleanField(default=False)
-    CardNo = models.ForeignKey(Payment, on_delete=models.CASCADE)
+    CardNo = models.ForeignKey(Payment, on_delete=models.CASCADE, null=True)
 
 class Book(models.Model):
     BookID = models.IntegerField()
@@ -53,8 +52,8 @@ class Author(models.Model):
     LName = CharField(max_length=50)
 
 class Publisher(models.Model):
-    PublisherID = models.IntegerField(primary_key=True)
-    Name = models.CharField(max_length=50)
+    # PublisherID = models.IntegerField(primary_key=True)
+    Name = models.CharField(primary_key=True, max_length=50)
 
 class Rentail_Detail(models.Model):
     OrderID = models.IntegerField(primary_key=True)
@@ -74,8 +73,8 @@ class Location(models.Model):
     PostalCode = models.CharField(max_length=6)
 
 class InsuranceProvider(models.Model):
-    Insurance_Prov_ID = models.IntegerField(primary_key=True)
-    Name = models.CharField(max_length=50)
+    #Insurance_Prov_ID = models.IntegerField(primary_key=True)
+    Name = models.CharField(primary_key=True, max_length=50)
     Location_ID = models.ForeignKey(Location, on_delete=models.CASCADE)
 
 class InsurancePlan(models.Model):
@@ -83,11 +82,11 @@ class InsurancePlan(models.Model):
     Price = models.IntegerField()
     CoverageDuration = models.IntegerField()
     Details = models.CharField(max_length=100)
-    InsuranceProviderID = models.ForeignKey(InsuranceProvider, on_delete=models.CASCADE)
+    InsuranceProvider_Name = models.ForeignKey(InsuranceProvider, on_delete=models.CASCADE)
 
 class Review(models.Model):
-    BookID = models.OneToOneField(Book, primary_key=True, on_delete=models.CASCADE)
-    UserID = models.ForeignKey(User, on_delete=models.CASCADE)
+    Book_ID = models.OneToOneField(Book, primary_key=True, on_delete=models.CASCADE)
+    User_Email = models.ForeignKey(User, on_delete=models.CASCADE)
     Rating = models.IntegerField()
     Comment = models.CharField(max_length=100)
 
@@ -100,7 +99,7 @@ class Assigned_to_order(models.Model):
 
 class Publishes(models.Model):
     Book_ID = models.OneToOneField(Book, primary_key=True, on_delete=models.CASCADE)
-    Publisher_ID = models.OneToOneField(Publisher, on_delete=models.CASCADE)
+    Publisher_Name = models.OneToOneField(Publisher, on_delete=models.CASCADE)
 
 class Writes(models.Model):
     Book_ID = models.OneToOneField(Book, primary_key=True, on_delete=models.CASCADE)
@@ -108,7 +107,7 @@ class Writes(models.Model):
 
 class Wants(models.Model):
     Book_ID = models.OneToOneField(Book, primary_key=True, on_delete=models.CASCADE)
-    Login_ID = models.OneToOneField(Login, on_delete=models.CASCADE)
+    User_Email = models.OneToOneField(Login, on_delete=models.CASCADE)
 
 class Book_Genres(models.Model):
     Book_ID = models.OneToOneField(Book, primary_key=True, on_delete=models.CASCADE)

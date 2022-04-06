@@ -18,12 +18,12 @@ function Login() {
             method: 'post',
             url: 'http://127.0.0.1:8000/logins/',
             data: {
-                LoginID: loginInfo.email,
+                Email: loginInfo.email,
                 Password: loginInfo.password
             }
-          })
+            })
             .then(function (response) {
-                if (response.data == 201) {
+                if (response.status == 201) {
                     navigate('/')
                 }
                 else {

@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from BookMarketplaceApp.views import LoginView
+from BookMarketplaceApp.views import SignupView
 
 
 
@@ -26,5 +27,6 @@ router = routers.DefaultRouter()
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
-    path('logins/', LoginView.as_view())
+    path('logins/', LoginView.as_view()),
+    path('signup/', SignupView.as_view())
 ]

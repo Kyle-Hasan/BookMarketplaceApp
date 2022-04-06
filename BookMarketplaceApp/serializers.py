@@ -1,13 +1,14 @@
 from rest_framework import serializers
 from .models import Login
+from .models import User
 
 class LoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = Login
-        fields = ('LoginID', 'Password')
+        fields = ('User_Email', 'Password')
 
-        def validate(self, attrs):
-            return (5)
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('Email', 'Address', 'DOB', 'FName', 'LName', 'AdminFlag', 'CardNo')
 
-        def create(self, attrs):
-            return (5)
