@@ -16,13 +16,14 @@ function Login() {
 
         axios({
             method: 'post',
-            url: 'http://127.0.0.1:8000/logins/',
+            url: 'http://127.0.0.1:8000/user/',
             data: {
                 Email: loginInfo.email,
                 Password: loginInfo.password
             }
             })
             .then(function (response) {
+                console.log(response)
                 if (response.status == 201) {
                     navigate('/')
                 }
