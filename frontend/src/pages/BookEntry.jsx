@@ -1,16 +1,17 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import { useNavigate, useSearchParams, Link } from "react-router-dom";
+import { useNavigate, useSearchParams, Link, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function BookEntry() {
   const [searchParams] = useSearchParams();
   const [quantity, setQuanity] = useState(1);
-  
+  const navigate = useNavigate()
   const [checkoutOption, setCheckoutOption] = useState("Buy");
   
   const [bookInfo, setBookInfo] = useState({
-    title: "Title of book ",
+    BookId:23,
+    Title: "Title of book ",
     releaseYear: 0,
     pageCount: 0,
     description:
@@ -26,7 +27,7 @@ function BookEntry() {
       { id: 2, name: "author name" },
     ],
     publisher: "example publisher",
-    
+    image:"https://cdn.donmai.us/original/75/9c/__akame_akame_ga_kill_drawn_by_taturouxs__759c426ac9e6c4b899939435d051b704.jpg",
     stock: 4,
     damage: "new"
   });
@@ -43,6 +44,17 @@ function BookEntry() {
   const onSubmit = () => {
     if (quantity > 0) {
       //deal with placing order
+      sessionStorage.setItem("orderInfo", JSON.stringify({
+        Title: bookInfo.Title,
+        BookId: bookInfo.BookId,
+        Stock:quantity,
+        Option:checkoutOption,
+        Image:bookInfo.image,
+        Price:totalPrice
+
+
+      }))
+      navigate("/checkout")
     }
   };
 

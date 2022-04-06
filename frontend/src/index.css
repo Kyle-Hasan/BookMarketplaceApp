@@ -14,3 +14,13 @@ code {
 .comment-img {
   width:3em; height:3em;
 }
+
+.checkout-img {
+  width: 9em; height: 9em;
+}
+
+.checkout-div {
+  justify-content: center;
+  display: flex;
+  
+}

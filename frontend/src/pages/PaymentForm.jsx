@@ -1,11 +1,41 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
 import {useState} from 'react'
-function PaymentForm() {
- const [error,setError] = useState(false)
- const onSubmit = ()=>{}
+import Axios from 'axios'
+function PaymentForm({setCheckoutInfo,setShowPaymentForm}) {
+ const [error,setError] = useState("")
+ const [paymentInfo,setPaymentInfo] = useState({
+     cvv:"",
+     cardNo:"",
+     name: "",
+     address:""
+ })
+ const onChange= (e) => {
+ 
+    setPaymentInfo((oldState) => {
+      return {
+        ...oldState,
+        [e.target.id]: e.target.value,
+      }
+    })
+
+    
+  
+  }
+ const onSubmit = (e)=>{
+     e.preventDefault()
+    if(paymentInfo.cvv.length === 0 || paymentInfo.address.length === 0 || paymentInfo.cardNo.length === 0 || paymentInfo.name.length === 0){
+        setError("No field can be blank")
+        return
+    }
+    if(setCheckoutInfo !== null){
+        setCheckoutInfo(paymentInfo)
+        setShowPaymentForm(false)
+    }
+
+ }
   return (
-    <><Navbar />
+    <>
       <div className = "container">
           <div class = "card mt-4">
           <div class="card-header">
@@ -16,31 +46,31 @@ function PaymentForm() {
           <div className="mb-3">
               <label htmlFor="cardNo" className="form-label">Card Number</label>
               <div className = "d-flex justify-content-center ">
-              <input onChange = "" value ="" type="text" className="w-50 form-control" id="cardNo" />
+              <input onChange = {onChange} value ={paymentInfo.cardNo} type="number" className="w-50 form-control" id="cardNo" />
               </div>
 
           </div>
           <div className="mb-3 ">
               <label htmlFor="cvv" className="form-label">CVV</label>
               <div className = "d-flex justify-content-center ">
-              <input onChange = "" value = "" type="text" className=" w-50 form-control" id="cvv" />
+              <input onChange = {onChange} value = {paymentInfo.cvv} type="number" className=" w-50 form-control" id="cvv" />
               </div>
           </div>
           <div className="mb-3 ">
               <label htmlFor="name" className="form-label">Name on card</label>
               <div className = "d-flex justify-content-center ">
-              <input onChange = "" value = "" type="text" className=" w-50 form-control" id="name" />
+              <input onChange = {onChange} value = {paymentInfo.name} type="text" className=" w-50 form-control" id="name" />
               </div>
           </div>
           <div className="mb-3 ">
               <label htmlFor="address" className="form-label">Billing address</label>
               <div className = "d-flex justify-content-center ">
-              <input onChange = "" value = "" type="text" className=" w-50 form-control" id="address" />
+              <input onChange = {onChange} value = {paymentInfo.address} type="text" className=" w-50 form-control" id="address" />
               </div>
           </div>
           <button type="submit" className="btn btn-secondary">Submit</button>
       </form>
-     {error && <p className='mt-1 text-danger'>Failed</p>}
+     {error.length !== 0 && <p className='mt-1 text-danger'>{error}</p>}
      
      </div>
      </div>
