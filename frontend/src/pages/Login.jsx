@@ -14,23 +14,21 @@ function Login() {
     const onSubmit = async(e) =>{
         e.preventDefault()
 
-        axios({
-            method: 'post',
-            url: 'http://127.0.0.1:8000/user/',
-            data: {
+        try{
+            await axios.post('http://127.0.0.1:8000/login/',
+            {
                 Email: loginInfo.email,
-                Password: loginInfo.password
-            }
-            })
-            .then(function (response) {
-                console.log(response)
-                if (response.status == 201) {
-                    navigate('/')
-                }
-                else {
-                    setError(true)
-                }
-            });
+                         
+                Password: loginInfo.password})
+              //log in 
+            localStorage.setItem("username",loginInfo.email)
+            navigate("/")
+    
+          }
+          catch(error){
+            setError("error occurred during log in")
+          }
+        
 
             /*
         //probably needs something to validate the login first

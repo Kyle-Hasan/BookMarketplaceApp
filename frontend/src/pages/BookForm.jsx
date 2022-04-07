@@ -10,9 +10,22 @@ function BookForm() {
          Lname: "jonson"
      }
  ])
+ const [genres,setGenres] = useState([
+     "horror",
+     "comedy"
+ ])
+ const [searchAuthors,setSearchAuthors] = useState([
+    {
+        Fname: "mD3icheal",
+        Lname: "jons3SSon"
+    }
+
+ ])
  const [addAuthor,setAddAuthor] = useState(false)
  const [authorText,setAuthorText] = useState("")
- const [authorSearch,setAuthorSearch] = useState("")
+ const [genreText,setGenreText] = useState("")
+ const [addGenre,setAddGenre] = useState(false)
+ const [authorSearch,setAuthorSearch] = useState("888")
  const [bookInfo,setBookInfo] = useState({
      ReleaseYear:0,
      PageCount:1,
@@ -29,7 +42,15 @@ function BookForm() {
      AuthorID:""
  })
  const onChangeAuthorText= (e)=>{
+     console.log(authorText)
      setAuthorText(e.target.value)
+ }
+ const onChangeGenreText = (e)=>{
+     setGenreText(e.target.value)
+ }
+ const genreButton = (e)=>{
+     setAddGenre((oldState)=>{return !oldState})
+
  }
  const onChange= (e) => {
  
@@ -52,13 +73,50 @@ function BookForm() {
      })
      setAuthors(copy)
  }
+
+ const genreDelete = (e)=>{
+    let copy = genres.filter((author,index)=>{
+        return index !== +e.target.value
+     })
+     setGenres(copy)
+
+ }
  const authorClick = (e)=>{
      setAddAuthor(true)
  
  }
+ const saveAuthor = (e)=>{
+     console.log("hi  " + authorText)
+     const s = authorText.split(',')
+    for(let i = 0 ; i < authors.length;i++){
+        if(authors[i].Fname === s[0] && authors[i].Lname === s[1]){
+            return
+        }
+    }
+    setAuthors((oldState)=>{return [...oldState,{Fname:s[0],Lname:s[1]}]})
+    setAuthorText("")
+
+ }
  const authorsChange = (e)=>{
+    setAuthors((oldState)=>{return [...oldState,genreText]})
+    setAuthorText("")
     
  }
+<<<<<<< Updated upstream
+ if(!localStorage.getItem("username")){
+    return <><Navbar /><div>You arent logged in</div></>
+  }
+=======
+ const saveGenre = (e)=>{
+
+    setGenres((oldState)=>{return [...oldState,genreText]})
+    setGenreText("")
+     
+}
+const onAuthorSearchChange = (e)=>{
+    setAuthorSearch(e.target.value)
+}
+>>>>>>> Stashed changes
   return (
     <><Navbar />
       <div className = "container">
@@ -150,10 +208,23 @@ function BookForm() {
 
                 ))}
              </ul>
-            <button className='btn btn-primary' onClick = {authorClick}>Add author</button>
-           {addAuthor &&  <><input onChange={onChangeAuthorText} value={authorText} class="form-control" list="datalistOptions" id="BookTitle" placeholder="Type to search for author by last name and first name" /><datalist id="datalistOptions">
 
+            <button className='btn btn-primary my-2' onClick = {!addAuthor? authorClick: saveAuthor}>{!addAuthor ? "Add author": " Save Author"}</button>
+           {addAuthor &&  <><input onChange={onChangeAuthorText} value={authorText} class="form-control" list="datalistOptions" id="BookTitle" placeholder="Type to search for author by last name and first name" /><datalist id="datalistOptions">
+                            {searchAuthors.map((author)=>(
+                                    <option value={`${author.Fname}, ${author.Lname}`}/>
+                            ))}
                           </datalist></>}
+                          <h6>Genres </h6>
+                          <ul>
+                 {genres.map((genre,index)=>(
+                     <li className='my-2'> {genre} <button onClick = {genreDelete} value= {index} className='btn btn-primary'>Delete</button></li>
+
+                ))}
+             </ul>
+            
+            <button className='btn btn-primary my-2' onClick = {!addGenre ? genreButton : saveGenre}>{!addGenre ? "Add genre" : "Save genre"}</button>
+            {addGenre && <div className='d-flex justify-content-center mb-1'><label htmlFor="Genre" className="form-label me-1">Genre: </label><input  onChange={onChangeGenreText} value={genreText} type="text" className=" mx-1 w-50 form-control" id="Genre" placeholder='add genre' /></div> }
           <button type="submit" className="btn btn-secondary">Submit</button>
       </form>
      {error.length !== 0 && <p className='mt-1 text-danger'>{error}</p>}

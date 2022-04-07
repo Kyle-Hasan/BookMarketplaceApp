@@ -34,24 +34,21 @@ function Signup() {
       }
     else {
       //add user to database, set state for user as if they logged in
-      axios({
-        method: 'post',
-        url: 'http://127.0.0.1:8000/signup/',
-        data: {
+      try{
+        await axios.post('http://127.0.0.1:8000/signup/',
+        {
             Email: registerInfo.email,
             FName: registerInfo.fname,
             LName: registerInfo.lname,         
-            Password: registerInfo.password
-        }
-        })
-        .then(function (response) {
-            if (response.status == 201) {
-                navigate('/')
-            }
-            else {
-                setError(true)
-            }
-        });
+            Password: registerInfo.password})
+          //log in 
+        localStorage.setItem("username",registerInfo.email)
+        navigate("/")
+
+      }
+      catch(error){
+        setError("error occurred during log in")
+      }
     }
   };
   const setInput = (e) => {
