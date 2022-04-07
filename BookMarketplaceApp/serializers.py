@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Login
+from .models import Book, Book_Genres, Login
 from .models import User
 
 class LoginSerializer(serializers.ModelSerializer):
@@ -12,3 +12,13 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('Email', 'Address', 'DOB', 'FName', 'LName', 'AdminFlag', 'CardNo')
 
+class BookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = ('BookID', 'ReleaseYear', 'PageCount', 'Description', 'RentPrice', 
+        'Title', 'SalePrice', 'Rating', 'Stock', 'Damage', 'LocationID', 'Image')
+
+class GenreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book_Genres
+        fields = ('BookID', 'BookGenre')
