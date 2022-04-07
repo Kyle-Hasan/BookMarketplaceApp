@@ -44,7 +44,8 @@ class LoginView(APIView):
                     if (value != login_data['Password']):
                         validLogin = 0
             if (validLogin):
-                return Response("", status=status.HTTP_201_CREATED)
+                user = User.objects.get(Email=login_data['Email'])
+                return Response(user.AdminFlag, status=status.HTTP_201_CREATED)
 
         return Response("", status=status.HTTP_404_NOT_FOUND)
     
@@ -71,10 +72,11 @@ class SignupView(APIView):
         LoginView.add(login_signup)
 
         # Add new user
-        user_signup = User(Email = login_signup, FName = signup_data['FName'], LName = signup_data['LName'])
+        user_signup = User(Email = login_signup, FName = signup_data['FName'], 
+        LName = signup_data['LName'], AdminFlag = signup_data['AdminFlag'])
         user_signup.save()
 
-        return Response("", status=status.HTTP_201_CREATED)
+        return Response(user_signup.AdminFlag, status=status.HTTP_201_CREATED)
 
 class UserView(APIView):
     serializer_class = UserSerializer
