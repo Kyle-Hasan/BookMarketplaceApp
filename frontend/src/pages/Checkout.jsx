@@ -61,6 +61,9 @@ function Checkout() {
    const placeOrder = (e)=>{
 
    }
+   if(!localStorage.getItem("username") || !sessionStorage.getItem("orderInfo")){
+    return <><Navbar /><div>You can't view this</div></>
+  }
   return (
     <div className='container'>
         <Navbar></Navbar>

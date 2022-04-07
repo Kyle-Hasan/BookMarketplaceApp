@@ -196,7 +196,7 @@ function BookEntry() {
               {authorsList}
               <div class><b>Rating :</b> {bookInfo.rating}</div>
               <div><b>In stock: </b>{bookInfo.stock}</div>
-              <div className="d-flex justify-content-center mt-2">
+            { localStorage.getItem("username") &&  <div className="d-flex justify-content-center mt-2">
                 <input
                   type="radio"
                   className="btn-check mx-1"
@@ -226,12 +226,12 @@ function BookEntry() {
                 </label>
 
               
-              </div>
+              </div>}
               <p className="mt-3">
                 <h6>Synopsis</h6>
                 {bookInfo.description}
               </p>
-            </div>
+            </div> 
             <div className="col-md-3 ms-1">
               <div className="card">
                 <div className="card-header">Currently Selected</div>

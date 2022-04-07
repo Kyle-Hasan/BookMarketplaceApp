@@ -23,6 +23,9 @@ function PublisherForm() {
     
 
  }
+ if(!localStorage.getItem("username")){
+  return <><Navbar /><div>You arent logged in</div></>
+}
   return (
     <><Navbar />
       <div className = "container">

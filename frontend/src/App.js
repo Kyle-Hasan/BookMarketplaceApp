@@ -14,6 +14,8 @@ import Checkout from './pages/Checkout';
 import PaymentPage from './pages/PaymentPage';
 import AllBooks from './pages/AllBooks';
 import About from './pages/About';
+import EditUserForm from './components/EditUserForm';
+import EditBookForm from "./pages/EditBookForm"
 function App() {
   return (
     <div className="App">
@@ -31,6 +33,8 @@ function App() {
           <Route path= "/addPublisher" element = {<PublisherForm/>}/>
           <Route path= "/books" element = {<AllBooks/>}/>
           <Route path= "/about" element = {<About/>}/>
+          <Route path= "/editUser" element = {<EditUserForm/>}/>
+          <Route path = "/editBook" element = {<EditBookForm/>}/>
         </Routes>
    
       </Router>

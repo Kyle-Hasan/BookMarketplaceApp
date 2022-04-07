@@ -4,7 +4,9 @@ import { Link,useNavigate} from "react-router-dom";
 function Navbar() {
   let user = false;
   const navigate = useNavigate()
-  let logout = () => {};
+  let logout = () => {
+    localStorage.removeItem("username")
+  };
   let [searchText,setSearchText]= useState("")
   let [searchOption,setSearchOption] = useState("All")
 
@@ -50,10 +52,28 @@ function Navbar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/books">
-                  Books
-                </Link>
-              </li>
+                  <div className="dropdown">
+                    <a
+                      className="nav-link dropdown-toggle"
+                      type="button"
+                      id="triggerId2"
+                      data-bs-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Books
+                    </a>
+                    <div className="dropdown-menu" aria-labelledby="triggerId2">
+                      <Link className="dropdown-item" to="/books">
+                        All Books
+                      </Link>
+                      <Link className="dropdown-item" to="/addBook">
+                        Add book
+                      </Link>
+                     
+                    </div>
+                  </div>
+                </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/about">
                   About
@@ -62,7 +82,7 @@ function Navbar() {
             </ul>
             <ul className="navbar-nav mx-1">
               
-              {!user ? (
+              {!localStorage.getItem("username") ? (
                 <>
                   <li className="nav-item">
                     <Link className="nav-link" to="/signup">
@@ -87,7 +107,7 @@ function Navbar() {
                       aria-haspopup="true"
                       aria-expanded="false"
                     >
-                      Username
+                      {localStorage.getItem("username")}
                     </a>
                     <div className="dropdown-menu" aria-labelledby="triggerId">
                       <Link className="dropdown-item" to="/">
@@ -96,7 +116,7 @@ function Navbar() {
                       <Link className="dropdown-item" to="/">
                         Orders
                       </Link>
-                      <Link className="dropdown-item" to="/">
+                      <Link className="dropdown-item" to="/editUser">
                         Profile Settings
                       </Link>
                       <Link onClick={logout} className="dropdown-item" to="/">
