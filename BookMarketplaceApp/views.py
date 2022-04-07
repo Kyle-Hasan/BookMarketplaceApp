@@ -1,8 +1,7 @@
 from pickle import FALSE
 from django.shortcuts import render
-from numpy import empty
-from .serializers import BookSerializer, LoginSerializer, UserSerializer, PublisherSerializer, AuthorSerializer
-from .models import Login, Publisher, User, Wants, Book, Book_Genres, Author
+from .serializers import BookSerializer, LoginSerializer, UserSerializer, PublisherSerializer, AuthorSerializer, PaymentSerializer
+from .models import Login, Payment, Publisher, User, Wants, Book, Book_Genres, Author
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from BookMarketplaceApp import serializers
@@ -238,7 +237,36 @@ class AuthorView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class PaymentView(APIView):
+    serializer_class = PaymentSerializer
+    def post(self,request,*args,**kwargs):
+        print(request)
+        payment_data = request.data
+        
+        print(payment_data)
+        p1 = payment_data['User_Email']
+        p2 = Login.objects.get(User_Email=p1)
+        p = Payment(
+            CardNo = payment_data['CardNo'],
+            CVV = payment_data['CVV'],
+            BillingAddress = payment_data['BillingAddress'],
+            User_Email = p2
+        )
+        p.save()
+        serializer = PaymentSerializer(p,many=False)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+    def get(self,request,*args,**kwargs):
+        #get payment by user email
+        if "User_Email" in request.GET:
+            payment_to_return = Payment.objects.get(User_Email=request.GET['User_Email'])
+            serializer = PaymentSerializer(payment_to_return, many=False)
+        
+        else:
+            payments = Payment.objects.all()
+            serializer = PaymentSerializer(payments,many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 
