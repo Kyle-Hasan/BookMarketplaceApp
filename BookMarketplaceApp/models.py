@@ -19,7 +19,7 @@ class Payment(models.Model):
 
 
 class Location(models.Model):
-    LocationID = models.IntegerField(primary_key=True)
+    LocationID = models.AutoField(primary_key=True)
     Country = models.CharField(max_length=20)
     City = models.CharField(max_length=20)
     StreetNum = models.IntegerField()
@@ -51,9 +51,9 @@ class User(models.Model):
     CardNo = models.ForeignKey(Payment, on_delete=models.CASCADE, null=True)
 
 class Author(models.Model):
-    AuthorID = models.IntegerField(primary_key=True)
+    AuthorID = models.AutoField(primary_key=True)
     NumBooks = models.IntegerField()
-    DateDied = models.DateField(default=NULL)
+    
     FName = models.CharField(max_length=50,default="")
     LName = models.CharField(max_length=50,default="")
 
@@ -77,7 +77,7 @@ class Book(models.Model):
     Publisher_Name = models.ForeignKey(Publisher, on_delete=models.CASCADE,null=True,default=NULL)
 
 class Order(models.Model):
-    OrderID = models.IntegerField(primary_key=True)
+    OrderID = models.AutoField(primary_key=True)
     OrderDate = models.DateField()
     CardNo = models.ForeignKey(Payment, on_delete=models.CASCADE)
     User_Email = models.ForeignKey(Login, on_delete=models.CASCADE)
@@ -92,7 +92,7 @@ class Rental_Detail(models.Model):
     RentAmt = models.IntegerField()
 
 class Purchase_Detail(models.Model):
-    OrderID = models.IntegerField(primary_key=True)
+    OrderID = models.AutoField(primary_key=True)
     PurchaseAmt = models.IntegerField()
 
 class Review(models.Model):

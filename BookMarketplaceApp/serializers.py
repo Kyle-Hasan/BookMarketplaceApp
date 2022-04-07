@@ -31,4 +31,4 @@ class PublisherSerializer(serializers.ModelSerializer):
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = ("AuthorID","FName","LName","NumBooks","DateDied")
+        fields = ("AuthorID","FName","LName","NumBooks")

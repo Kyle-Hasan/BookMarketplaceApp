@@ -1,3 +1,4 @@
+from pickle import FALSE
 from django.shortcuts import render
 from numpy import empty
 from .serializers import BookSerializer, LoginSerializer, UserSerializer, PublisherSerializer, AuthorSerializer
@@ -211,15 +212,18 @@ class PublisherView(APIView):
 class AuthorView(APIView):
     serializer_class = AuthorSerializer
     def post(self,request,*args,**kwargs):
+        print(request)
         author_data = request.data
+        
         print(author_data)
         a = Author(
-            FName = author_data["FName"],
-           LName = author_data["LName"],
-            NumBooks = author_data["NumBooks"]
+            FName = author_data['FName'],
+           LName = author_data['LName'],
+            NumBooks = author_data['NumBooks']
         )
         a.save()
-        return Response(a, status=status.HTTP_201_CREATED)
+        serializer = AuthorSerializer(a,many=False)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def get(self,request,*args,**kwargs):
         #get author by ID

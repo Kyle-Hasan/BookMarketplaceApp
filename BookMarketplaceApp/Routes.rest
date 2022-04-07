@@ -1,0 +1,66 @@
+POST http://localhost:8080/signup/
+content-type: application/json
+
+{
+    "Email": "samprwrrrrewrwrrwrrrr09090990le@d",
+    "Password": "Wed, 21 Oct 2015 18:27:50 GMT",
+    "FName": "d",
+    "LName":"d"
+}
+
+###
+POST http://localhost:8080/login/
+content-type: application/json
+
+{
+    "Email": "samprwrrrrewrwrrwrrrr09090990le@d",
+    "Password": "Wed, 21 Oct 2015 18:27:50 GMT"
+    
+}
+
+###
+POST http://localhost:8080/publisher/
+content-type: application/json
+
+{
+    "Name": "Yae publishing house"
+    
+}
+###
+POST http://localhost:8080/book/
+content-type: application/json
+
+{
+    "ReleaseYear":2004,
+    "PageCount":1532,
+    "RentPrice":45.7,
+    "Title":"899",
+    "SalePrice":33,
+    "Rating":3,
+    "Stock":44,
+    "Damage":"heavy",
+    "LocationID":2,
+    "Image":"https://i.pinimg.com/originals/2c/25/28/2c2528244450fcf743ac2eff3b9f914d.jpg",
+    "Publisher_Name":"Yae publishing house"
+
+    
+}
+###
+GET http://localhost:8080/book?BookID=2
+
+
+###
+POST http://localhost:8080/author/
+content-type: application/json
+
+{
+    "FName":"Yor",
+    "LName":"Forger",
+    "NumBooks":123
+    
+
+    
+}
+
+###
+GET http://localhost:8080/author
