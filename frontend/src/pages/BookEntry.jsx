@@ -2,15 +2,16 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate, useSearchParams, Link, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import ReviewForm from "../components/ReviewForm";
 
 function BookEntry() {
   const [searchParams] = useSearchParams();
   const [quantity, setQuanity] = useState(1);
   const navigate = useNavigate()
   const [checkoutOption, setCheckoutOption] = useState("Buy");
-  
+  const [edited,setEdited] = useState(null)
   const [bookInfo, setBookInfo] = useState({
-    BookId:23,
+    BookID:23,
     Title: "Title of book ",
     releaseYear: 0,
     pageCount: 0,
@@ -31,6 +32,16 @@ function BookEntry() {
     stock: 4,
     damage: "new"
   });
+  const [reviews,setReviews] = useState([{
+    username: "username",
+    rating:10,
+    review:"dkdkdkdk",
+    date:"8/3/2001",
+    ID:3
+  }])
+
+  const [editText,setEditText] = useState("")
+  const [writeReview,setWriteReview] = useState(false)
   const [totalPrice, setTotalPrice] = useState(1*bookInfo.salePrice);
   const changeQuanity = (e) => {
     setQuanity(e.target.value);
@@ -41,12 +52,13 @@ function BookEntry() {
       setTotalPrice(e.target.value * bookInfo.rentPrice);
     }
   };
+  
   const onSubmit = () => {
     if (quantity > 0) {
       //deal with placing order
       sessionStorage.setItem("orderInfo", JSON.stringify({
         Title: bookInfo.Title,
-        BookId: bookInfo.BookId,
+        BookID: bookInfo.BookID,
         Stock:quantity,
         Option:checkoutOption,
         Image:bookInfo.image,
@@ -56,7 +68,18 @@ function BookEntry() {
       }))
       navigate("/checkout")
     }
-  };
+  }
+  const deleteReview = (e)=>{
+    setEdited(null)
+    const deleted = +e.target.value
+      setReviews((oldState)=>{
+        return oldState.filter((r)=>{
+          return r.ID != deleted
+        })
+      })
+
+
+  }
 
   const changeOption = (e)=> {
     setCheckoutOption(e.target.value)
@@ -66,6 +89,28 @@ function BookEntry() {
     else {
       setTotalPrice(quantity*bookInfo.rentPrice)
     }
+  }
+
+  const saveEdit = (e)=>{
+    setEdited(null)
+    let copy = []
+    for(let i = 0 ; i < reviews.length;i++){
+    
+      copy.push(reviews[i])
+      if(i === +e.target.value){
+        copy[i].review = editText
+      }
+    }
+    setReviews(copy)
+    setEditText("")
+  }
+
+  const enableEdit = (e)=>{
+      setEdited(+e.target.value)
+      setEditText(reviews[+e.target.value].review)
+  }
+  const changeEditText = (e)=>{
+    setEditText(e.target.value)
   }
 
   let authorsList = [];
@@ -96,6 +141,9 @@ function BookEntry() {
     }
   }
   console.log(authorsList.length);
+  const reviewButtonClick = (e)=>{
+    setWriteReview(oldState=>!oldState)
+  }
   return (
     <>
       <Navbar></Navbar>
@@ -217,38 +265,34 @@ function BookEntry() {
               </div>
             </div>
           </div>
-          <div className="row mt-1">
+          <div className="row mt-1 justify-content-center">
             <h6>Reviews </h6>
+            {writeReview ?  <><button onClick={reviewButtonClick} className="btn btn-primary review-button">Cancel</button><ReviewForm setReviews = {setReviews} setWriteReview = {setWriteReview}></ReviewForm></>: <button onClick = {reviewButtonClick}className="btn btn-primary review-button">Add a review</button>}
             <ul className = "list-group mt-2" >
-              <li className="card list-group-item ">
+             
               
-                <div className="card-body">
+             {reviews.map((review,index)=>(
+               <li className="card list-group-item">
+               <div className="card-body">
 
-                 <img className = 
-                 "img-responsive comment-img me-2"  src = "https://64.media.tumblr.com/8b920a4af835ef5f38deaae90ef2c95c/2e9ae72b084d1dd9-b3/s1280x1920/b8f570cd0c43b41c1c9e42f97518e2953bb060f6.png"/>
-                 <a href = "#" className="card-title">User name</a>
-                  <div>
-                  <span className="card-subtitle mb-2 text-muted pe-4">November 22,2012</span>
-                  <span className = "card-subtitle mb-2 text-muted">Rating: 10</span>
-                </div>
-                  <p className="card-text">Example review </p>
+                <img className = 
+                "img-responsive comment-img me-2"  src = "https://64.media.tumblr.com/8b920a4af835ef5f38deaae90ef2c95c/2e9ae72b084d1dd9-b3/s1280x1920/b8f570cd0c43b41c1c9e42f97518e2953bb060f6.png"/>
+                <a href = "#" className="card-title">{review.username}</a>
+                 <div>
+                 <span className="card-subtitle mb-2 text-muted pe-4">{review.date}</span>
+                 <span className = "card-subtitle mb-2 text-muted">Rating: {review.rating}</span>
+               </div>
+                {localStorage.getItem("username") === review.username && edited===index 
+                ?<input onChange={changeEditText} value = {editText} className="card-text"/> :<p className="card-text">{review.review}</p>}
+                {localStorage.getItem("username") === review.username &&
+                <div className = "d-flex justify-content-center"><button value= {review.ID} onClick={deleteReview} className="btn btn-primary mx-2">Delete</button> 
+                <button value = {index} onClick= {edited ? saveEdit : enableEdit} className="btn btn-primary">{edited ? "Save"  : "Edit"}</button>
+                </div> 
+                  }
+               </div>
+               </li>
+             ))}
                 
-                </div>
-                </li>
-                <li className="card list-group-item">
-                <div className="card-body">
-
-                 <img className = 
-                 "img-responsive comment-img me-2"  src = "https://64.media.tumblr.com/8b920a4af835ef5f38deaae90ef2c95c/2e9ae72b084d1dd9-b3/s1280x1920/b8f570cd0c43b41c1c9e42f97518e2953bb060f6.png"/>
-                 <a href = "#" className="card-title">User name</a>
-                  <div>
-                  <span className="card-subtitle mb-2 text-muted pe-4">November 22,2012</span>
-                  <span className = "card-subtitle mb-2 text-muted">Rating: 10</span>
-                </div>
-                  <p className="card-text">Example review </p>
-                
-                </div>
-                </li>
                 
 
             </ul>
