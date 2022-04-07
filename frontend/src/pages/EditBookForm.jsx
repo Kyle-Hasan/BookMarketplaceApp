@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
-import {useState,useEffect} from 'react'
+import {useState} from 'react'
 import Axios from 'axios'
 function EditBookForm() {
  const [error,setError] = useState("")
@@ -10,8 +10,14 @@ function EditBookForm() {
          Lname: "jonson"
      }
  ])
+ const [genres,setGenres] = useState([
+     "horror",
+     "comedy"
+ ])
  const [addAuthor,setAddAuthor] = useState(false)
  const [authorText,setAuthorText] = useState("")
+ const [genreText,setGenreText] = useState("")
+ const [addGenre,setAddGenre] = useState(false)
  const [authorSearch,setAuthorSearch] = useState("")
  const [bookInfo,setBookInfo] = useState({
      ReleaseYear:0,
@@ -25,9 +31,18 @@ function EditBookForm() {
      locationID:0,
      SalePrice:0,
      Image:"",
+     PublisherName:"",
+     AuthorID:""
  })
  const onChangeAuthorText= (e)=>{
      setAuthorText(e.target.value)
+ }
+ const onChangeGenreText = (e)=>{
+     setGenreText(e.target.value)
+ }
+ const genreButton = (e)=>{
+     setAddGenre((oldState)=>{return !oldState})
+
  }
  const onChange= (e) => {
  
@@ -41,15 +56,25 @@ function EditBookForm() {
   }
  const onSubmit = (e)=>{
      e.preventDefault()
-     //should be a put on authors and book
     
 
+ }
+ const saveGenre = (e)=>{
+     
  }
  const authorDelete = (e)=>{
      let copy = authors.filter((author,index)=>{
         return index !== +e.target.value
      })
      setAuthors(copy)
+ }
+
+ const genreDelete = (e)=>{
+    let copy = genres.filter((author,index)=>{
+        return index !== +e.target.value
+     })
+     setGenres(copy)
+
  }
  const authorClick = (e)=>{
      setAddAuthor(true)
@@ -94,6 +119,12 @@ function EditBookForm() {
               <label htmlFor="Damage" className="form-label">Damage</label>
               <div className = "d-flex justify-content-center ">
               <input onChange = {onChange} value = {bookInfo.Damage} type="text" className=" w-50 form-control" id="Damage" />
+              </div>
+          </div>
+          <div className="mb-3 ">
+              <label htmlFor="PublisherName" className="form-label">Publisher name</label>
+              <div className = "d-flex justify-content-center ">
+              <input onChange = {onChange} value = {bookInfo.PublisherName} type="text" className=" w-50 form-control" id="PublisherName" />
               </div>
           </div>
           <div className="mb-3 ">
@@ -146,10 +177,21 @@ function EditBookForm() {
 
                 ))}
              </ul>
+
             <button className='btn btn-primary' onClick = {authorClick}>Add author</button>
            {addAuthor &&  <><input onChange={onChangeAuthorText} value={authorText} class="form-control" list="datalistOptions" id="BookTitle" placeholder="Type to search for author by last name and first name" /><datalist id="datalistOptions">
 
                           </datalist></>}
+            
+                          <ul>
+                 {genres.map((genre,index)=>(
+                     <li> {genre} <button onClick = {authorDelete} value= {index} className='btn btn-primary'>Delete</button></li>
+
+                ))}
+             </ul>
+            
+            <button className='btn btn-primary' onClick = {!addGenre ? genreButton : saveGenre}>{!addGenre ? "Add genre" : "Save genre"}</button>
+            {addGenre && <><label htmlFor="Genre" className="form-label">Rating </label><input onChange={onChangeGenreText} value={genreText} type="text" className="w-50 form-control" id="Genre" /></> }
           <button type="submit" className="btn btn-secondary">Submit</button>
       </form>
      {error.length !== 0 && <p className='mt-1 text-danger'>{error}</p>}
