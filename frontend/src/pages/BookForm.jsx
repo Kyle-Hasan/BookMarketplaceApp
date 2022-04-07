@@ -25,6 +25,8 @@ function BookForm() {
      locationID:0,
      SalePrice:0,
      Image:"",
+     PublisherName:"",
+     AuthorID:""
  })
  const onChangeAuthorText= (e)=>{
      setAuthorText(e.target.value)
@@ -90,6 +92,12 @@ function BookForm() {
               <label htmlFor="Damage" className="form-label">Damage</label>
               <div className = "d-flex justify-content-center ">
               <input onChange = {onChange} value = {bookInfo.Damage} type="text" className=" w-50 form-control" id="Damage" />
+              </div>
+          </div>
+          <div className="mb-3 ">
+              <label htmlFor="PublisherName" className="form-label">Publisher name</label>
+              <div className = "d-flex justify-content-center ">
+              <input onChange = {onChange} value = {bookInfo.PublisherName} type="text" className=" w-50 form-control" id="PublisherName" />
               </div>
           </div>
           <div className="mb-3 ">
