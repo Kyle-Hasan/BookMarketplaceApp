@@ -24,3 +24,7 @@ code {
   display: flex;
   
 }
+
+.review-button {
+  width: 30%;
+}

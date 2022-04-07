@@ -2,7 +2,7 @@ import React from 'react'
 import {useState} from 'react'
 import {Link} from 'react-router-dom'
 import Navbar from '../components/Navbar'
-import PaymentForm from './PaymentForm'
+import PaymentForm from '../components/PaymentForm'
 function Checkout() {
    
     const orderInfo2 =JSON.parse( sessionStorage.getItem("orderInfo"))
