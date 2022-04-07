@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from .serializers import BookSerializer, LoginSerializer, UserSerializer
-from .models import Login, User, Wants, Book, Book_Genres
+from numpy import empty
+from .serializers import BookSerializer, LoginSerializer, UserSerializer, PublisherSerializer, AuthorSerializer
+from .models import Login, Publisher, User, Wants, Book, Book_Genres, Author
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from BookMarketplaceApp import serializers
 from rest_framework import status
 
 class LoginView(APIView):
@@ -131,7 +133,7 @@ class BookView(APIView):
 
     # returns one or all the books
     def get(self, request, *args, **kwargs):
-        #print(request.GET)
+        print(request.GET)
         # if request.GET is not empty return 1 book specified by request.GET
         if request.GET:
             book_id = request.GET
@@ -147,7 +149,8 @@ class BookView(APIView):
     # add a new book to the database
     def post(self, request, *args, **kwargs):
         book_data = request.data
-
+        p = book_data['Publisher_Name']
+        p2 = Publisher.objects.get(Name=p)
         new_book = Book(
             #BookID=book_data['BookID'],
             ReleaseYear=book_data['ReleaseYear'],
@@ -159,7 +162,8 @@ class BookView(APIView):
             Stock=book_data['Stock'],
             Damage=book_data['Damage'],
             LocationID=book_data['LocationID'],
-            Image=book_data['Image']
+            Image=book_data['Image'],
+            Publisher_Name=p2,
         )
 
         new_book.save()
@@ -191,6 +195,48 @@ class GenreView(APIView):
                 genres.append(val.BookGenre)
 
         return Response(genres, status=status.HTTP_200_OK)
+    
+class PublisherView(APIView):
+    serializer_class = PublisherSerializer
+    #add publisher
+    def post(self, request, *args, **kwargs):
+        publiser_data=  request.data
+        name = publiser_data["Name"]
+        p = Publisher(
+            Name=name
+        )
+        p.save()
+        return Response(p.Name, status=status.HTTP_201_CREATED)
+
+class AuthorView(APIView):
+    serializer_class = AuthorSerializer
+    def post(self,request,*args,**kwargs):
+        author_data = request.data
+        print(author_data)
+        a = Author(
+            FName = author_data["FName"],
+           LName = author_data["LName"],
+            NumBooks = author_data["NumBooks"]
+        )
+        a.save()
+        return Response(a, status=status.HTTP_201_CREATED)
+
+    def get(self,request,*args,**kwargs):
+        #get author by ID
+        if "AuthorID" in request.GET:
+            author_to_return = Author.objects.get(BookID=request.GET['BookID'])
+            serializer = AuthorSerializer(author_to_return, many=False)
+        
+        else:
+            authors = Author.objects.all()
+            serializer = AuthorSerializer(authors,many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+
+
 
 
 def BookMarketplaceApp(request):
