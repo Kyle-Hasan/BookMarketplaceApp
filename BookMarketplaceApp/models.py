@@ -16,18 +16,18 @@ class Payment(models.Model):
     User_Email = models.ForeignKey(Login, on_delete=models.CASCADE)
 
 class Book(models.Model):
-    BookID = models.IntegerField()
+    BookID = models.AutoField(primary_key=True)
     ReleaseYear = models.IntegerField()
     PageCount = models.IntegerField()
     Description = models.CharField(max_length=200)
-    RentPrice = models.IntegerField()
+    RentPrice = models.IntegerField(null=True)
     Title = models.CharField(max_length=50)
-    SalePrice = models.IntegerField()
+    SalePrice = models.IntegerField(null=True)
     Rating = models.IntegerField()
     Stock = models.IntegerField()
     Damage = models.IntegerField()
     LocationID = models.IntegerField()
-    Image = models.CharField(max_length=50)
+    Image = models.CharField(max_length=50, null=True)
 
 class Location(models.Model):
     LocationID = models.IntegerField(primary_key=True)
@@ -115,5 +115,8 @@ class Wants(models.Model):
     User_Email = models.OneToOneField(Login, on_delete=models.CASCADE)
 
 class Book_Genres(models.Model):
-    Book_ID = models.OneToOneField(Book, primary_key=True, on_delete=models.CASCADE)
-    BookGenre = models.CharField(max_length=20, unique=True)
+    Genre_ID = models.AutoField(primary_key=True)
+    Book_ID = models.ForeignKey(Book, null=True, on_delete=models.CASCADE)
+    BookGenre = models.CharField(max_length=20)
+    class Meta:
+        unique_together = ('Book_ID', 'BookGenre')

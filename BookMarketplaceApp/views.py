@@ -1,14 +1,11 @@
 from django.shortcuts import render
-from .serializers import LoginSerializer, UserSerializer
-from .models import Login
-from .models import User
-from rest_framework import generics
-from rest_framework.permissions import IsAdminUser
+from numpy import empty
+from .serializers import BookSerializer, LoginSerializer, UserSerializer
+from .models import Login, User, Wants, Book, Book_Genres
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from BookMarketplaceApp import serializers
 from rest_framework import status
-import datetime
 
 class LoginView(APIView):
     serializer_class = LoginSerializer
@@ -113,6 +110,89 @@ class UserView(APIView):
         user_to_update.save()
 
         return Response("", status=status.HTTP_200_OK)
+
+
+class WishlistUserView(APIView):
+    serializer_class = UserSerializer
+
+    def post(self, request, *args, **kwargs):
+        user_id = request.GET
+        wishlist_data = request.data
+        print(user_id)
+        print(wishlist_data)
+
+        book_to_add = Book.objects.get(BookID=wishlist_data['BookID'])
+        login = Login.objects.get(User_Email=user_id['Email'])
+        new_wishlist = Wants(Book_ID=book_to_add, User_Email=login)
+        new_wishlist.save()
+
+        return Response("", status=status.HTTP_200_OK)
+
+class BookView(APIView):
+    serializer_class = BookSerializer
+
+    # returns one or all the books
+    def get(self, request, *args, **kwargs):
+        #print(request.GET)
+        # if request.GET is not empty return 1 book specified by request.GET
+        if request.GET:
+            book_id = request.GET
+            book_to_return = Book.objects.get(BookID=book_id['BookID'])
+            serializer = BookSerializer(book_to_return, many=False)
+        # if request.GET is empty return all books
+        else:
+            books_to_return = Book.objects.all()
+            serializer = BookSerializer(books_to_return, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # add a new book to the database
+    def post(self, request, *args, **kwargs):
+        book_data = request.data
+
+        new_book = Book(
+            #BookID=book_data['BookID'],
+            ReleaseYear=book_data['ReleaseYear'],
+            PageCount=book_data['PageCount'],
+            RentPrice=book_data['RentPrice'],
+            Title=book_data['Title'],
+            SalePrice=book_data['SalePrice'],
+            Rating=book_data['Rating'],
+            Stock=book_data['Stock'],
+            Damage=book_data['Damage'],
+            LocationID=book_data['LocationID'],
+            Image=book_data['Image']
+        )
+
+        new_book.save()
+        return Response(new_book.BookID, status=status.HTTP_201_CREATED)
+
+class GenreView(APIView):
+    serializer_class = BookSerializer
+
+    # add genre to book
+    def post(self, request, *args, **kwargs):
+        if request.GET:
+            book_id = request.GET['BookID']
+            book_genre = request.data['Book_Genre']
+            
+            book = Book.objects.get(BookID=book_id)
+            new_genre = Book_Genres(Book_ID=book, BookGenre=book_genre)
+            new_genre.save()
+
+        return Response("", status=status.HTTP_200_OK)
+
+    # returns genres of book
+    def get(self, request, *args, **kwargs):
+        if request.GET:
+            book_id = request.GET
+            book_genres = Book_Genres.objects.all().filter(Book_ID_id=book_id['BookID'])
+            genres = []
+            for val in book_genres:
+                print(val)
+                genres.append(val.BookGenre)
+
+        return Response(genres, status=status.HTTP_200_OK)
 
 
 def BookMarketplaceApp(request):
