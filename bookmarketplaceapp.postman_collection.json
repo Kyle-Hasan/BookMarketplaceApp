@@ -1,0 +1,283 @@
+{
+	"info": {
+		"_postman_id": "edd02df4-af03-4e86-92f9-054d6af5bfec",
+		"name": "bookmarketplaceapp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1:8000/user/",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Email\n",
+							"value": "a@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "Address",
+							"value": "102",
+							"type": "text"
+						},
+						{
+							"key": "DOB",
+							"value": "2001-10-10",
+							"type": "text"
+						},
+						{
+							"key": "FName",
+							"value": "Charlie",
+							"type": "text"
+						},
+						{
+							"key": "LName",
+							"value": "Sheen",
+							"type": "text"
+						},
+						{
+							"key": "AdminFlag",
+							"value": "False",
+							"type": "text"
+						},
+						{
+							"key": "CardNo",
+							"value": "23",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/user/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/wishlist/user/?Email=a@gmail.com",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "BookID",
+							"value": "123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/wishlist/user/?Email=a@gmail.com",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"wishlist",
+						"user",
+						""
+					],
+					"query": [
+						{
+							"key": "Email",
+							"value": "a@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/book/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/book/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"book",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/book/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "ReleaseYear",
+							"value": "2002",
+							"type": "text"
+						},
+						{
+							"key": "PageCount",
+							"value": "304",
+							"type": "text"
+						},
+						{
+							"key": "RentPrice",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "Title",
+							"value": "Book3",
+							"type": "text"
+						},
+						{
+							"key": "SalePrice",
+							"value": "45",
+							"type": "text"
+						},
+						{
+							"key": "Rating",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "Stock",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "Damage",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "LocationID",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "Image",
+							"value": "https://tenor.com/view/yoinky-sploinky-jerma-jerma985-yoinky-sploinky-gif-22804720",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/book/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"book",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/genre/book/?BookID=1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/genre/book/?BookID=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"genre",
+						"book",
+						""
+					],
+					"query": [
+						{
+							"key": "BookID",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/genre/book/?BookID=2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Book_Genre",
+							"value": "Sci-Fi",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/genre/book/?BookID=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"genre",
+						"book",
+						""
+					],
+					"query": [
+						{
+							"key": "BookID",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

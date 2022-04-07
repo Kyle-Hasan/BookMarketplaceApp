@@ -1,10 +1,8 @@
 from django.shortcuts import render
-from numpy import empty
 from .serializers import BookSerializer, LoginSerializer, UserSerializer
 from .models import Login, User, Wants, Book, Book_Genres
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from BookMarketplaceApp import serializers
 from rest_framework import status
 
 class LoginView(APIView):
