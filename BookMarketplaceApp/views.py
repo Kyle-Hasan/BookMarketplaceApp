@@ -1,12 +1,7 @@
 from pickle import FALSE
 from django.shortcuts import render
-<<<<<<< HEAD
 from .serializers import BookSerializer, LoginSerializer, UserSerializer, PublisherSerializer, AuthorSerializer, PaymentSerializer, RentalDetailSerializer
 from .models import Login, Payment, Publisher, User, Wants, Book, Book_Genres, Author, Rental_Detail
-=======
-from .serializers import BookSerializer, LoginSerializer, UserSerializer, PublisherSerializer, AuthorSerializer, PaymentSerializer, GenreSerializer
-from .models import Login, Payment, Publisher, User, Wants, Book, Book_Genres, Author
->>>>>>> 6e5bf5f6a17df633e92b77ccc1f4968c10ae5d98
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from BookMarketplaceApp import serializers
