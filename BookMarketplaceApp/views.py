@@ -1,7 +1,12 @@
 from pickle import FALSE
 from django.shortcuts import render
+<<<<<<< HEAD
 from .serializers import BookSerializer, LoginSerializer, UserSerializer, PublisherSerializer, AuthorSerializer, PaymentSerializer, RentalDetailSerializer
 from .models import Login, Payment, Publisher, User, Wants, Book, Book_Genres, Author, Rental_Detail
+=======
+from .serializers import BookSerializer, LoginSerializer, UserSerializer, PublisherSerializer, AuthorSerializer, PaymentSerializer, GenreSerializer
+from .models import Login, Payment, Publisher, User, Wants, Book, Book_Genres, Author
+>>>>>>> 6e5bf5f6a17df633e92b77ccc1f4968c10ae5d98
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from BookMarketplaceApp import serializers
@@ -172,30 +177,32 @@ class BookView(APIView):
         return Response(new_book.BookID, status=status.HTTP_201_CREATED)
 
 class GenreView(APIView):
-    serializer_class = BookSerializer
-
+    serializer_class = GenreSerializer
     # add genre to book
     def post(self, request, *args, **kwargs):
-        if request.GET:
-            book_id = request.GET['BookID']
-            book_genre = request.data['Book_Genre']
+        
+        book_id = request.data['BookID']
+        book_genre = request.data['Book_Genre']
             
-            book = Book.objects.get(BookID=book_id)
-            new_genre = Book_Genres(Book_ID=book, BookGenre=book_genre)
-            new_genre.save()
+        book = Book.objects.get(BookID=book_id)
+        new_genre = Book_Genres(Book_ID=book, BookGenre=book_genre)
+        new_genre.save()
 
         return Response("", status=status.HTTP_200_OK)
 
     # returns genres of book
     def get(self, request, *args, **kwargs):
         if request.GET:
-            book_id = request.GET
-            book_genres = Book_Genres.objects.all().filter(Book_ID_id=book_id['BookID'])
+            book_id = request.GET['BookID']
+            print(book_id)
+            print(Book_Genres.objects.all())
+            book_genres = Book_Genres.objects.all().filter(Book_ID=book_id)
             genres = []
+            print(book_genres)
             for val in book_genres:
                 print(val)
                 genres.append(val.BookGenre)
-
+        
         return Response(genres, status=status.HTTP_200_OK)
     
 class PublisherView(APIView):

@@ -1,11 +1,12 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import { useNavigate, useSearchParams, Link, Navigate } from "react-router-dom";
+import { useNavigate, useParams, Link, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ReviewForm from "../components/ReviewForm";
+import axios from "axios";
 
 function BookEntry() {
-  const [searchParams] = useSearchParams();
+  let { id } = useParams()
   const [quantity, setQuanity] = useState(1);
   const navigate = useNavigate()
   const [checkoutOption, setCheckoutOption] = useState("Buy");
@@ -20,18 +21,18 @@ function BookEntry() {
     rentPrice: 8,
     salePrice: 9,
     rating: 9,
-    genres: ["genre1","genre2"],
+    
     location: "example location",
     picture: "",
-    authors: [
-      { id: 1, name: "firstname lastname" },
-      { id: 2, name: "author name" },
-    ],
+    
     publisher: "example publisher",
     image:"https://cdn.donmai.us/original/75/9c/__akame_akame_ga_kill_drawn_by_taturouxs__759c426ac9e6c4b899939435d051b704.jpg",
     stock: 4,
-    damage: "new"
+    damage: "new",
+    Image:""
   });
+  const [authors,setAuthors] = useState([])
+  const [genres,setGenres] = useState([])
   const [reviews,setReviews] = useState([{
     username: "username",
     rating:10,
@@ -42,14 +43,14 @@ function BookEntry() {
 
   const [editText,setEditText] = useState("")
   const [writeReview,setWriteReview] = useState(false)
-  const [totalPrice, setTotalPrice] = useState(1*bookInfo.salePrice);
+  const [totalPrice, setTotalPrice] = useState(0);
   const changeQuanity = (e) => {
     setQuanity(e.target.value);
     console.log("hi");
     if (checkoutOption) {
-      setTotalPrice(e.target.value * bookInfo.salePrice);
+      setTotalPrice(e.target.value * bookInfo.SalePrice);
     } else {
-      setTotalPrice(e.target.value * bookInfo.rentPrice);
+      setTotalPrice(e.target.value * bookInfo.RentPrice);
     }
   };
   
@@ -84,10 +85,10 @@ function BookEntry() {
   const changeOption = (e)=> {
     setCheckoutOption(e.target.value)
     if(e.target.value === "Buy"){
-      setTotalPrice(quantity*bookInfo.salePrice)
+      setTotalPrice(quantity*bookInfo.SalePrice)
     }
     else {
-      setTotalPrice(quantity*bookInfo.rentPrice)
+      setTotalPrice(quantity*bookInfo.RentPrice)
     }
   }
 
@@ -114,13 +115,13 @@ function BookEntry() {
   }
 
   let authorsList = [];
-  for (let i = 0; i < bookInfo.authors.length; i++) {
-    if (i !== bookInfo.authors.length - 1) {
+  for (let i = 0; i < authors.length; i++) {
+    if (i !== authors.length - 1) {
       console.log("author");
       authorsList.push(
         <Link
-          key={bookInfo.authors[i].id}
-          to={`/authors/${bookInfo.authors[i].id}`}
+          key={authors[i].id}
+          to={`/authors/${authors[i].id}`}
           style={{ textDecoration: "none" }}
         >
           {" "}
@@ -130,12 +131,12 @@ function BookEntry() {
     } else {
       authorsList.push(
         <Link
-          key={bookInfo.authors[i].id}
-          to={`/authors/${bookInfo.authors[i].id}`}
+          key={authors[i].id}
+          to={`/authors/${authors[i].id}`}
           style={{ textDecoration: "none" }}
         >
           {" "}
-          {bookInfo.authors[i].name}{" "}
+          {authors[i].name}{" "}
         </Link>
       );
     }
@@ -144,6 +145,31 @@ function BookEntry() {
   const reviewButtonClick = (e)=>{
     setWriteReview(oldState=>!oldState)
   }
+  useEffect(()=>{
+    let isMounted = true
+    const fetchData = async()=>{
+      const data = await axios.get('http://localhost:8000/book/',{
+        params: {
+          BookID:id
+        }
+      })
+      const data2 = await axios.get('http://localhost:8000/genre/book/',{
+        params: {
+          BookID:id
+        }
+      })
+      if(isMounted){
+      console.log(data.data)
+      setBookInfo(data.data)
+      setGenres(data2.data)
+      setTotalPrice(data.data.SalePrice)
+      }
+
+    }
+    fetchData()
+    return (()=> {isMounted = false})
+
+  },[])
   return (
     <>
       <Navbar></Navbar>
@@ -152,7 +178,7 @@ function BookEntry() {
           <div className="row mt-1 ">
             <div className="col-md-3  border-dark">
               <img
-                src="https://cdn.myanimelist.net/images/characters/3/430804.jpg"
+                src={bookInfo.Image}
                 className="img-fluid border border-dark mb-2"
               />
               <h5>Book information</h5>
@@ -161,41 +187,41 @@ function BookEntry() {
               <tbody>
                 <tr>
                   <th>Official Title: </th>
-                  <td>{bookInfo.title}</td>
+                  <td>{bookInfo.Title}</td>
                 </tr>
                 <tr>
                   <th>Publisher: </th>
-                  <td>{bookInfo.publisher}</td>
+                  <td>{bookInfo.Publisher_Name}</td>
                 </tr>
                 <tr>
                   <th>Genres: </th>
-                  <td>{bookInfo.genres.join(", ")}</td>
+                  <td>{genres.join(", ")}</td>
                 </tr>
                 <tr>
                   <th>Page Count: </th>
-                  <td>{bookInfo.pageCount}</td>
+                  <td>{bookInfo.PageCount}</td>
                 </tr>
                 <tr>
                   <th>Release Year: </th>
-                  <td>{bookInfo.releaseYear}</td>
+                  <td>{bookInfo.ReleaseYear}</td>
                 </tr>
                 <tr>
                   <th>Location: </th>
-                  <td>{bookInfo.location}</td>
+                  <td>{bookInfo.LocationID}</td>
                 </tr>
                 <tr>
                   <th>Damage: </th>
-                  <td>{bookInfo.damage}</td>
+                  <td>{bookInfo.Damage}</td>
                 </tr>
               </tbody>
               </table>
             </div>
             <div className="col-md-5">
-              <h1 className="text-center "> {bookInfo.title} </h1>
+              <h1 className="text-center "> {bookInfo.Title} </h1>
               <span><b>By:</b> </span>
               {authorsList}
-              <div class><b>Rating :</b> {bookInfo.rating}</div>
-              <div><b>In stock: </b>{bookInfo.stock}</div>
+              <div class><b>Rating :</b> {bookInfo.Rating}</div>
+              <div><b>In stock: </b>{bookInfo.Stock}</div>
             { localStorage.getItem("username") &&  <div className="d-flex justify-content-center mt-2">
                 <input
                   type="radio"
@@ -208,7 +234,7 @@ function BookEntry() {
                   value = "Buy"
                 />
                 <label class="btn btn-primary mx-1" for="buy">
-                  Buy price: {bookInfo.salePrice}$
+                  Buy price: {bookInfo.SalePrice}$
                 </label>
 
                 <input
@@ -222,14 +248,14 @@ function BookEntry() {
                   value = "Rent"
                 />
                 <label class="btn btn-primary mx-1" for="rent">
-                 Rent price: {bookInfo.rentPrice}$
+                 Rent price: {bookInfo.RentPrice}$
                 </label>
 
               
               </div>}
               <p className="mt-3">
                 <h6>Synopsis</h6>
-                {bookInfo.description}
+                {bookInfo.Description}
               </p>
             </div> 
             <div className="col-md-3 ms-1">

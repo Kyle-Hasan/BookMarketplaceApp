@@ -19,7 +19,7 @@ content-type: application/json
 }
 
 ###
-POST http://localhost:8080/publisher/
+POST http://localhost:8000/publisher/
 content-type: application/json
 
 {
@@ -64,3 +64,23 @@ content-type: application/json
 
 ###
 GET http://localhost:8080/author
+
+###
+
+POST http://localhost:8000/genre/book/
+content-type: application/json
+
+{
+    "BookID":2,
+    "Book_Genre":"sfzsfs"
+    
+
+    
+}
+
+###
+
+GET http://localhost:8000/genre/book/?BookID=2
+
+
+    

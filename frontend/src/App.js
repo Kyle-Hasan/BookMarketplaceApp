@@ -16,6 +16,7 @@ import AllBooks from './pages/AllBooks';
 import About from './pages/About';
 import EditUserForm from './components/EditUserForm';
 import EditBookForm from "./pages/EditBookForm"
+import ConfirmBook from './pages/ConfirmBook';
 function App() {
   return (
     <div className="App">
@@ -35,6 +36,8 @@ function App() {
           <Route path= "/about" element = {<About/>}/>
           <Route path= "/editUser" element = {<EditUserForm/>}/>
           <Route path = "/editBook" element = {<EditBookForm/>}/>
+          <Route path = "/confirmAddBook" element = {<ConfirmBook/>}/>
+          
         </Routes>
    
       </Router>
