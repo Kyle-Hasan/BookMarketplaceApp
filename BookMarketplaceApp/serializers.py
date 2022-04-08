@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book, Book_Genres, Login, Payment, Publisher, Author, Rental_Detail
+from .models import Book, Book_Genres, Login, Payment, Publisher, Author, Purchase_Detail, Rental_Detail, Purchase_Detail
 from .models import User
 
 class LoginSerializer(serializers.ModelSerializer):
@@ -43,4 +43,8 @@ class RentalDetailSerializer(serializers.ModelSerializer):
         model = Rental_Detail
         fields = ("OrderID","StartDate","EndDate","RentAmt")
     
-
+class PurchaseDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Purchase_Detail
+        fields = ("OrderID","PurchaseAmt")
+        

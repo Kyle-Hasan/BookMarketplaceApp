@@ -1,7 +1,7 @@
 from pickle import FALSE
 from django.shortcuts import render
-from .serializers import BookSerializer, LoginSerializer, UserSerializer, PublisherSerializer, AuthorSerializer, PaymentSerializer, RentalDetailSerializer
-from .models import Login, Payment, Publisher, User, Wants, Book, Book_Genres, Author, Rental_Detail
+from .serializers import BookSerializer, LoginSerializer, UserSerializer, PublisherSerializer, GenreSerializer, AuthorSerializer, PaymentSerializer, RentalDetailSerializer, PurchaseDetailSerializer
+from .models import Login, Payment, Publisher, User, Wants, Book, Book_Genres, Author, Rental_Detail, Purchase_Detail
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from BookMarketplaceApp import serializers
@@ -280,26 +280,51 @@ class RentalDetailView(APIView):
         rental_data = request.data
         
         print(rental_data)
-        #p2 = Login.objects.get(User_Email=p1)
         r = Rental_Detail(
             OrderID = rental_data['OrderID'],
             StartDate = rental_data['StartDate'],
             EndDate = rental_data['EndDate'],
-            RentAmt = rental_data['RentAmt'],
-            #User_Email = p2
+            RentAmt = rental_data['RentAmt']
         )
         r.save()
         serializer = RentalDetailSerializer(r,many=False)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def get(self,request,*args,**kwargs):
-        #get order by order ID
+        #get rental detail by order ID
         if "OrderID" in request.GET:
             rental_to_return = Rental_Detail.objects.get(OrderID=request.GET['OrderID'])
             serializer = RentalDetailSerializer(rental_to_return, many=False)
         else:
             rentals = Rental_Detail.objects.all()
             serializer = RentalDetailSerializer(rentals,many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class PurchaseDetailView(APIView):
+    serializer_class = PurchaseDetailSerializer
+
+    def post(self,request,*args,**kwargs):
+        print(request)
+        purchase_data = request.data
+        
+        print(purchase_data)
+        r = Purchase_Detail(
+            OrderID = purchase_data['OrderID'],
+            PurchaseAmt = purchase_data['PurchaseAmt']
+        )
+        r.save()
+        serializer = PurchaseDetailSerializer(r,many=False)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def get(self,request,*args,**kwargs):
+        #get purchase detail by order ID
+        if "OrderID" in request.GET:
+            purchase_to_return = Purchase_Detail.objects.get(OrderID=request.GET['OrderID'])
+            serializer = RentalDetailSerializer(purchase_to_return, many=False)
+        else:
+            purchases = Purchase_Detail.objects.all()
+            serializer = PurchaseDetailSerializer(purchases,many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
