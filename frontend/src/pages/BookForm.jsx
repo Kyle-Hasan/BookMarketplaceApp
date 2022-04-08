@@ -2,6 +2,8 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import {useState} from 'react'
 import Axios from 'axios'
+import axios from 'axios'
+import { Navigate } from 'react-router-dom'
 function BookForm() {
  const [error,setError] = useState("")
  const [authors,setAuthors] = useState([
@@ -62,8 +64,35 @@ function BookForm() {
     })
   
   }
- const onSubmit = (e)=>{
+ const onSubmit = async(e)=>{
      e.preventDefault()
+     try{
+        const data =  await axios.post("http://localhost:8000/book/", {
+             ReleaseYear:bookInfo.ReleaseYear,
+             PageCount:bookInfo.PageCount,
+             RentPrice:bookInfo.RentPrice,
+             Title:bookInfo.Title,
+             SalePrice:bookInfo.SalePrice,
+             Rating:bookInfo.Rating,
+             Stock:bookInfo.Stock,
+             Damage:bookInfo.Damage,
+             LocationID:bookInfo.locationID,
+             Publisher_Name : bookInfo.PublisherName,
+             Image:bookInfo.Image
+         })
+         
+         for(let i = 0 ; i < genres.length;i++){
+             await axios.post(`http://localhost:8000/genre/book/`,{
+                 BookID:data.data,
+                 Book_Genre: genres[i]
+             })
+         }
+         Navigate('/confirmAddBook')
+     }
+
+     catch(error){
+        setError("Error adding this book")
+     }
     
 
  }
@@ -102,11 +131,9 @@ function BookForm() {
     setAuthorText("")
     
  }
-<<<<<<< Updated upstream
  if(!localStorage.getItem("username")){
     return <><Navbar /><div>You arent logged in</div></>
   }
-=======
  const saveGenre = (e)=>{
 
     setGenres((oldState)=>{return [...oldState,genreText]})
@@ -116,7 +143,6 @@ function BookForm() {
 const onAuthorSearchChange = (e)=>{
     setAuthorSearch(e.target.value)
 }
->>>>>>> Stashed changes
   return (
     <><Navbar />
       <div className = "container">
