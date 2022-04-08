@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book, Book_Genres, Login, Payment, Publisher, Author, Purchase_Detail, Rental_Detail, Purchase_Detail
+from .models import Book, Book_Genres, InsurancePlan, Login, Payment, Publisher, Author, Purchase_Detail, Rental_Detail, Purchase_Detail, InsurancePlan, InsuranceProvider, Location
 from .models import User
 
 class LoginSerializer(serializers.ModelSerializer):
@@ -47,4 +47,19 @@ class PurchaseDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Purchase_Detail
         fields = ("OrderID","PurchaseAmt")
+
+class InsuranceProviderSerializer(serializers.ModelSerializer):
+    class meta:
+        model = InsuranceProvider
+        fields = ("Name","Location_ID")
+
+class InsurancePlanSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InsurancePlan
+        fields = ("PolicyNo","Price","CoverageDuration","Details","InsuranceProvider_Name")
+
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = ("LocationID","Country","City","StreetNum","PostalCode")
         

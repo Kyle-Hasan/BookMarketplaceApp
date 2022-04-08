@@ -1,7 +1,8 @@
 from pickle import FALSE
+from urllib import response
 from django.shortcuts import render
-from .serializers import BookSerializer, LoginSerializer, UserSerializer, PublisherSerializer, GenreSerializer, AuthorSerializer, PaymentSerializer, RentalDetailSerializer, PurchaseDetailSerializer
-from .models import Login, Payment, Publisher, User, Wants, Book, Book_Genres, Author, Rental_Detail, Purchase_Detail
+from .serializers import BookSerializer, LoginSerializer, UserSerializer, PublisherSerializer, GenreSerializer, AuthorSerializer, PaymentSerializer, RentalDetailSerializer, PurchaseDetailSerializer, InsurancePlanSerializer, InsuranceProviderSerializer, LocationSerializer
+from .models import InsuranceProvider, Location, Login, Payment, Publisher, User, Wants, Book, Book_Genres, Author, Rental_Detail, Purchase_Detail, InsurancePlan, InsuranceProvider, Location
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from BookMarketplaceApp import serializers
@@ -325,6 +326,121 @@ class PurchaseDetailView(APIView):
         else:
             purchases = Purchase_Detail.objects.all()
             serializer = PurchaseDetailSerializer(purchases,many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class PurchaseDetailView(APIView):
+    serializer_class = PurchaseDetailSerializer
+
+    def post(self,request,*args,**kwargs):
+        print(request)
+        purchase_data = request.data
+        
+        print(purchase_data)
+        r = Purchase_Detail(
+            OrderID = purchase_data['OrderID'],
+            PurchaseAmt = purchase_data['PurchaseAmt']
+        )
+        r.save()
+        serializer = PurchaseDetailSerializer(r,many=False)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def get(self,request,*args,**kwargs):
+        #get purchase detail by order ID
+        if "OrderID" in request.GET:
+            purchase_to_return = Purchase_Detail.objects.get(OrderID=request.GET['OrderID'])
+            serializer = RentalDetailSerializer(purchase_to_return, many=False)
+        else:
+            purchases = Purchase_Detail.objects.all()
+            serializer = PurchaseDetailSerializer(purchases,many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class LocationView(APIView):
+    serializer_class = LocationSerializer
+
+    def post(self,request,*args,**kwargs):
+        print(request)
+        location_data = request.data
+
+        print(location_data)
+        l = Location(
+            LocationID = location_data['LocationID'],
+            Country = location_data['Country'],
+            City = location_data['City'],
+            StreetNum = location_data['StreetNum'],
+            PostalCode = location_data['PostalCode']
+        )
+        l.save()
+        serializer = LocationSerializer(l,many=False)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def get(self,request,*args,**kwargs):
+        locations = Location.objects.all()
+        serializer = LocationSerializer(locations,many=True)
+        return Reponse(serializer.data, status=status.HTTP_200_OK)
+
+
+
+class InsuranceProviderView(APIView):
+    serializer_class = InsuranceProviderSerializer
+    def post(self,request,*args,**kwargs):
+        print(request)
+        insuranceProvider_data = request.data
+        
+        print(insuranceProvider_data)
+        p1 = insuranceProvider_data['Location_ID']
+        p2 = Location.objects.get(Location_ID=p1)
+        p = InsuranceProvider(
+            Name = insuranceProvider_data['Name'],
+            Location_ID = p2
+        )
+        p.save()
+        serializer = InsuranceProviderSerializer(p,many=False)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def get(self,request,*args,**kwargs):
+        #get Insurance Provider by name
+        if "Name" in request.GET:
+            insuranceProvider_to_return = InsuranceProvider.objects.get(Name=request.GET['Name'])
+            serializer = InsuranceProviderSerializer(insuranceProvider_to_return, many=False)
+        
+        else:
+            insuranceProviders = InsuranceProvider.objects.all()
+            serializer = InsuranceProviderSerializer(insuranceProviders,many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class InsurancePlanView(APIView):
+    serializer_class = InsurancePlanSerializer
+    def post(self,request,*args,**kwargs):
+        print(request)
+        insurancePlan_data = request.data
+        
+        print(insurancePlan_data)
+        p1 = insurancePlan_data['InsuranceProvider_name']
+        p2 = InsuranceProvider.objects.get(InsuranceProvider_name=p1)
+        p = InsurancePlan(
+            PolicyNo = insurancePlan_data['PolicyNo'],
+            Price = insurancePlan_data['Price'],
+            CoverageDuration = insurancePlan_data['CoverageDuration'],
+            Details = insurancePlan_data['Details'],
+            InsuranceProvider_name = p2
+        )
+        p.save()
+        serializer = InsurancePlanSerializer(p,many=False)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def get(self,request,*args,**kwargs):
+        #get insurance plan by policy no
+        if "PolicyNo" in request.GET:
+            insurancePlan_to_return = InsurancePlan.objects.get(PolicyNo=request.GET['PolicyNo'])
+            serializer = InsurancePlanSerializer(insurancePlan_to_return, many=False)
+        
+        else:
+            insurancePlans = InsurancePlan.objects.all()
+            serializer = InsurancePlanSerializer(insurancePlans,many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
