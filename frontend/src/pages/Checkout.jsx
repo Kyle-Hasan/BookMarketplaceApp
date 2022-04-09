@@ -32,23 +32,7 @@ function Checkout() {
 
    }
    let [insurancePlans,setInsurancePlans] = useState([
-       {
-        PolicyNo: 67,
-        Price: 90.0,
-        CoverageDuration: 8,
-        Details: "VERY GOOD PLAN",
-        InsuranceProvider_Name:"Hi insurance"
-        
-       },
-       {
-        PolicyNo: 674,
-        Price: 901.0,
-        CoverageDuration: 78,
-        Details: "VERY BAD PLAN",
-        InsuranceProvider_Name:"Itsuki insurance"
-        
-       },
-
+      
    ])
    //null if theres no payment info for this user
    let [paymentInfo,setPaymentInfo] = useState(null)
@@ -102,20 +86,29 @@ function Checkout() {
       let fetchData = async(e)=>{
          
           try{
-          const data= await axios.get(`http://localhost:8000/payment/`,{
-              params:{
-                  User_Email:localStorage.getItem("username")
-              }
-          })
+          
 
-          const i = await axios.get('http://localhost:8000/insuranceprovider')
+          const i = await axios.get('http://localhost:8000/insuranceplan/')
           if(isMounted){
           setInsurancePlans(i.data)
-          setPaymentInfo(data.data)
+          console.log("hello")
+         
           }
           }
-          catch{
-              
+          catch(err){
+              console.log(err)
+          }
+          try{
+            const data= await axios.get(`http://localhost:8000/payment/`,{
+                params:{
+                    User_Email:localStorage.getItem("username")
+                }
+            })
+            console.log(data.data)
+            setPaymentInfo(data.data)
+          }
+          catch(err){
+              console.log(err)
           }
       }
       fetchData()

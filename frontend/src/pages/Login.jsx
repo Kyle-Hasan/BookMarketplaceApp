@@ -21,7 +21,14 @@ function Login() {
                          
                 Password: loginInfo.password})
               //log in 
+             const data= await axios.post('http://127.0.0.1:8000/user/',
+              {
+                  Email: loginInfo.email,
+                           
+                  })
+
             localStorage.setItem("username",loginInfo.email)
+            localStorage.setItem("Admin",data.data.AdminFlag)
             navigate("/")
     
           }

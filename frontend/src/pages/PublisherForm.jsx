@@ -2,12 +2,15 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import {useState} from 'react'
 import Axios from 'axios'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 function PublisherForm() {
  const [error,setError] = useState("")
  const [formInfo,setFormInfo] = useState({
      Name: ""
 
  })
+ const navigate = useNavigate("/")
  const onChange= (e) => {
  
     setFormInfo((oldState) => {
@@ -18,9 +21,18 @@ function PublisherForm() {
     })
   
   }
- const onSubmit = (e)=>{
+ const onSubmit = async (e)=>{
      e.preventDefault()
-    
+    try{
+      await axios.post("http://localhost:8000/publisher/",{
+        Name:formInfo.Name
+      })
+      navigate("/")
+    }
+    catch(erro){
+      setError("error")
+      console.log(erro)
+    }
 
  }
  if(!localStorage.getItem("username")){

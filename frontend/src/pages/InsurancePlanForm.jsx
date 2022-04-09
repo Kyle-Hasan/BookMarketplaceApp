@@ -15,7 +15,7 @@ function InsurancePlanForm() {
 
 
  })
- const navigate = useNavigate
+ const navigate = useNavigate()
  const onChange= (e) => {
  
     setFormInfo((oldState) => {
@@ -29,8 +29,8 @@ function InsurancePlanForm() {
  const onSubmit = async(e)=>{
      e.preventDefault()
      try{
-       await axios.post("https://localhost:8000/insuranceplan",{
-         Policy:formInfo.policy_no,
+       await axios.post("http://localhost:8000/insuranceplan/",{
+         PolicyNo:formInfo.policy_no,
          InsuranceProvider_name:formInfo.InsuranceProviderName,
          Price:formInfo.price,
          CoverageDuration:formInfo.CoverageDuration,
@@ -59,16 +59,30 @@ function InsurancePlanForm() {
           <div class = "card-body">
       <form onSubmit={onSubmit} >
           <div className="mb-3">
-              <label htmlFor="Name" className="form-label">Name</label>
+              <label htmlFor="policy_no" className="form-label">Policy number</label>
               <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value ={formInfo.Name} type="text" className="w-50 form-control" id="Name" />
+              <input onChange = {onChange} min="0" value ={formInfo.policy_no} type="number" className="w-50 form-control" id="policy_no" />
               </div>
 
           </div>
           <div className="mb-3">
-              <label htmlFor="Address" className="form-label">Address</label>
+              <label htmlFor="CoverageDuration" className="form-label">Coverage Duration(days)</label>
               <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value ={formInfo.Address} type="text" className="w-50 form-control" id="Address" />
+              <input onChange = {onChange} min = "1" value ={formInfo.CoverageDuration} type="number" className="w-50 form-control" id="CoverageDuration" />
+              </div>
+
+          </div>
+          <div className="mb-3">
+              <label htmlFor="CoverageDuration" className="form-label">Details</label>
+              <div className = "d-flex justify-content-center ">
+              <textarea onChange = {onChange}  value ={formInfo.Details} type="text" className="w-50 form-control" id="Details" />
+              </div>
+
+          </div>
+          <div className="mb-3">
+              <label htmlFor="price" className="form-label">Price($)</label>
+              <div className = "d-flex justify-content-center ">
+              <input onChange = {onChange} min = "1" value ={formInfo.price} type="number" className="w-50 form-control" id="price" />
               </div>
 
           </div>

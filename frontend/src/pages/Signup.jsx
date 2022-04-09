@@ -44,7 +44,11 @@ function Signup() {
             Password: registerInfo.password,
             AdminFlag:registerInfo.AdminFlag})
           //log in 
+         
+
         localStorage.setItem("username",registerInfo.email)
+        localStorage.setItem("Admin",registerInfo.AdminFlag)
+        navigate("/")
         navigate("/")
 
       }

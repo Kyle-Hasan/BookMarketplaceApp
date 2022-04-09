@@ -5,7 +5,8 @@ function Navbar() {
   let user = false;
   const navigate = useNavigate()
   let logout = () => {
-    localStorage.removeItem("username")
+    localStorage.clear()
+    sessionStorage.clear()
   };
   let [searchText,setSearchText]= useState("")
   let [searchOption,setSearchOption] = useState("All")
@@ -74,9 +75,47 @@ function Navbar() {
                     </div>
                   </div>
                 </li>
+                <li className="nav-item">
+                  <div className="dropdown">
+                    <a
+                      className="nav-link dropdown-toggle"
+                      type="button"
+                      id="triggerId2"
+                      data-bs-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Insurance
+                    </a>
+                    <div className="dropdown-menu" aria-labelledby="triggerId2">
+                      <Link className="dropdown-item" to="/addInsurancePlan">
+                        Add Plan
+                      </Link>
+                      <Link className="dropdown-item" to="/addInsuranceProvider">
+                        Add Provider
+                      </Link>
+                     
+                    </div>
+                  </div>
+                </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/about">
                   About
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to="/addPublisher">
+                  Add publisher
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to="/addAuthor">
+                  Add Author
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to="/addLocation">
+                  Add Location
                 </Link>
               </li>
             </ul>

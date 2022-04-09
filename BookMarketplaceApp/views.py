@@ -285,6 +285,8 @@ class RentalDetailView(APIView):
         b = Book.objects.get(BookID=request.data['Book_ID'])
         i = InsurancePlan.get(Policy_no=request.data['Policy_no'],InsuranceProvider_Name=request.data['InsuranceProvider_Name'])
         print(rental_data)
+        b.Stock = max(b.Stock-request.data["Quantity"],0)
+        b.save()
         r = Rental_Detail(
             Book_ID = b,
             User_Email=f,
@@ -293,7 +295,8 @@ class RentalDetailView(APIView):
             EndDate = rental_data['EndDate'],
             RentAmt = rental_data['RentAmt'],
             Policy_no = i,
-            InsuranceProvider_Name = request.data['InsuranceProvider_Name']
+            InsuranceProvider_Name = request.data['InsuranceProvider_Name'],
+            Quanity = request.data["Quanity"]
             
         )
         r.save()
@@ -324,6 +327,8 @@ class PurchaseDetailView(APIView):
         b = Book.objects.get(BookID=request.data['Book_ID'])
         i = InsurancePlan.get(Policy_no=request.data['Policy_no'],InsuranceProvider_Name=request.data['InsuranceProvider_Name'])
         print(purchase_data)
+        b.Stock = max(b.Stock-request.data["Quantity"],0)
+        b.save()
         r = Purchase_Detail(
             PurchaseAmt = purchase_data['PurchaseAmt'],
             User_Email = f,
@@ -331,7 +336,8 @@ class PurchaseDetailView(APIView):
             Quanity = purchase_data['Quantity'],
             InsuranceProvider_Name = request.data['InsuranceProvider_Name'],
             Book_ID = b,
-            Policy_no = i
+            Policy_no = i,
+            Quantity = request.data["Quantity"]
             
         )
         r.save()
@@ -383,7 +389,7 @@ class InsuranceProviderView(APIView):
         
         print(insuranceProvider_data)
         p1 = insuranceProvider_data['Location_ID']
-        p2 = Location.objects.get(Location_ID=p1)
+        p2 = Location.objects.get(LocationID=p1)
         p = InsuranceProvider(
             Name = insuranceProvider_data['Name'],
             Location_ID = p2
@@ -413,13 +419,13 @@ class InsurancePlanView(APIView):
         
         print(insurancePlan_data)
         p1 = insurancePlan_data['InsuranceProvider_name']
-        p2 = InsuranceProvider.objects.get(InsuranceProvider_name=p1)
+        p2 = InsuranceProvider.objects.get(Name=p1)
         p = InsurancePlan(
             PolicyNo = insurancePlan_data['PolicyNo'],
             Price = insurancePlan_data['Price'],
             CoverageDuration = insurancePlan_data['CoverageDuration'],
             Details = insurancePlan_data['Details'],
-            InsuranceProvider_name = p2
+            InsuranceProvider_Name = p2
         )
         p.save()
         serializer = InsurancePlanSerializer(p,many=False)

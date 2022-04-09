@@ -17,6 +17,9 @@ import About from './pages/About';
 import EditUserForm from './components/EditUserForm';
 import EditBookForm from "./pages/EditBookForm"
 import ConfirmBook from './pages/ConfirmBook';
+import InsurancePlanForm from './pages/InsurancePlanForm'
+import InsuranceProviderForm from './pages/InsuranceProviderForm'
+import LocationForm from './pages/LocationForm'
 function App() {
   return (
     <div className="App">
@@ -37,6 +40,9 @@ function App() {
           <Route path= "/editUser" element = {<EditUserForm/>}/>
           <Route path = "/editBook" element = {<EditBookForm/>}/>
           <Route path = "/confirmAddBook" element = {<ConfirmBook/>}/>
+          <Route path = "/addInsurancePlan" element = {<InsurancePlanForm/>}/>
+          <Route path = "/addInsuranceProvider" element = {<InsuranceProviderForm/>}/>
+          <Route path = "/addLocation" element = {<LocationForm/>}/>
           
         </Routes>
    

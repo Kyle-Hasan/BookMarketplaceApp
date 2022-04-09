@@ -49,7 +49,7 @@ class PurchaseDetailSerializer(serializers.ModelSerializer):
         fields = ("OrderID","PurchaseAmt","BookID","Policy_no","InsuranceProvider_Name","Quantity","OrderDate","CardNo")
 
 class InsuranceProviderSerializer(serializers.ModelSerializer):
-    class meta:
+    class Meta:
         model = InsuranceProvider
         fields = ("Name","Location_ID")
 
