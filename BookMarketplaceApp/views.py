@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from BookMarketplaceApp import serializers
 from rest_framework import status
-
+from datetime import datetime
 class LoginView(APIView):
     serializer_class = LoginSerializer
 
@@ -153,6 +153,7 @@ class BookView(APIView):
     def post(self, request, *args, **kwargs):
         book_data = request.data
         p = book_data['Publisher_Name']
+        print(request.data)
         p2 = Publisher.objects.get(Name=p)
         new_book = Book(
             #BookID=book_data['BookID'],
@@ -283,12 +284,12 @@ class RentalDetailView(APIView):
         p2 = Payment.objects.get(CardNo=request.data['CardNo'])
         f = Login.objects.get(User_Email=request.data['User_Email'])
         b = Book.objects.get(BookID=request.data['Book_ID'])
-        i = InsurancePlan.get(Policy_no=request.data['Policy_no'],InsuranceProvider_Name=request.data['InsuranceProvider_Name'])
+        i = InsurancePlan.objects.get(PolicyNo=request.data['PolicyNo'],InsuranceProvider_Name=request.data['InsuranceProvider_Name'])
         print(rental_data)
         b.Stock = max(b.Stock-request.data["Quantity"],0)
         b.save()
         r = Rental_Detail(
-            Book_ID = b,
+            BookID = b,
             User_Email=f,
             CardNo = p2,
             StartDate = rental_data['StartDate'],
@@ -296,7 +297,8 @@ class RentalDetailView(APIView):
             RentAmt = rental_data['RentAmt'],
             Policy_no = i,
             InsuranceProvider_Name = request.data['InsuranceProvider_Name'],
-            Quanity = request.data["Quanity"]
+            Quantity = request.data["Quantity"],
+           
             
         )
         r.save()
@@ -320,26 +322,28 @@ class PurchaseDetailView(APIView):
     serializer_class = PurchaseDetailSerializer
 
     def post(self,request,*args,**kwargs):
-        print(request)
+        print("hih")
+        print(request.data)
         purchase_data = request.data
         p2 = Payment.objects.get(CardNo=request.data['CardNo'])
         f = Login.objects.get(User_Email=request.data['User_Email'])
         b = Book.objects.get(BookID=request.data['Book_ID'])
-        i = InsurancePlan.get(Policy_no=request.data['Policy_no'],InsuranceProvider_Name=request.data['InsuranceProvider_Name'])
+        i = InsurancePlan.objects.get(PolicyNo=request.data['PolicyNo'],InsuranceProvider_Name=request.data['InsuranceProvider_Name'])
         print(purchase_data)
-        b.Stock = max(b.Stock-request.data["Quantity"],0)
-        b.save()
+       
         r = Purchase_Detail(
             PurchaseAmt = purchase_data['PurchaseAmt'],
             User_Email = f,
             CardNo = p2,
-            Quanity = purchase_data['Quantity'],
             InsuranceProvider_Name = request.data['InsuranceProvider_Name'],
-            Book_ID = b,
+            BookID = b,
             Policy_no = i,
-            Quantity = request.data["Quantity"]
+            Quantity = request.data["Quantity"],
+            
             
         )
+        b.Stock = max(b.Stock-request.data["Quantity"],0)
+        b.save()
         r.save()
         serializer = PurchaseDetailSerializer(r,many=False)
         return Response(serializer.data, status=status.HTTP_201_CREATED)

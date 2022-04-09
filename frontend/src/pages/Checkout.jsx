@@ -48,13 +48,16 @@ function Checkout() {
        let d = new Date()
        try{
        if(orderInfo2.Option === "Buy"){
+           console.log(paymentInfo)
            await axios.post("http://localhost:8000/purchasedetail/",{
             OrderDate: d.getDate(),
-            CardNo:paymentInfo.cardNo,
+            CardNo:paymentInfo.CardNo,
             User_Email:localStorage.getItem("username"),
-            Quanity:orderInfo2.Stock,
-            PurchaseAmt:orderInfo.currentPrice,
-            BookID:orderInfo2.BookID
+            Quantity:orderInfo2.Stock,
+            PurchaseAmt:insurancePlans[+insuranceChoice].Price + orderInfo2.Price,
+            Book_ID:orderInfo2.BookID,
+            PolicyNo: insurancePlans[+insuranceChoice].PolicyNo,
+            InsuranceProvider_Name : insurancePlans[+insuranceChoice].InsuranceProvider_Name,
            })
        }
        else if(orderInfo2.Option === "Rent"){
@@ -62,14 +65,14 @@ function Checkout() {
             OrderDate: d.getDate(),
             CardNo:paymentInfo.cardNo,
             User_Email:localStorage.getItem("username"),
-            Quanity:orderInfo2.Stock,
-            RentAmt:orderInfo.currentPrice,
-            Policy_no: insurancePlans[+insuranceChoice].PolicyNo,
+            Quantity:orderInfo2.Stock,
+            RentAmt:insurancePlans[+insuranceChoice].Price + orderInfo2.Price,
+            PolicyNo: insurancePlans[+insuranceChoice].PolicyNo,
             InsuranceProvider_Name : insurancePlans[+insuranceChoice].InsuranceProvider_Name, 
             StartDate : d.getDate(),
             EndDate: d.getDate()+7,
             Book_ID:orderInfo2.BookID,
-            CardNo:paymentInfo.cardNo
+            CardNo:paymentInfo.CardNo
             
 
 

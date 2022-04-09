@@ -1,5 +1,5 @@
 from asyncio.windows_events import NULL
-from datetime import datetime
+import datetime
 from email.policy import default
 from django.db import models
 from django.forms import CharField, EmailField
@@ -91,30 +91,30 @@ class Book(models.Model):
 
 class Rental_Detail(models.Model):
     OrderID = models.AutoField(primary_key=True)
-    OrderDate = models.DateField()
+    OrderDate = models.DateField(default=datetime.date.today())
     CardNo = models.ForeignKey(Payment, on_delete=models.CASCADE)
     User_Email = models.ForeignKey(Login, on_delete=models.CASCADE)
-    Book_ID = models.OneToOneField(Book, on_delete=models.CASCADE)
-    Policy_no = models.OneToOneField(InsurancePlan, on_delete=models.CASCADE)
+    BookID = models.ForeignKey(Book, on_delete=models.CASCADE)
+    Policy_no = models.ForeignKey(InsurancePlan, on_delete=models.CASCADE)
     Quantity = models.IntegerField()
-    StartDate = models.DateField(default= datetime.now())
+    StartDate = models.DateField(default=datetime.date.today())
     EndDate = models.DateField()
     RentAmt = models.IntegerField()
     InsuranceProvider_Name = models.CharField(max_length=50)
 
 class Purchase_Detail(models.Model):
     OrderID = models.AutoField(primary_key=True)
-    OrderDate = models.DateField()
+    OrderDate = models.DateField(default=datetime.date.today())
     CardNo = models.ForeignKey(Payment, on_delete=models.CASCADE)
     User_Email = models.ForeignKey(Login, on_delete=models.CASCADE)
-    Book_ID = models.OneToOneField(Book, on_delete=models.CASCADE)
-    Policy_no = models.OneToOneField(InsurancePlan, on_delete=models.CASCADE)
+    BookID = models.ForeignKey(Book, on_delete=models.CASCADE)
+    Policy_no = models.ForeignKey(InsurancePlan, on_delete=models.CASCADE)
     Quantity = models.IntegerField()
     PurchaseAmt = models.IntegerField()
     InsuranceProvider_Name = models.CharField(max_length=50)
 
 class Review(models.Model):
-    Book_ID = models.OneToOneField(Book, primary_key=True, on_delete=models.CASCADE)
+    BookID = models.OneToOneField(Book, primary_key=True, on_delete=models.CASCADE)
     User_Email = models.ForeignKey(User, on_delete=models.CASCADE)
     Rating = models.IntegerField()
     Comment = models.CharField(max_length=100)
