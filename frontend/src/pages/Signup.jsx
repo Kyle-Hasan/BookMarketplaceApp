@@ -12,6 +12,7 @@ function Signup() {
     email: "",
     password: "",
     retype: "",
+    AdminFlag:"0"
     
   });
   const [error, setError] = useState("");
@@ -40,14 +41,15 @@ function Signup() {
             Email: registerInfo.email,
             FName: registerInfo.fname,
             LName: registerInfo.lname,         
-            Password: registerInfo.password})
+            Password: registerInfo.password,
+            AdminFlag:registerInfo.AdminFlag})
           //log in 
         localStorage.setItem("username",registerInfo.email)
         navigate("/")
 
       }
       catch(error){
-        setError("error occurred during log in")
+        setError("error occurred during sign up")
       }
     }
   };
@@ -138,6 +140,15 @@ function Signup() {
                 id="retype"
               />
             </div>
+          </div>
+          <div className="mb-3 ">
+              <label htmlFor="AdminFlag" className="form-label">Admin</label>
+              <div className = "d-flex justify-content-center ">
+              <select onChange = {setInput} value = {registerInfo.AdminFlag} type="date" className=" w-50 form-control" id="AdminFlag">
+                  <option value = "0">Not an admin</option>
+                  <option value = "1">Admin</option>
+              </select>
+              </div>
           </div>
           
           <button type="submit" className="btn btn-secondary">

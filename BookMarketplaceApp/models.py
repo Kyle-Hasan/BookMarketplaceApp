@@ -76,7 +76,16 @@ class Book(models.Model):
     Image = models.CharField(max_length=50, null=True)
     Publisher_Name = models.ForeignKey(Publisher, on_delete=models.CASCADE,null=True,default=NULL)
 
-class Order(models.Model):
+'''class Order(models.Model):
+    OrderID = models.AutoField(primary_key=True)
+    OrderDate = models.DateField()
+    CardNo = models.ForeignKey(Payment, on_delete=models.CASCADE)
+    User_Email = models.ForeignKey(Login, on_delete=models.CASCADE)
+    Book_ID = models.OneToOneField(Book, on_delete=models.CASCADE)
+    Policy_no = models.OneToOneField(InsurancePlan, on_delete=models.CASCADE)
+    Quantity = models.IntegerField()'''
+
+class Rental_Detail(models.Model):
     OrderID = models.AutoField(primary_key=True)
     OrderDate = models.DateField()
     CardNo = models.ForeignKey(Payment, on_delete=models.CASCADE)
@@ -84,16 +93,21 @@ class Order(models.Model):
     Book_ID = models.OneToOneField(Book, on_delete=models.CASCADE)
     Policy_no = models.OneToOneField(InsurancePlan, on_delete=models.CASCADE)
     Quantity = models.IntegerField()
-
-class Rental_Detail(models.Model):
-    OrderID = models.IntegerField(primary_key=True)
     StartDate = models.DateField()
     EndDate = models.DateField()
     RentAmt = models.IntegerField()
+    InsuranceProvider_Name = models.CharField(max_length=50)
 
 class Purchase_Detail(models.Model):
     OrderID = models.AutoField(primary_key=True)
+    OrderDate = models.DateField()
+    CardNo = models.ForeignKey(Payment, on_delete=models.CASCADE)
+    User_Email = models.ForeignKey(Login, on_delete=models.CASCADE)
+    Book_ID = models.OneToOneField(Book, on_delete=models.CASCADE)
+    Policy_no = models.OneToOneField(InsurancePlan, on_delete=models.CASCADE)
+    Quantity = models.IntegerField()
     PurchaseAmt = models.IntegerField()
+    InsuranceProvider_Name = models.CharField(max_length=50)
 
 class Review(models.Model):
     Book_ID = models.OneToOneField(Book, primary_key=True, on_delete=models.CASCADE)

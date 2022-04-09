@@ -41,12 +41,12 @@ class PaymentSerializer(serializers.ModelSerializer):
 class RentalDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rental_Detail
-        fields = ("OrderID","StartDate","EndDate","RentAmt")
+        fields = ("OrderID","StartDate","EndDate","RentAmt","BookID","Policy_no",'InsuranceProvider_Name','Quantity','CardNo',"OrderDate")
     
 class PurchaseDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Purchase_Detail
-        fields = ("OrderID","PurchaseAmt")
+        fields = ("OrderID","PurchaseAmt","BookID","Policy_no","InsuranceProvider_Name","Quantity","OrderDate","CardNo")
 
 class InsuranceProviderSerializer(serializers.ModelSerializer):
     class meta:

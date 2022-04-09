@@ -2,6 +2,8 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import {useState} from 'react'
 import Axios from 'axios'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 function LocationForm({setWriteReview,setReviews}) {
  const [error,setError] = useState("")
  const [formInfo,setFormInfo] = useState({
@@ -11,6 +13,7 @@ function LocationForm({setWriteReview,setReviews}) {
      PostalCode:""
      
  })
+ const navigate = useNavigate()
  const onChange= (e) => {
  
     setFormInfo((oldState) => {
@@ -29,7 +32,19 @@ function LocationForm({setWriteReview,setReviews}) {
         setError("No field can be blank")
         return
     }
-   
+    try{
+        await axios.post("http://localhost:8000/location",{
+            Country:formInfo.Country,
+            City:formInfo.City,
+            StreetNum:formInfo.StreetNum,
+            PostalCode:formInfo.PostalCode
+        })
+        navigate("/")
+    }
+    catch{
+        setError("error occurred")
+
+    }
  }
   return (
     <>

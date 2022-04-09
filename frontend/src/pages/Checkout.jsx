@@ -1,11 +1,13 @@
+import axios from 'axios'
 import React from 'react'
-import {useState} from 'react'
-import {Link} from 'react-router-dom'
+import {useState,useEffect} from 'react'
+import {Link, useNavigate} from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import PaymentForm from '../components/PaymentForm'
 function Checkout() {
    
     const orderInfo2 =JSON.parse( sessionStorage.getItem("orderInfo"))
+    const navigate = useNavigate()
     console.log(orderInfo2.Title)
     /*
      orderInfo = {
@@ -31,19 +33,19 @@ function Checkout() {
    }
    let [insurancePlans,setInsurancePlans] = useState([
        {
-        Policy_no: 67,
+        PolicyNo: 67,
         Price: 90.0,
         CoverageDuration: 8,
         Details: "VERY GOOD PLAN",
-        ProviderName:"Hi insurance"
+        InsuranceProvider_Name:"Hi insurance"
         
        },
        {
-        Policy_no: 674,
+        PolicyNo: 674,
         Price: 901.0,
         CoverageDuration: 78,
         Details: "VERY BAD PLAN",
-        ProviderName:"Itsuki insurance"
+        InsuranceProvider_Name:"Itsuki insurance"
         
        },
 
@@ -58,10 +60,68 @@ function Checkout() {
    const noPaymentButton= (e)=>{
        setShowPaymentForm(oldState=>{return !oldState})
    }
-   const placeOrder = (e)=>{
+   const placeOrder = async(e)=>{
+       let d = new Date()
+       try{
+       if(orderInfo2.Option === "buy"){
+           await axios.post("http://localhost:8000/purchasedetail",{
+            OrderDate: d.getDate(),
+            CardNo:paymentInfo.cardNo,
+            User_Email:localStorage.getItem("username"),
+            Quanity:orderInfo2.Stock,
+            PurchaseAmt:orderInfo.currentPrice,
+           })
+       }
+       else if(orderInfo2.Option === "rent"){
+        await axios.post("http://localhost:8000/rentaldetail",{
+            OrderDate: d.getDate(),
+            CardNo:paymentInfo.cardNo,
+            User_Email:localStorage.getItem("username"),
+            Quanity:orderInfo2.Stock,
+            RentAmt:orderInfo.currentPrice,
+            Policy_no: insurancePlans[+insuranceChoice].PolicyNo,
+            InsuranceProvider_Name : insurancePlans[+insuranceChoice].InsuranceProvider_Name, 
+            StartDate : d.getDate(),
+            EndDate: d.getDate()+7
+            
 
+
+
+        })
+       }
+       navigate("/")
+    }
+    catch(e){
+        console.log(e)
+    }
    }
-   if(!localStorage.getItem("username") || !sessionStorage.getItem("orderInfo")){
+   
+  
+  useEffect(()=>{
+    let isMounted=  true
+      let fetchData = async(e)=>{
+         
+          try{
+          const data= await axios.get(`http://localhost:8000/payment/`,{
+              params:{
+                  User_Email:localStorage.getItem("username")
+              }
+          })
+
+          const i = await axios.get('http://localhost:8000/insuranceprovider')
+          if(isMounted){
+          setInsurancePlans(i.data)
+          setPaymentInfo(data.data)
+          }
+          }
+          catch{
+              
+          }
+      }
+      fetchData()
+      return ()=>{isMounted = false}
+  },[])
+  if(!localStorage.getItem("username") || !sessionStorage.getItem("orderInfo")){
     return <><Navbar /><div>You can't view this</div></>
   }
   return (
@@ -87,7 +147,7 @@ function Checkout() {
     
     <option  value="" disabled selected hidden>Choose a plan</option>
     {insurancePlans.map((plan,index)=>(
-        <option value={index}>{plan.ProviderName} {plan.Policy_no}</option>
+        <option value={index}>{plan.InsuranceProvider_Name} {plan.PolicyNo}</option>
     ))}
 </select>
 </form>
@@ -96,8 +156,8 @@ function Checkout() {
             <div className='col-md-2'>
                 {insuranceChoice &&
                 <><h6>Info about selected plan</h6>
-                <p>Provider name: {insurancePlans[+insuranceChoice].ProviderName}</p>
-                <p>Policy no: {insurancePlans[+insuranceChoice].Policy_no}</p>
+                <p>Provider name: {insurancePlans[+insuranceChoice].InsuranceProvider_Name}</p>
+                <p>Policy no: {insurancePlans[+insuranceChoice].PolicyNo}</p>
                 <p>Coverage duration: {insurancePlans[+insuranceChoice].CoverageDuration} days</p>
                 <p>Price: {insurancePlans[+insuranceChoice].Price}$</p>
                 <p>Details: {insurancePlans[+insuranceChoice].Details}</p>

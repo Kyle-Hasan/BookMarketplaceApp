@@ -39,5 +39,6 @@ urlpatterns = [
     path('purchasedetail/', PurchaseDetailView.as_view()),
     path("insuranceplan/", InsurancePlanView.as_view()),
     path("insuranceprovider/", InsuranceProviderView.as_view()),
+    path("location",LocationView.as_view())
 
 ]

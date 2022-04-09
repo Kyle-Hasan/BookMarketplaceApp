@@ -119,9 +119,13 @@ function Navbar() {
                       <Link className="dropdown-item" to="/editUser">
                         Profile Settings
                       </Link>
+                      <Link className="dropdown-item" to="/addPayment">
+                        Add payment
+                      </Link>
                       <Link onClick={logout} className="dropdown-item" to="/">
                         Logout
                       </Link>
+                      
                     </div>
                   </div>
                 </li>

@@ -55,7 +55,7 @@ class SignupView(APIView):
         # Adds a user and a login for that user
     def post(self, request, *args, **kwargs):
         signup_data = request.data
-        
+        print(request.data)
         # Don't add user if email is already used
         logins = Login.objects.all()
         lserializer = LoginSerializer(logins, many=True)
@@ -263,6 +263,7 @@ class PaymentView(APIView):
 
     def get(self,request,*args,**kwargs):
         #get payment by user email
+        print(request.GET)
         if "User_Email" in request.GET:
             payment_to_return = Payment.objects.get(User_Email=request.GET['User_Email'])
             serializer = PaymentSerializer(payment_to_return, many=False)
@@ -279,13 +280,21 @@ class RentalDetailView(APIView):
     def post(self,request,*args,**kwargs):
         print(request)
         rental_data = request.data
-        
+        p2 = Payment.objects.get(CardNo=request.data['CardNo'])
+        f = Login.objects.get(User_Email=request.data['User_Email'])
+        b = Book.objects.get(BookID=request.data['Book_ID'])
+        i = InsurancePlan.get(Policy_no=request.data['Policy_no'],InsuranceProvider_Name=request.data['InsuranceProvider_Name'])
         print(rental_data)
         r = Rental_Detail(
-            OrderID = rental_data['OrderID'],
+            Book_ID = b,
+            User_Email=f,
+            CardNo = p2,
             StartDate = rental_data['StartDate'],
             EndDate = rental_data['EndDate'],
-            RentAmt = rental_data['RentAmt']
+            RentAmt = rental_data['RentAmt'],
+            Policy_no = i,
+            InsuranceProvider_Name = request.data['InsuranceProvider_Name']
+            
         )
         r.save()
         serializer = RentalDetailSerializer(r,many=False)
@@ -302,32 +311,7 @@ class RentalDetailView(APIView):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-class PurchaseDetailView(APIView):
-    serializer_class = PurchaseDetailSerializer
 
-    def post(self,request,*args,**kwargs):
-        print(request)
-        purchase_data = request.data
-        
-        print(purchase_data)
-        r = Purchase_Detail(
-            OrderID = purchase_data['OrderID'],
-            PurchaseAmt = purchase_data['PurchaseAmt']
-        )
-        r.save()
-        serializer = PurchaseDetailSerializer(r,many=False)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-    def get(self,request,*args,**kwargs):
-        #get purchase detail by order ID
-        if "OrderID" in request.GET:
-            purchase_to_return = Purchase_Detail.objects.get(OrderID=request.GET['OrderID'])
-            serializer = RentalDetailSerializer(purchase_to_return, many=False)
-        else:
-            purchases = Purchase_Detail.objects.all()
-            serializer = PurchaseDetailSerializer(purchases,many=True)
-
-        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class PurchaseDetailView(APIView):
     serializer_class = PurchaseDetailSerializer
@@ -335,11 +319,20 @@ class PurchaseDetailView(APIView):
     def post(self,request,*args,**kwargs):
         print(request)
         purchase_data = request.data
-        
+        p2 = Payment.objects.get(CardNo=request.data['CardNo'])
+        f = Login.objects.get(User_Email=request.data['User_Email'])
+        b = Book.objects.get(BookID=request.data['Book_ID'])
+        i = InsurancePlan.get(Policy_no=request.data['Policy_no'],InsuranceProvider_Name=request.data['InsuranceProvider_Name'])
         print(purchase_data)
         r = Purchase_Detail(
-            OrderID = purchase_data['OrderID'],
-            PurchaseAmt = purchase_data['PurchaseAmt']
+            PurchaseAmt = purchase_data['PurchaseAmt'],
+            User_Email = f,
+            CardNo = p2,
+            Quanity = purchase_data['Quantity'],
+            InsuranceProvider_Name = request.data['InsuranceProvider_Name'],
+            Book_ID = b,
+            Policy_no = i
+            
         )
         r.save()
         serializer = PurchaseDetailSerializer(r,many=False)
@@ -365,7 +358,7 @@ class LocationView(APIView):
 
         print(location_data)
         l = Location(
-            LocationID = location_data['LocationID'],
+           # LocationID = location_data['LocationID'],
             Country = location_data['Country'],
             City = location_data['City'],
             StreetNum = location_data['StreetNum'],
@@ -378,7 +371,7 @@ class LocationView(APIView):
     def get(self,request,*args,**kwargs):
         locations = Location.objects.all()
         serializer = LocationSerializer(locations,many=True)
-        return Reponse(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 

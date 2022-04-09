@@ -83,4 +83,8 @@ content-type: application/json
 GET http://localhost:8000/genre/book/?BookID=2
 
 
+###
+
+GET http://localhost:8000/payment/?User_Email=yor@gmail.com
+
     

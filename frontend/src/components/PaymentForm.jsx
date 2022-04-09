@@ -2,6 +2,8 @@ import React from 'react'
 import Navbar from './Navbar'
 import {useState} from 'react'
 import Axios from 'axios'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 function PaymentForm({setCheckoutInfo,setShowPaymentForm}) {
  const [error,setError] = useState("")
  const [paymentInfo,setPaymentInfo] = useState({
@@ -10,6 +12,7 @@ function PaymentForm({setCheckoutInfo,setShowPaymentForm}) {
      name: "",
      address:""
  })
+ const navigate = useNavigate()
  const onChange= (e) => {
  
     setPaymentInfo((oldState) => {
@@ -22,15 +25,31 @@ function PaymentForm({setCheckoutInfo,setShowPaymentForm}) {
     
   
   }
- const onSubmit = (e)=>{
+ const onSubmit = async(e)=>{
      e.preventDefault()
     if(paymentInfo.cvv.length === 0 || paymentInfo.address.length === 0 || paymentInfo.cardNo.length === 0 || paymentInfo.name.length === 0){
         setError("No field can be blank")
         return
     }
-    if(setCheckoutInfo !== null){
+    try{
+    await axios.post("http://localhost:8000/payment/",{
+        User_Email:localStorage.getItem("username"),
+        CardNo:paymentInfo.cardNo,
+        CVV:paymentInfo.cvv,
+        BillingAddress:paymentInfo.address
+    })
+    console.log(setCheckoutInfo)
+    if(setCheckoutInfo){
         setCheckoutInfo(paymentInfo)
         setShowPaymentForm(false)
+    }
+    else{
+    navigate("/")
+    }
+}
+    catch(e){
+        console.log(e)
+        setError("error occurred")
     }
 
  }

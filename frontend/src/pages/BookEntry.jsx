@@ -62,8 +62,9 @@ function BookEntry() {
         BookID: bookInfo.BookID,
         Stock:quantity,
         Option:checkoutOption,
-        Image:bookInfo.image,
-        Price:totalPrice
+        Image:bookInfo.Image,
+        Price:totalPrice,
+     
 
 
       }))

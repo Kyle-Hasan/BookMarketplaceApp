@@ -2,6 +2,8 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import {useState} from 'react'
 import Axios from 'axios'
+import axios from 'axios'
+import { Navigate, useNavigate } from 'react-router-dom'
 function InsuranceProviderForm() {
  const [error,setError] = useState("")
  const [formInfo,setFormInfo] = useState({
@@ -10,6 +12,7 @@ function InsuranceProviderForm() {
      locationID:0
 
  })
+ const navigate = useNavigate()
  const onChange= (e) => {
  
     setFormInfo((oldState) => {
@@ -20,9 +23,18 @@ function InsuranceProviderForm() {
     })
   
   }
- const onSubmit = (e)=>{
+ const onSubmit =async (e)=>{
      e.preventDefault()
-    
+     try{
+     await axios.post("http://localhost:8000/insuranceprovider",{
+       Location_ID:formInfo.locationID,
+       Name:formInfo.Name
+     })
+     navigate("/")
+     }
+     catch{
+       setError("error occurred")
+     }
 
  }
  if(!localStorage.getItem("username")){
