@@ -286,8 +286,7 @@ class RentalDetailView(APIView):
         b = Book.objects.get(BookID=request.data['Book_ID'])
         i = InsurancePlan.objects.get(PolicyNo=request.data['PolicyNo'],InsuranceProvider_Name=request.data['InsuranceProvider_Name'])
         print(rental_data)
-        b.Stock = max(b.Stock-request.data["Quantity"],0)
-        b.save()
+        
         r = Rental_Detail(
             BookID = b,
             User_Email=f,
@@ -301,6 +300,8 @@ class RentalDetailView(APIView):
            
             
         )
+        b.Stock = max(b.Stock-request.data["Quantity"],0)
+        b.save()
         r.save()
         serializer = RentalDetailSerializer(r,many=False)
         return Response(serializer.data, status=status.HTTP_201_CREATED)

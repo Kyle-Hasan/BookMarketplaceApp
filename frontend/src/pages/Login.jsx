@@ -28,7 +28,7 @@ function Login() {
                   })
 
             localStorage.setItem("username",loginInfo.email)
-            localStorage.setItem("Admin",data.data.AdminFlag)
+            localStorage.setItem("AdminFlag",data.data.AdminFlag)
             navigate("/")
     
           }

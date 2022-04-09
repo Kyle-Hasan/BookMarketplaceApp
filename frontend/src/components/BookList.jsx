@@ -43,7 +43,7 @@ function BookList({books,setBooks}) {
                         <td>{book.SalePrice}</td>
                         <td>{book.Stock}</td>
                         <td>{book.Rating}</td>
-                        {!localStorage.getItem("admin") && <>
+                        {localStorage.getItem("AdminFlag") === "true" && <>
                         <td><button onClick = {deleteBook} value = {book.BookID} className='btn btn-primary'>Delete</button></td>
                         <td><Link to= {`/editBook/${book.BookID}`}>Edit</Link></td>
                         </>}

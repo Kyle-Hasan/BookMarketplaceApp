@@ -47,7 +47,7 @@ function Signup() {
          
 
         localStorage.setItem("username",registerInfo.email)
-        localStorage.setItem("Admin",registerInfo.AdminFlag)
+        localStorage.setItem("AdminFlag",registerInfo.AdminFlag)
         navigate("/")
         navigate("/")
 

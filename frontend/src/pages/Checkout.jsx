@@ -45,32 +45,47 @@ function Checkout() {
        setShowPaymentForm(oldState=>{return !oldState})
    }
    const placeOrder = async(e)=>{
-       let d = new Date()
+    
        try{
+        let todayDate = new Date();
+   
+        let day = String(todayDate.getDate()).padStart(2, '0')
+        let  month = String(todayDate.getMonth() + 1).padStart(2, '0')
+        let year = todayDate.getFullYear()
+        let todayDateString = + year + '-' + month + '-' + day  ;
+        let totalPrice = orderInfo2.Price
+       if(insuranceChoice){
+        totalPrice += insurancePlans[+insuranceChoice].Price
+       }
        if(orderInfo2.Option === "Buy"){
            console.log(paymentInfo)
            await axios.post("http://localhost:8000/purchasedetail/",{
-            OrderDate: d.getDate(),
+            OrderDate: todayDateString,
             CardNo:paymentInfo.CardNo,
             User_Email:localStorage.getItem("username"),
             Quantity:orderInfo2.Stock,
-            PurchaseAmt:insurancePlans[+insuranceChoice].Price + orderInfo2.Price,
+            PurchaseAmt:totalPrice,
             Book_ID:orderInfo2.BookID,
             PolicyNo: insurancePlans[+insuranceChoice].PolicyNo,
             InsuranceProvider_Name : insurancePlans[+insuranceChoice].InsuranceProvider_Name,
            })
        }
        else if(orderInfo2.Option === "Rent"){
+        let nextWeek = new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate()+7);
+        let nextWeekDay = String(nextWeek.getDate()).padStart(2, '0')
+        let  nextWeekMonth = String(nextWeek.getMonth() + 1).padStart(2, '0')
+        let nextWeekYear = nextWeek.getFullYear()
+        let nextWeekString = nextWeekYear + '-' +nextWeekMonth + '-' + nextWeekDay 
         await axios.post("http://localhost:8000/rentaldetail/",{
-            OrderDate: d.getDate(),
-            CardNo:paymentInfo.cardNo,
+            OrderDate: todayDateString,
+            CardNo:paymentInfo.CardNo,
             User_Email:localStorage.getItem("username"),
             Quantity:orderInfo2.Stock,
-            RentAmt:insurancePlans[+insuranceChoice].Price + orderInfo2.Price,
+            RentAmt:totalPrice,
             PolicyNo: insurancePlans[+insuranceChoice].PolicyNo,
             InsuranceProvider_Name : insurancePlans[+insuranceChoice].InsuranceProvider_Name, 
-            StartDate : d.getDate(),
-            EndDate: d.getDate()+7,
+            StartDate : todayDateString,
+            EndDate: nextWeekString,
             Book_ID:orderInfo2.BookID,
             CardNo:paymentInfo.CardNo
             

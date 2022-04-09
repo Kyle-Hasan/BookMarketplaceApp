@@ -46,6 +46,9 @@ function LocationForm({setWriteReview,setReviews}) {
 
     }
  }
+ if(localStorage.getItem("AdminFlag") !== "true"){
+    return <><Navbar /><div>You can't view this</div></>
+  }
   return (
     <>
     <Navbar/>

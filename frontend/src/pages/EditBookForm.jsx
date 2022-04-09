@@ -83,9 +83,10 @@ function EditBookForm() {
  const authorsChange = (e)=>{
     
  }
- if(!localStorage.getItem("username")){
-    return <><Navbar /><div>You arent logged in</div></>
+ if(localStorage.getItem("AdminFlag") !== "true"){
+    return <><Navbar /><div>You can't view this</div></>
   }
+  
   return (
     <><Navbar />
       <div className = "container">

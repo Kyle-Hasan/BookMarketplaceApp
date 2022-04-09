@@ -3,8 +3,9 @@ import Navbar from '../components/Navbar'
 import {useState} from 'react'
 import Axios from 'axios'
 import axios from 'axios'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 function BookForm() {
+ const navigate = useNavigate()
  const [error,setError] = useState("")
  const [authors,setAuthors] = useState([
      {
@@ -87,10 +88,11 @@ function BookForm() {
                  Book_Genre: genres[i]
              })
          }
-         Navigate('/confirmAddBook')
+         navigate('/confirmAddBook')
      }
 
      catch(error){
+         console.log(error)
         setError("Error adding this book")
      }
     
