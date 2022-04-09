@@ -47,17 +47,18 @@ function Checkout() {
    const placeOrder = async(e)=>{
        let d = new Date()
        try{
-       if(orderInfo2.Option === "buy"){
-           await axios.post("http://localhost:8000/purchasedetail",{
+       if(orderInfo2.Option === "Buy"){
+           await axios.post("http://localhost:8000/purchasedetail/",{
             OrderDate: d.getDate(),
             CardNo:paymentInfo.cardNo,
             User_Email:localStorage.getItem("username"),
             Quanity:orderInfo2.Stock,
             PurchaseAmt:orderInfo.currentPrice,
+            BookID:orderInfo2.BookID
            })
        }
-       else if(orderInfo2.Option === "rent"){
-        await axios.post("http://localhost:8000/rentaldetail",{
+       else if(orderInfo2.Option === "Rent"){
+        await axios.post("http://localhost:8000/rentaldetail/",{
             OrderDate: d.getDate(),
             CardNo:paymentInfo.cardNo,
             User_Email:localStorage.getItem("username"),
@@ -66,7 +67,9 @@ function Checkout() {
             Policy_no: insurancePlans[+insuranceChoice].PolicyNo,
             InsuranceProvider_Name : insurancePlans[+insuranceChoice].InsuranceProvider_Name, 
             StartDate : d.getDate(),
-            EndDate: d.getDate()+7
+            EndDate: d.getDate()+7,
+            Book_ID:orderInfo2.BookID,
+            CardNo:paymentInfo.cardNo
             
 
 

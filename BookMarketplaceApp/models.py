@@ -1,4 +1,6 @@
 from asyncio.windows_events import NULL
+from datetime import datetime
+from email.policy import default
 from django.db import models
 from django.forms import CharField, EmailField
 
@@ -8,6 +10,8 @@ class Login(models.Model):
     
     def _str_(self):
         return self.Email
+
+
 
 class Payment(models.Model):
     CardNo = models.IntegerField(primary_key=True)
@@ -93,7 +97,7 @@ class Rental_Detail(models.Model):
     Book_ID = models.OneToOneField(Book, on_delete=models.CASCADE)
     Policy_no = models.OneToOneField(InsurancePlan, on_delete=models.CASCADE)
     Quantity = models.IntegerField()
-    StartDate = models.DateField()
+    StartDate = models.DateField(default= datetime.now())
     EndDate = models.DateField()
     RentAmt = models.IntegerField()
     InsuranceProvider_Name = models.CharField(max_length=50)
