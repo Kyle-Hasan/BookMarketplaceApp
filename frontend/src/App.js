@@ -38,7 +38,7 @@ function App() {
           <Route path= "/books" element = {<AllBooks/>}/>
           <Route path= "/about" element = {<About/>}/>
           <Route path= "/editUser" element = {<EditUserForm/>}/>
-          <Route path = "/editBook" element = {<EditBookForm/>}/>
+          <Route path = "/editBook/:id" element = {<EditBookForm/>}/>
           <Route path = "/confirmAddBook" element = {<ConfirmBook/>}/>
           <Route path = "/addInsurancePlan" element = {<InsurancePlanForm/>}/>
           <Route path = "/addInsuranceProvider" element = {<InsuranceProviderForm/>}/>

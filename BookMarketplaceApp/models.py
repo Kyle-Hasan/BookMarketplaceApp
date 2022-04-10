@@ -3,7 +3,7 @@ import datetime
 from email.policy import default
 from django.db import models
 from django.forms import CharField, EmailField
-
+from django.utils import timezone
 class Login(models.Model):
     User_Email = models.CharField(primary_key=True, max_length=50)
     Password = models.CharField(max_length=50)
@@ -91,20 +91,20 @@ class Book(models.Model):
 
 class Rental_Detail(models.Model):
     OrderID = models.AutoField(primary_key=True)
-    OrderDate = models.DateField(default=datetime.date.today())
+    OrderDate = models.DateField(default=timezone.now())
     CardNo = models.ForeignKey(Payment, on_delete=models.CASCADE)
     User_Email = models.ForeignKey(Login, on_delete=models.CASCADE)
     BookID = models.ForeignKey(Book, on_delete=models.CASCADE)
     Policy_no = models.ForeignKey(InsurancePlan, on_delete=models.CASCADE)
     Quantity = models.IntegerField()
-    StartDate = models.DateField(default=datetime.date.today())
+    StartDate = models.DateField(default=timezone.now())
     EndDate = models.DateField()
     RentAmt = models.IntegerField()
     InsuranceProvider_Name = models.CharField(max_length=50)
 
 class Purchase_Detail(models.Model):
     OrderID = models.AutoField(primary_key=True)
-    OrderDate = models.DateField(default=datetime.date.today())
+    OrderDate = models.DateField(default=timezone.now())
     CardNo = models.ForeignKey(Payment, on_delete=models.CASCADE)
     User_Email = models.ForeignKey(Login, on_delete=models.CASCADE)
     BookID = models.ForeignKey(Book, on_delete=models.CASCADE)

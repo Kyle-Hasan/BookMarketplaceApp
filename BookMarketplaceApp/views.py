@@ -173,6 +173,38 @@ class BookView(APIView):
         new_book.save()
         return Response(new_book.BookID, status=status.HTTP_201_CREATED)
 
+    def patch(self, request, *args, **kwargs):
+        if request.GET:
+            book_id = request.GET['BookID']
+            book_data = request.data
+            p2 = Publisher.objects.get(Name=book_data['Publisher_Name'])
+            b = Book.objects.get(BookID=book_id)
+            b.ReleaseYear=book_data['ReleaseYear']
+            b.PageCount=book_data['PageCount']
+            b.RentPrice=book_data['RentPrice']
+            b.Title=book_data['Title']
+            b.SalePrice=book_data['SalePrice']
+            b.Rating=book_data['Rating']
+            b.Stock=book_data['Stock']
+            b.Damage=book_data['Damage']
+            b.LocationID=book_data['LocationID']
+            b.Image=book_data['Image']
+            b.Publisher_Name=p2
+            b.save()
+            serializer = BookSerializer(b, many=False)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        
+
+        else:
+            return Response("",status=status.HTTP_404_NOT_FOUND)
+    
+    def delete(self,request,*args,**kwargs):
+        book_id = request.GET
+        b = Book.objects.get(BookID=book_id)
+        b.delete()
+        return Response("", status=status.HTTP_200_OK)
+        
+
 class GenreView(APIView):
     serializer_class = GenreSerializer
     # add genre to book
@@ -201,6 +233,10 @@ class GenreView(APIView):
                 genres.append(val.BookGenre)
         
         return Response(genres, status=status.HTTP_200_OK)
+    #delete genre
+    def delete(self,request,*args,**kwargs):
+        print(request.GET)
+
     
 class PublisherView(APIView):
     serializer_class = PublisherSerializer

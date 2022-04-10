@@ -2,7 +2,12 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import {useState} from 'react'
 import Axios from 'axios'
+import {useNavigate,useParams} from 'react-router-dom'
+import { useEffect } from 'react'
+import axios from 'axios'
 function EditBookForm() {
+let { id } = useParams()
+const navigate=  useNavigate()
  const [error,setError] = useState("")
  const [authors,setAuthors] = useState([
      {
@@ -32,7 +37,7 @@ function EditBookForm() {
      SalePrice:0,
      Image:"",
      PublisherName:"",
-     AuthorID:""
+     
  })
  const onChangeAuthorText= (e)=>{
      setAuthorText(e.target.value)
@@ -83,9 +88,24 @@ function EditBookForm() {
  const authorsChange = (e)=>{
     
  }
+
+ useEffect(()=>{
+     let isMounted = true
+     let fetchData = async()=>{
+         if(localStorage.getItem("AdminFlag") !== "true"){
+             return
+         }
+
+         const data = await axios.post("http://localhost:8000/")
+
+     }
+     fetchData()
+     return ()=>{isMounted=false}
+ })
  if(localStorage.getItem("AdminFlag") !== "true"){
     return <><Navbar /><div>You can't view this</div></>
   }
+ 
   
   return (
     <><Navbar />
