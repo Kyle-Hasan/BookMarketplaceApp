@@ -264,9 +264,24 @@ class PublisherView(APIView):
         p.save()
         return Response(p.Name, status=status.HTTP_201_CREATED)
     def get(self,request,*args,**kwargs):
-        all_publishers = Publisher.objects.all()
-        serializer = PublisherSerializer(all_publishers,many=True)
-        return Response(serializer.data,status=status.HTTP_200_OK)
+
+        # get all books published by publisher
+        if "Publisher_Name" in request.GET:
+            publishers = []
+            books = Book.objects.filter(Publisher_Name=request.GET['Publisher_Name'])
+            for b in books:
+                book = {
+                    "BookID": b.BookID,
+                    "Title": b.Title,
+                    "Rating": b.Rating
+                }
+                publishers.append(book)
+            return Response(publishers, status=status.HTTP_200_OK)
+        # get all publishes
+        else:
+            all_publishers = Publisher.objects.all()
+            serializer = PublisherSerializer(all_publishers,many=True)
+            return Response(serializer.data,status=status.HTTP_200_OK)
 
 class AuthorView(APIView):
     serializer_class = AuthorSerializer
@@ -296,7 +311,15 @@ class AuthorView(APIView):
                 authors.append(serializer.data)
 
             return Response(authors, status=status.HTTP_200_OK)
-            
+        elif "FName" in request.GET and "LName" in request.GET:
+            auts = Author.objects.filter(FName=request.GET['FName'], LName = request.GET['LName'])
+
+            authors = []
+            for a in auts:
+                serializer = AuthorSerializer(a, many=False)
+                authors.append(serializer.data)
+                 
+            return Response(authors, status=status.HTTP_200_OK)
         else:
             authors = Writes.objects.filter()
             serializer = AuthorSerializer(authors,many=True)

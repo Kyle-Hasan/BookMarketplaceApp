@@ -42,5 +42,6 @@ urlpatterns = [
     path("location/",LocationView.as_view()),
     path("review/book/", ReviewView.as_view()),
     path("writes/", WritesView.as_view()),
-    path("books/author/", WritesView.as_view())
+    path("books/author/", WritesView.as_view()),
+    path("books/publisher/", PublisherView.as_view())
 ]
