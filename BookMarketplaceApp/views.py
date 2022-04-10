@@ -1,8 +1,8 @@
 from pickle import FALSE
 from urllib import response
 from django.shortcuts import render
-from .serializers import BookSerializer, LoginSerializer, UserSerializer, PublisherSerializer, GenreSerializer, AuthorSerializer, PaymentSerializer, RentalDetailSerializer, PurchaseDetailSerializer, InsurancePlanSerializer, InsuranceProviderSerializer, LocationSerializer
-from .models import InsuranceProvider, Location, Login, Payment, Publisher, User, Wants, Book, Book_Genres, Author, Rental_Detail, Purchase_Detail, InsurancePlan, InsuranceProvider, Location
+from .serializers import BookSerializer, LoginSerializer, UserSerializer, PublisherSerializer, GenreSerializer, AuthorSerializer, PaymentSerializer, RentalDetailSerializer, PurchaseDetailSerializer, InsurancePlanSerializer, InsuranceProviderSerializer, LocationSerializer, ReviewSerializer
+from .models import InsuranceProvider, Location, Login, Payment, Publisher, User, Wants, Book, Book_Genres, Author, Rental_Detail, Purchase_Detail, InsurancePlan, InsuranceProvider, Location, Review
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from BookMarketplaceApp import serializers
@@ -136,7 +136,7 @@ class BookView(APIView):
 
     # returns one or all the books
     def get(self, request, *args, **kwargs):
-        print(request.GET)
+        #print(request.GET)
         # if request.GET is not empty return 1 book specified by request.GET
         if request.GET:
             book_id = request.GET
@@ -483,6 +483,31 @@ class InsurancePlanView(APIView):
             serializer = InsurancePlanSerializer(insurancePlans,many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ReviewView(APIView):
+    serializer_class = ReviewSerializer
+
+    def get(self, request, *args, **kwargs):
+        if request.GET:
+            reviews = Review.objects.filter(BookID=request.GET['BookID'])
+            num_of_reviews = Review.objects.filter(BookID=request.GET['BookID']).count()
+            #print(num_of_reviews)
+            serializer = ReviewSerializer(reviews, many=True)
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response("", status=status.HTTP_400_BAD_REQUEST)
+
+    def post(self, request, *args, **kwargs):
+        review_data = request.data
+        book = Book.objects.get(BookID=review_data['BookID'])
+        user = User.objects.get(Email=review_data['User_Email'])
+
+        new_review = Review(BookID=book, User_Email=user, Rating=review_data['Rating'], Comment=review_data['Comment'])
+        new_review.save()
+
+        return Response("Review added for book", status=status.HTTP_201_CREATED)
 
 
 def BookMarketplaceApp(request):

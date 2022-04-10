@@ -114,10 +114,13 @@ class Purchase_Detail(models.Model):
     InsuranceProvider_Name = models.CharField(max_length=50)
 
 class Review(models.Model):
-    BookID = models.OneToOneField(Book, primary_key=True, on_delete=models.CASCADE)
+    Review_ID = models.AutoField(primary_key=True)
+    BookID = models.ForeignKey(Book, on_delete=models.CASCADE)
     User_Email = models.ForeignKey(User, on_delete=models.CASCADE)
     Rating = models.IntegerField()
     Comment = models.CharField(max_length=100)
+    class Meta:
+        unique_together = ('BookID', 'User_Email')
 
 #class Assigned_to_order(models.Model):
 #    Book_ID = models.OneToOneField(Book, primary_key=True, on_delete=models.CASCADE)

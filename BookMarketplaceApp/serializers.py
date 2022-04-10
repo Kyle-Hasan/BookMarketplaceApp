@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book, Book_Genres, InsurancePlan, Login, Payment, Publisher, Author, Purchase_Detail, Rental_Detail, Purchase_Detail, InsurancePlan, InsuranceProvider, Location
+from .models import Book, Book_Genres, InsurancePlan, Login, Payment, Publisher, Author, Purchase_Detail, Rental_Detail, Purchase_Detail, InsurancePlan, InsuranceProvider, Location, Review
 from .models import User
 
 class LoginSerializer(serializers.ModelSerializer):
@@ -63,3 +63,7 @@ class LocationSerializer(serializers.ModelSerializer):
         model = Location
         fields = ("LocationID","Country","City","StreetNum","PostalCode")
         
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ("BookID", "User_Email", "Rating", "Comment")
