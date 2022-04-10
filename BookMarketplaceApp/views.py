@@ -1,8 +1,6 @@
-from pickle import FALSE
-from urllib import response
 from django.shortcuts import render
 from .serializers import BookSerializer, LoginSerializer, UserSerializer, PublisherSerializer, GenreSerializer, AuthorSerializer, PaymentSerializer, RentalDetailSerializer, PurchaseDetailSerializer, InsurancePlanSerializer, InsuranceProviderSerializer, LocationSerializer, ReviewSerializer
-from .models import InsuranceProvider, Location, Login, Payment, Publisher, User, Wants, Book, Book_Genres, Author, Rental_Detail, Purchase_Detail, InsurancePlan, InsuranceProvider, Location, Review
+from .models import InsuranceProvider, Location, Login, Payment, Publisher, User, Wants, Book, Book_Genres, Author, Rental_Detail, Purchase_Detail, InsurancePlan, InsuranceProvider, Location, Review, Writes
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from BookMarketplaceApp import serializers
@@ -274,15 +272,50 @@ class AuthorView(APIView):
 
     def get(self,request,*args,**kwargs):
         #get author by ID
-        if "AuthorID" in request.GET:
-            author_to_return = Author.objects.get(BookID=request.GET['BookID'])
-            serializer = AuthorSerializer(author_to_return, many=False)
-        
+        if "BookID" in request.GET:
+            writes = Writes.objects.filter(Book_ID=request.GET['BookID'])
+
+            authors = []
+            for w in writes:
+                #print(w)
+                serializer = AuthorSerializer(w.Author_ID, many=False)
+                authors.append(serializer.data)
+
+            return Response(authors, status=status.HTTP_200_OK)
+            
         else:
-            authors = Author.objects.all()
+            authors = Writes.objects.filter()
             serializer = AuthorSerializer(authors,many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class WritesView(APIView):
+    def post(self, request, *args, **kwargs):
+        writes_data = request.data
+        book = Book.objects.get(BookID=writes_data['BookID'])
+        author = Author.objects.get(AuthorID=writes_data['AuthorID'])
+        new_writes = Writes(Book_ID=book, Author_ID=author)
+        new_writes.save()
+        return Response("Author assigned to book", status=status.HTTP_200_OK)
+
+    # get all books for an author
+    def get(self, request, *args, **kwargs):
+        if "AuthorID" in request.GET:
+            writes = Writes.objects.filter(Author_ID=request.GET['AuthorID'])
+
+            books = []
+            for w in writes:
+                serializer = BookSerializer(w.Book_ID, many=False)
+                book = {
+                    "BookID": serializer.data['BookID'], 
+                    "Title": serializer.data['Title'],
+                    "Rating": serializer.data['Rating']
+                    }
+                books.append(book)
+
+            return Response(books, status=status.HTTP_200_OK)
+        else:
+            return Response("", status=status.HTTP_400_BAD_REQUEST)
 
 
 class PaymentView(APIView):

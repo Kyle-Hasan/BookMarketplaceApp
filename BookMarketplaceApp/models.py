@@ -134,8 +134,11 @@ class Review(models.Model):
    # Publisher_Name = models.OneToOneField(Publisher, on_delete=models.CASCADE)
 
 class Writes(models.Model):
-    Book_ID = models.OneToOneField(Book, primary_key=True, on_delete=models.CASCADE)
-    Author_ID = models.OneToOneField(Author, on_delete=models.CASCADE)
+    Writes_ID = models.AutoField(primary_key=True)
+    Book_ID = models.ForeignKey(Book, on_delete=models.CASCADE)
+    Author_ID = models.ForeignKey(Author, on_delete=models.CASCADE)
+    class Meta:
+        unique_together = ('Book_ID', 'Author_ID')
 
 class Wants(models.Model):
     Book_ID = models.OneToOneField(Book, primary_key=True, on_delete=models.CASCADE)
