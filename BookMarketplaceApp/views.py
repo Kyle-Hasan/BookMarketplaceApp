@@ -264,6 +264,7 @@ class PublisherView(APIView):
         p.save()
         return Response(p.Name, status=status.HTTP_201_CREATED)
     def get(self,request,*args,**kwargs):
+<<<<<<< Updated upstream
 
         # get all books published by publisher
         if "Publisher_Name" in request.GET:
@@ -282,6 +283,11 @@ class PublisherView(APIView):
             all_publishers = Publisher.objects.all()
             serializer = PublisherSerializer(all_publishers,many=True)
             return Response(serializer.data,status=status.HTTP_200_OK)
+=======
+        all_publishers = Publisher.objects.all()
+        serializer = PublisherSerializer(all_publishers,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+>>>>>>> Stashed changes
 
 class AuthorView(APIView):
     serializer_class = AuthorSerializer
