@@ -16,8 +16,9 @@ const navigate=  useNavigate()
      }
  ])
  const [genres,setGenres] = useState([
-     "horror",
-     "comedy"
+ ])
+ const [originalGenres,setOrginalGenres] = useState([
+
  ])
  const [addAuthor,setAddAuthor] = useState(false)
  const [authorText,setAuthorText] = useState("")
@@ -59,9 +60,50 @@ const navigate=  useNavigate()
     })
   
   }
- const onSubmit = (e)=>{
+ const onSubmit = async(e)=>{
      e.preventDefault()
-    
+    try{
+        const data = await axios.patch(`http://localhost:8000/book/?BookID=${id}`,bookInfo)
+
+        setBookInfo(data.data)
+
+        let genresToDelete = []
+        for(let genre of originalGenres){
+           const found = genres.find(element => element===genre)
+           if(!found){
+               genresToDelete.push(genre)
+           }
+        }
+
+        for(let genre of genresToDelete){
+            await axios.delete("http://localhost:8000/genre/book",{
+                params:{
+                    BookID:id,
+                    BookGenre:genre
+
+                }
+            })
+
+        }
+
+        for(let genre of genres){
+            if(!originalGenres.find(element=>element===genre)){
+                await axios.post('http://localhost:8000/genre/book',{
+                    data:{
+                        BookID:id,
+                        BookGenre:genre
+                    }
+                })
+            }
+        }
+
+        navigate("/")
+
+    }
+    catch(e){
+        console.log(e)
+        setError("Error")
+    }
 
  }
  const saveGenre = (e)=>{
@@ -95,13 +137,31 @@ const navigate=  useNavigate()
          if(localStorage.getItem("AdminFlag") !== "true"){
              return
          }
-
-         const data = await axios.post("http://localhost:8000/")
-
+         try{
+            const data = await axios.get('http://localhost:8000/book/',{
+                params: {
+                  BookID:id
+                }
+              })
+         const g = await axios.get("http://localhost:8000/genre/book/",{
+             params:{
+                 BookID:id
+             }
+         })
+         if(isMounted){
+         console.log(data.data)
+         setBookInfo(data.data)
+         setGenres(g.data)
+         setOrginalGenres(g.data)
+         }
+        }
+        catch(err){
+            console.log(error)
+        }
      }
      fetchData()
      return ()=>{isMounted=false}
- })
+ },[])
  if(localStorage.getItem("AdminFlag") !== "true"){
     return <><Navbar /><div>You can't view this</div></>
   }
@@ -213,7 +273,7 @@ const navigate=  useNavigate()
             
             <button className='btn btn-primary' onClick = {!addGenre ? genreButton : saveGenre}>{!addGenre ? "Add genre" : "Save genre"}</button>
             {addGenre && <><label htmlFor="Genre" className="form-label">Rating </label><input onChange={onChangeGenreText} value={genreText} type="text" className="w-50 form-control" id="Genre" /></> }
-          <button type="submit" className="btn btn-secondary">Submit</button>
+          <button type="submit" onClick = {onSubmit} className="btn btn-secondary">Submit</button>
       </form>
      {error.length !== 0 && <p className='mt-1 text-danger'>{error}</p>}
      

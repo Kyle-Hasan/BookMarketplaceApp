@@ -27,7 +27,7 @@ content-type: application/json
     
 }
 ###
-POST http://localhost:8080/book/
+POST http://localhost:8000/book/
 content-type: application/json
 
 {
@@ -87,4 +87,23 @@ GET http://localhost:8000/genre/book/?BookID=2
 
 GET http://localhost:8000/payment/?User_Email=yor@gmail.com
 
+
+###
+PATCH  http://localhost:8000/book/?BookID=9
+content-type: application/json
+
+{
+    "ReleaseYear":2004,
+    "PageCount":1532,
+    "RentPrice":45.7,
+    "Title":"899",
+    "SalePrice":5533,
+    "Rating":355,
+    "Stock":4455,
+    "Damage":"heavy",
+    "LocationID":2,
+    "Image":"https://i.pinimg.com/originals/2c/25/28/2c2528244450fcf743ac2eff3b9f914d.jpg",
+    "Publisher_Name":"Yae publishing house"
+
     
+}

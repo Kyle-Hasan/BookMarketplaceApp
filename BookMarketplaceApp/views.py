@@ -199,7 +199,7 @@ class BookView(APIView):
             return Response("",status=status.HTTP_404_NOT_FOUND)
     
     def delete(self,request,*args,**kwargs):
-        book_id = request.GET
+        book_id = request.GET['BookID']
         b = Book.objects.get(BookID=book_id)
         b.delete()
         return Response("", status=status.HTTP_200_OK)
@@ -210,8 +210,8 @@ class GenreView(APIView):
     # add genre to book
     def post(self, request, *args, **kwargs):
         
-        book_id = request.data['BookID']
-        book_genre = request.data['Book_Genre']
+        book_id = request.data['Book_ID']
+        book_genre = request.data['BookGenre']
             
         book = Book.objects.get(BookID=book_id)
         new_genre = Book_Genres(Book_ID=book, BookGenre=book_genre)
@@ -221,12 +221,13 @@ class GenreView(APIView):
 
     # returns genres of book
     def get(self, request, *args, **kwargs):
+        genres = []
         if request.GET:
             book_id = request.GET['BookID']
             print(book_id)
             print(Book_Genres.objects.all())
             book_genres = Book_Genres.objects.all().filter(Book_ID=book_id)
-            genres = []
+            
             print(book_genres)
             for val in book_genres:
                 print(val)
@@ -236,6 +237,9 @@ class GenreView(APIView):
     #delete genre
     def delete(self,request,*args,**kwargs):
         print(request.GET)
+        g = Book_Genres.objects.get(BookID=request.GET['BookID'],BookGenres=request.GET['BookGenre'])
+        g.delete()
+        return Response("", status=status.HTTP_200_OK)
 
     
 class PublisherView(APIView):
