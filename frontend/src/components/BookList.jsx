@@ -1,9 +1,11 @@
+import axios from 'axios'
 import React from 'react'
 import {Link} from 'react-router-dom'
 import Navbar from './Navbar'
 function BookList({books,setBooks}) {
     console.log(books)
-    const deleteBook = (e)=>{
+    const deleteBook = async(e)=>{
+        try{
         const toBeDeleted = +e.target.value
 
         let copy = books.filter((book)=>{
@@ -11,6 +13,14 @@ function BookList({books,setBooks}) {
         })
         setBooks(copy)
         books =copy
+        await axios.delete("http://localhost:8000/book/",{
+            params:{
+                BookID:toBeDeleted}
+        })
+    }
+    catch(error){
+        console.log(error)
+    }
     }
   if(books.length === 0){
    return(   <div>

@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom'
 function OrderList({purchases,rentals}) {
   return (
     <><table class="table table-dark mt-1">
-          <caption> Purchases</caption>
+        
           <thead>
+          <caption> Purchases</caption>
               <tr>
                   <th>Order ID</th>
                   <th>Order Date</th>
@@ -17,22 +18,23 @@ function OrderList({purchases,rentals}) {
               </tr>
           </thead>
           <tbody>
-              {purchases.map((order) => {
+              {purchases.map((order) => (
                   <tr>
                       <td>{order.OrderID}</td>
                       <td>{order.OrderDate}</td>
-                      <td>{order.Stock}</td>
+                      <td>{order.Quantity}</td>
                       <td><Link to={`/Book/${order.BookID}`}>{order.BookID}</Link></td>
-                      <td>{order.Policy_No}</td>
-                      <td>{order.ProviderName}</td>
+                      <td>{order.Policy_no}</td>
+                      <td>{order.InsuranceProvider_Name}</td>
 
                       <td>{order.PurchaseAmt}</td>
                   </tr>
-              })}
+              ))}
           </tbody>
       </table><table class="table table-dark mt-1">
-              <caption> Rentals</caption>
+              
               <thead>
+              <caption> Rentals</caption>
                   <tr>
                       <th>Order ID</th>
                       <th>Order Date</th>
@@ -46,20 +48,20 @@ function OrderList({purchases,rentals}) {
                   </tr>
               </thead>
               <tbody>
-                  {rentals.map((order) => {
+                  {rentals.map((order) => (
                       <tr>
                           <td>{order.OrderID}</td>
                           <td>{order.OrderDate}</td>
-                          <td>{order.Stock}</td>
+                          <td>{order.Quantity}</td>
                           <td><Link to={`/Book/${order.BookID}`}>{order.BookID}</Link></td>
-                          <td>{order.Policy_No}</td>
-                          <td>{order.ProviderName}</td>
+                          <td>{order.Policy_no}</td>
+                          <td>{order.InsuranceProvider_Name}</td>
 
-                          <td>{order.PurchaseAmt}</td>
+                          <td>{order.RentAmt}</td>
                           <td>{order.StartDate}</td>
                           <td>{order.EndDate}</td>
                       </tr>
-                  })}
+                  ))}
               </tbody>
           </table></>
   )

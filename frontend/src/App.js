@@ -20,6 +20,7 @@ import ConfirmBook from './pages/ConfirmBook';
 import InsurancePlanForm from './pages/InsurancePlanForm'
 import InsuranceProviderForm from './pages/InsuranceProviderForm'
 import LocationForm from './pages/LocationForm'
+import ShowOrders from './pages/ShowOrders';
 function App() {
   return (
     <div className="App">
@@ -43,6 +44,7 @@ function App() {
           <Route path = "/addInsurancePlan" element = {<InsurancePlanForm/>}/>
           <Route path = "/addInsuranceProvider" element = {<InsuranceProviderForm/>}/>
           <Route path = "/addLocation" element = {<LocationForm/>}/>
+          <Route path = "/orders" element = {<ShowOrders/>}/>
           
         </Routes>
    

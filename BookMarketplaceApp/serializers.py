@@ -66,4 +66,4 @@ class LocationSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ("BookID", "User_Email", "Rating", "Comment")
+        fields = ("BookID", "User_Email", "Rating", "Comment","Review_ID")

@@ -41,4 +41,5 @@ urlpatterns = [
     path("insuranceprovider/", InsuranceProviderView.as_view()),
     path("location/",LocationView.as_view()),
     path("review/book/", ReviewView.as_view())
+   
 ]

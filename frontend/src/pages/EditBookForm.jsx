@@ -172,7 +172,7 @@ const navigate=  useNavigate()
       <div className = "container">
           <div class = "card mt-4">
           <div class="card-header">
-          <h1 className = "mb-3">Add Book</h1>
+          <h1 className = "mb-3">Edit Book</h1>
           </div>
           <div class = "card-body">
       <form onSubmit={onSubmit} >

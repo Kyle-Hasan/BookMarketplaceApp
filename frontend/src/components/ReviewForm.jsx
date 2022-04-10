@@ -1,12 +1,12 @@
 import React from 'react'
 import Navbar from './Navbar'
 import {useState} from 'react'
-import Axios from 'axios'
-function ReviewForm({setWriteReview,setReviews}) {
+import axios from 'axios'
+function ReviewForm({setWriteReview,setReviews,id}) {
  const [error,setError] = useState("")
  const [formInfo,setFormInfo] = useState({
      rating:0,
-     review:"",
+     comment:"",
      
  })
  const onChange= (e) => {
@@ -21,24 +21,35 @@ function ReviewForm({setWriteReview,setReviews}) {
     
   
   }
- const onSubmit = (e)=>{
+ const onSubmit = async(e)=>{
      e.preventDefault()
-    if(formInfo.review.length === 0){
+    if(formInfo.comment.length === 0){
         setError("No field can be blank")
         return
     }
-   setWriteReview(false)
+  await axios.post("http://localhost:8000/review/book/",{
+        Rating:formInfo.rating,
+        Comment:formInfo.comment,
+        BookID:id,
+        User_Email:localStorage.getItem("username")
+  })
+   try{setWriteReview(false)
    setReviews((oldState)=>{
        let copy = oldState.slice()
        copy.push({
-           review: formInfo.review,
+           review: formInfo.comment,
            rating: formInfo.rating,
            date:new Date().toLocaleDateString(),
            username: localStorage.getItem("username"),
-           ID:7
+           BookID:7
        })
        return copy
    })
+  }
+  catch(e){
+    console.log(e)
+    setError("error or you already reviewed this book")
+  }
 
  }
   return (
@@ -58,9 +69,9 @@ function ReviewForm({setWriteReview,setReviews}) {
 
           </div>
           <div className="mb-3 ">
-              <label htmlFor="review" className="form-label">Review</label>
+              <label htmlFor="comment" className="form-label">Comment</label>
               <div className = "d-flex justify-content-center ">
-              <textarea onChange = {onChange} value = {formInfo.review} className=" w-50 form-control" id="review" />
+              <textarea onChange = {onChange} value = {formInfo.comment} className=" w-50 form-control" id="comment" />
               </div>
           </div>
           

@@ -1,16 +1,19 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
 import {useState} from 'react'
-import Axios from 'axios'
+
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 function AuthorForm() {
  const [error,setError] = useState("")
  const [formInfo,setFormInfo] = useState({
      NumBooks :0,
      Fname:"",
      Lname: "",
-     DateDied:"",
+     
 
  })
+ const navigate = useNavigate()
  const onChange= (e) => {
  
     setFormInfo((oldState) => {
@@ -21,8 +24,23 @@ function AuthorForm() {
     })
   
   }
- const onSubmit = (e)=>{
+ const onSubmit = async(e)=>{
      e.preventDefault()
+     try{
+     await axios.post("http://localhost:8000/author",{
+        data:{
+            FName:formInfo.Fname,
+            LName:formInfo.Lname,
+            NumBooks:formInfo.NumBooks
+        }
+     })
+     navigate("/")
+    }
+    catch(err){
+        console.log(err)
+        setError("something went wrong")
+
+    }
     
 
  }
@@ -57,12 +75,7 @@ function AuthorForm() {
               </div>
           </div>
 
-          <div className="mb-3 ">
-              <label htmlFor="DateDied" className="form-label">Year died(if applicable)</label>
-              <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value = {formInfo.DateDied} min= "0" type="number" className=" w-50 form-control" id="DateDied" />
-              </div>
-              </div>
+          
           <button type="submit" className="btn btn-secondary">Submit</button>
       </form>
      {error.length !== 0 && <p className='mt-1 text-danger'>{error}</p>}

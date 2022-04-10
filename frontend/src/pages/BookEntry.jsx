@@ -16,7 +16,7 @@ function BookEntry() {
     Title: "Title of book ",
     releaseYear: 0,
     pageCount: 0,
-    description:
+    Description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     rentPrice: 8,
     salePrice: 9,
@@ -34,11 +34,7 @@ function BookEntry() {
   const [authors,setAuthors] = useState([])
   const [genres,setGenres] = useState([])
   const [reviews,setReviews] = useState([{
-    username: "username",
-    rating:10,
-    review:"dkdkdkdk",
-    date:"8/3/2001",
-    ID:3
+    
   }])
 
   const [editText,setEditText] = useState("")
@@ -47,7 +43,7 @@ function BookEntry() {
   const changeQuanity = (e) => {
     setQuanity(e.target.value);
     console.log("hi");
-    if (checkoutOption) {
+    if (checkoutOption === "Buy") {
       setTotalPrice(e.target.value * bookInfo.SalePrice);
     } else {
       setTotalPrice(e.target.value * bookInfo.RentPrice);
@@ -159,11 +155,18 @@ function BookEntry() {
           BookID:id
         }
       })
+      const data3 = await axios.get('http://localhost:8000/review/book/',{
+        params:{
+          BookID:id
+        }
+      })
       if(isMounted){
       console.log(data.data)
       setBookInfo(data.data)
       setGenres(data2.data)
       setTotalPrice(data.data.SalePrice)
+      console.log(data3.data)
+      setReviews(data3.data)
       }
 
     }
@@ -294,7 +297,7 @@ function BookEntry() {
           </div>
           <div className="row mt-1 justify-content-center">
             <h6>Reviews </h6>
-            {writeReview ?  <><button onClick={reviewButtonClick} className="btn btn-primary review-button">Cancel</button><ReviewForm setReviews = {setReviews} setWriteReview = {setWriteReview}></ReviewForm></>: <button onClick = {reviewButtonClick}className="btn btn-primary review-button">Add a review</button>}
+            {writeReview ?  <><button onClick={reviewButtonClick} className="btn btn-primary review-button">Cancel</button><ReviewForm id = {id} setReviews = {setReviews} setWriteReview = {setWriteReview}></ReviewForm></>: <button onClick = {reviewButtonClick}className="btn btn-primary review-button">Add a review</button>}
             <ul className = "list-group mt-2" >
              
               
@@ -304,15 +307,15 @@ function BookEntry() {
 
                 <img className = 
                 "img-responsive comment-img me-2"  src = "https://64.media.tumblr.com/8b920a4af835ef5f38deaae90ef2c95c/2e9ae72b084d1dd9-b3/s1280x1920/b8f570cd0c43b41c1c9e42f97518e2953bb060f6.png"/>
-                <a href = "#" className="card-title">{review.username}</a>
+                <a href = "#" className="card-title">{review.User_Email}</a>
                  <div>
                  <span className="card-subtitle mb-2 text-muted pe-4">{review.date}</span>
-                 <span className = "card-subtitle mb-2 text-muted">Rating: {review.rating}</span>
+                 <span className = "card-subtitle mb-2 text-muted">Rating: {review.Rating}</span>
                </div>
                 {localStorage.getItem("username") === review.username && edited===index 
-                ?<input onChange={changeEditText} value = {editText} className="card-text"/> :<p className="card-text">{review.review}</p>}
-                {localStorage.getItem("username") === review.username &&
-                <div className = "d-flex justify-content-center"><button value= {review.ID} onClick={deleteReview} className="btn btn-primary mx-2">Delete</button> 
+                ?<input onChange={changeEditText} value = {editText} className="card-text"/> :<p className="card-text">{review.Comment}</p>}
+                {localStorage.getItem("username") === review.User_Email &&
+                <div className = "d-flex justify-content-center"><button value= {review.Review_ID} onClick={deleteReview} className="btn btn-primary mx-2">Delete</button> 
                 <button value = {index} onClick= {edited ? saveEdit : enableEdit} className="btn btn-primary">{edited ? "Save"  : "Edit"}</button>
                 </div> 
                   }

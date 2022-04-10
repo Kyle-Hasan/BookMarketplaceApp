@@ -79,13 +79,14 @@ function BookForm() {
              Damage:bookInfo.Damage,
              LocationID:bookInfo.locationID,
              Publisher_Name : bookInfo.PublisherName,
-             Image:bookInfo.Image
+             Image:bookInfo.Image,
+             Description:bookInfo.Description
          })
          
          for(let i = 0 ; i < genres.length;i++){
              await axios.post(`http://localhost:8000/genre/book/`,{
                  BookID:data.data,
-                 Book_Genre: genres[i]
+                 BookGenre: genres[i]
              })
          }
          navigate('/confirmAddBook')

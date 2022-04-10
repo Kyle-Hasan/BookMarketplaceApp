@@ -149,7 +149,7 @@ function Navbar() {
                       <Link className="dropdown-item" to="/">
                         Reviews
                       </Link>
-                      <Link className="dropdown-item" to="/">
+                      <Link className="dropdown-item" to="/orders">
                         Orders
                       </Link>
                       <Link className="dropdown-item" to="/editUser">

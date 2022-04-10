@@ -166,6 +166,7 @@ class BookView(APIView):
             Stock=book_data['Stock'],
             Damage=book_data['Damage'],
             LocationID=book_data['LocationID'],
+            Description = book_data['Description'],
             Image=book_data['Image'],
             Publisher_Name=p2,
         )
@@ -182,6 +183,7 @@ class BookView(APIView):
             b.ReleaseYear=book_data['ReleaseYear']
             b.PageCount=book_data['PageCount']
             b.RentPrice=book_data['RentPrice']
+            b.Description = book_data['Description']
             b.Title=book_data['Title']
             b.SalePrice=book_data['SalePrice']
             b.Rating=book_data['Rating']
@@ -210,7 +212,7 @@ class GenreView(APIView):
     # add genre to book
     def post(self, request, *args, **kwargs):
         
-        book_id = request.data['Book_ID']
+        book_id = request.data['BookID']
         book_genre = request.data['BookGenre']
             
         book = Book.objects.get(BookID=book_id)
@@ -337,10 +339,11 @@ class RentalDetailView(APIView):
             Policy_no = i,
             InsuranceProvider_Name = request.data['InsuranceProvider_Name'],
             Quantity = request.data["Quantity"],
+            OrderDate = request.data['OrderDate']
            
             
         )
-        b.Stock = max(b.Stock-request.data["Quantity"],0)
+        b.Stock = max(b.Stock-int(request.data["Quantity"]),0)
         b.save()
         r.save()
         serializer = RentalDetailSerializer(r,many=False)
@@ -348,9 +351,16 @@ class RentalDetailView(APIView):
 
     def get(self,request,*args,**kwargs):
         #get rental detail by order ID
+        print("hello")
+        print(request.GET)
         if "OrderID" in request.GET:
             rental_to_return = Rental_Detail.objects.get(OrderID=request.GET['OrderID'])
             serializer = RentalDetailSerializer(rental_to_return, many=False)
+
+        elif "User_Email" in request.GET:
+            rental_to_return = Rental_Detail.objects.filter(User_Email=request.GET['User_Email'])
+            serializer = RentalDetailSerializer(rental_to_return, many=True)
+            
         else:
             rentals = Rental_Detail.objects.all()
             serializer = RentalDetailSerializer(rentals,many=True)
@@ -380,10 +390,11 @@ class PurchaseDetailView(APIView):
             BookID = b,
             Policy_no = i,
             Quantity = request.data["Quantity"],
+            OrderDate = request.data['OrderDate']
             
             
         )
-        b.Stock = max(b.Stock-request.data["Quantity"],0)
+        b.Stock = max(b.Stock-int(request.data["Quantity"]),0)
         b.save()
         r.save()
         serializer = PurchaseDetailSerializer(r,many=False)
@@ -391,9 +402,13 @@ class PurchaseDetailView(APIView):
 
     def get(self,request,*args,**kwargs):
         #get purchase detail by order ID
+        print(request.GET)
         if "OrderID" in request.GET:
             purchase_to_return = Purchase_Detail.objects.get(OrderID=request.GET['OrderID'])
-            serializer = RentalDetailSerializer(purchase_to_return, many=False)
+            serializer = PurchaseDetailSerializer(purchase_to_return, many=False)
+        elif "User_Email" in request.GET:
+            purchase_to_return = Purchase_Detail.objects.filter(User_Email=request.GET['User_Email'])
+            serializer = PurchaseDetailSerializer(purchase_to_return, many=True)
         else:
             purchases = Purchase_Detail.objects.all()
             serializer = PurchaseDetailSerializer(purchases,many=True)
@@ -510,8 +525,8 @@ class ReviewView(APIView):
 
         new_review = Review(BookID=book, User_Email=user, Rating=review_data['Rating'], Comment=review_data['Comment'])
         new_review.save()
-
-        return Response("Review added for book", status=status.HTTP_201_CREATED)
+        serializer = ReviewSerializer(new_review, many=False)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 def BookMarketplaceApp(request):

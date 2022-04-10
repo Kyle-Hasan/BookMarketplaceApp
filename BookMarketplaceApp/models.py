@@ -91,20 +91,20 @@ class Book(models.Model):
 
 class Rental_Detail(models.Model):
     OrderID = models.AutoField(primary_key=True)
-    OrderDate = models.DateField(default=timezone.now())
+    OrderDate = models.DateField()
     CardNo = models.ForeignKey(Payment, on_delete=models.CASCADE)
     User_Email = models.ForeignKey(Login, on_delete=models.CASCADE)
     BookID = models.ForeignKey(Book, on_delete=models.CASCADE)
     Policy_no = models.ForeignKey(InsurancePlan, on_delete=models.CASCADE)
     Quantity = models.IntegerField()
-    StartDate = models.DateField(default=timezone.now())
+    StartDate = models.DateField()
     EndDate = models.DateField()
     RentAmt = models.IntegerField()
     InsuranceProvider_Name = models.CharField(max_length=50)
 
 class Purchase_Detail(models.Model):
     OrderID = models.AutoField(primary_key=True)
-    OrderDate = models.DateField(default=timezone.now())
+    OrderDate = models.DateField()
     CardNo = models.ForeignKey(Payment, on_delete=models.CASCADE)
     User_Email = models.ForeignKey(Login, on_delete=models.CASCADE)
     BookID = models.ForeignKey(Book, on_delete=models.CASCADE)
