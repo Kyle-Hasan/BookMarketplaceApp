@@ -1,15 +1,16 @@
 import React from 'react'
 import Navbar from './Navbar'
 import {useState, useEffect} from 'react'
-import Axios from 'axios'
+
+import axios from 'axios'
 function EditUserForm() {
  const [error,setError] = useState("")
  const [formInfo,setFormInfo] = useState({
-     DOB:"",
+     DOB:null,
      Address:"",
      FName: "",
      LName:"",
-     AdminFlag:0
+     AdminFlag:"False"
  })
  const onChange= (e) => {
  
@@ -23,15 +24,62 @@ function EditUserForm() {
     
   
   }
- const onSubmit = (e)=>{
+ const onSubmit = async(e)=>{
      e.preventDefault()
-    if(formInfo.cvv.length === 0 || formInfo.address.length === 0 || formInfo.cardNo.length === 0 || formInfo.name.length === 0){
+    
+    if(formInfo.FName.length === 0 || formInfo.Address.length === 0 || formInfo.LName.length === 0 || !formInfo.DOB){
         setError("No field can be blank")
         return
     }
+    try{
+    console.log(formInfo.AdminFlag)
     
+  
+    const userData = await axios.patch("http://localhost:8000/user/",{
+        DOB:formInfo.DOB,
+        FName:formInfo.FName,
+        LName:formInfo.LName,
+        Address:formInfo.Address,
+        AdminFlag:formInfo.AdminFlag,
+        Email:localStorage.getItem("username")
+    })
+    console.log(userData.data)
+    setFormInfo(userData.data)
+    setError("Updated")
+    }
+    catch(e){
+        console.log(e)
+        setError("error")
+    }
 
  }
+ useEffect(()=>{
+     let isMounted = true
+    let fetchData = async()=>{
+    if(!localStorage.getItem("username")){
+        return 
+      }
+      try{
+    const userData = await axios.get("http://localhost:8000/user/",{
+        params:{
+           User_Email: localStorage.getItem("username")
+        }
+    })
+    console.log(userData.data)
+    localStorage.setItem("AdminFlag",userData.data.AdminFlag)
+    if(isMounted){
+    setFormInfo(userData.data)
+    }
+
+}
+catch(e){
+    console.log(e)
+}
+    }
+    fetchData()
+    return ()=>{isMounted=false}
+
+ },[])
  if(!localStorage.getItem("username")){
     return <><Navbar /><div>You arent logged in</div></>
   }
@@ -59,9 +107,9 @@ function EditUserForm() {
               </div>
           </div>
           <div className="mb-3 ">
-              <label htmlFor="Address" className="form-label">Admin flag</label>
+              <label htmlFor="Address" className="form-label">Address</label>
               <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value = {formInfo.Address} type="number" className=" w-50 form-control" id="Address" />
+              <input onChange = {onChange} value = {formInfo.Address} type="text" className=" w-50 form-control" id="Address" />
               </div>
           </div>
           <div className="mb-3 ">
@@ -74,8 +122,8 @@ function EditUserForm() {
               <label htmlFor="AdminFlag" className="form-label">Admin</label>
               <div className = "d-flex justify-content-center ">
               <select onChange = {onChange} value = {formInfo.AdminFlag} type="date" className=" w-50 form-control" id="AdminFlag">
-                  <option value = "0">Not an admin</option>
-                  <option value = "1">Admin</option>
+                  <option value = "False">Not an admin</option>
+                  <option value = "True">Admin</option>
               </select>
               </div>
           </div>

@@ -75,7 +75,7 @@ function Navbar() {
                     </div>
                   </div>
                 </li>
-              {localStorage.getItem("AdminFlag") === "true" && <><li className="nav-item">
+              <li className="nav-item">
                 <div className="dropdown">
                   <a
                     className="nav-link dropdown-toggle"
@@ -87,7 +87,7 @@ function Navbar() {
                   >
                     Insurance
                   </a>
-                  <div className="dropdown-menu" aria-labelledby="triggerId2">
+                  {localStorage.getItem("AdminFlag")==="true" && <div className="dropdown-menu" aria-labelledby="triggerId2">
                     <Link className="dropdown-item" to="/addInsurancePlan">
                       Add Plan
                     </Link>
@@ -95,21 +95,55 @@ function Navbar() {
                       Add Provider
                     </Link>
 
-                  </div>
+                  </div>}
                 </div>
               </li><li className="nav-item">
-                  <Link className="nav-link active" aria-current="page" to="/addPublisher">
-                    Add publisher
+              <div className="dropdown">
+                  <a
+                    className="nav-link dropdown-toggle"
+                    type="button"
+                    id="triggerId2"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Publisher
+                  </a>
+                 <div className="dropdown-menu" aria-labelledby="triggerId2">
+                   {localStorage.getItem("AdminFlag") === "true" &&<><Link className="dropdown-item" to="/addPublisher">
+                      Add Publisher
+                    </Link></>}
+                  <Link className="dropdown-item" to = "/viewPublishers">
+                    View Publishers
                   </Link>
+                  </div>
+                </div>
                 </li><li className="nav-item">
-                  <Link className="nav-link active" aria-current="page" to="/addAuthor">
-                    Add Author
+                <div className="dropdown">
+                  <a
+                    className="nav-link dropdown-toggle"
+                    type="button"
+                    id="triggerId2"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Author
+                  </a>
+                 <div className="dropdown-menu" aria-labelledby="triggerId2">
+                   {localStorage.getItem("AdminFlag") === "true" &&<><Link className="dropdown-item" to="/addAuthor">
+                      Add Author
+                    </Link></>}
+                  <Link className="dropdown-item" to = "/viewAuthors">
+                    View Authors
                   </Link>
+                  </div>
+                </div>
                 </li><li className="nav-item">
                   <Link className="nav-link active" aria-current="page" to="/addLocation">
                     Add Location
                   </Link>
-                </li></>}
+                </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/about">
                   About

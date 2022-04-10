@@ -99,6 +99,7 @@ class UserView(APIView):
 
     # edit user info
     def patch(self, request):
+        print(request.data)
         patch_data = request.data
         user_to_update = User.objects.get(Email=patch_data['Email'])
 
@@ -109,8 +110,15 @@ class UserView(APIView):
         user_to_update.AdminFlag = patch_data['AdminFlag']
         #user_to_update.CardNo = patch_data['CardNo'] # Has to be assigned to payment that has already been made
         user_to_update.save()
+        serializer = UserSerializer(user_to_update,many=False)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def get(self, request, *args, **kwargs):
+        User_Email = request.GET["User_Email"]
+        user_to_return = User.objects.get(Email=User_Email)
+        serializer = UserSerializer(user_to_return,many=False)
+        return Response(serializer.data,status=status.HTTP_200_OK)
 
-        return Response("", status=status.HTTP_200_OK)
 
 
 class WishlistUserView(APIView):
@@ -223,6 +231,8 @@ class GenreView(APIView):
     def get(self, request, *args, **kwargs):
         genres = []
         if request.GET:
+            print("hello")
+            print(request.GET)
             book_id = request.GET['BookID']
             print(book_id)
             print(Book_Genres.objects.all())
@@ -237,7 +247,7 @@ class GenreView(APIView):
     #delete genre
     def delete(self,request,*args,**kwargs):
         print(request.GET)
-        g = Book_Genres.objects.get(BookID=request.GET['BookID'],BookGenres=request.GET['BookGenre'])
+        g = Book_Genres.objects.get(Book_ID=request.GET['BookID'],BookGenre=request.GET['BookGenre'])
         g.delete()
         return Response("", status=status.HTTP_200_OK)
 
@@ -253,6 +263,10 @@ class PublisherView(APIView):
         )
         p.save()
         return Response(p.Name, status=status.HTTP_201_CREATED)
+    def get(self,request,*args,**kwargs):
+        all_publishers = Publisher.objects.all()
+        serializer = PublisherSerializer(all_publishers,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
 
 class AuthorView(APIView):
     serializer_class = AuthorSerializer

@@ -26,7 +26,7 @@ class GenreSerializer(serializers.ModelSerializer):
 class PublisherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Publisher
-        fields = ("Name")
+        fields = ("Name",)
 
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:

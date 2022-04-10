@@ -63,6 +63,8 @@ const navigate=  useNavigate()
  const onSubmit = async(e)=>{
      e.preventDefault()
     try{
+        console.log("ENTERED SUBMIT FUNCTION")
+        console.log(e)
         const data = await axios.patch(`http://localhost:8000/book/?BookID=${id}`,bookInfo)
 
         setBookInfo(data.data)
@@ -76,7 +78,7 @@ const navigate=  useNavigate()
         }
 
         for(let genre of genresToDelete){
-            await axios.delete("http://localhost:8000/genre/book",{
+            await axios.delete("http://localhost:8000/genre/book/",{
                 params:{
                     BookID:id,
                     BookGenre:genre
@@ -88,11 +90,11 @@ const navigate=  useNavigate()
 
         for(let genre of genres){
             if(!originalGenres.find(element=>element===genre)){
-                await axios.post('http://localhost:8000/genre/book',{
-                    data:{
+                await axios.post('http://localhost:8000/genre/book/',{
+                   
                         BookID:id,
                         BookGenre:genre
-                    }
+                
                 })
             }
         }
@@ -107,6 +109,11 @@ const navigate=  useNavigate()
 
  }
  const saveGenre = (e)=>{
+    if(genreText.length > 0){
+        setGenres((oldState)=>{return [...oldState,genreText]})
+      
+        setGenreText("")
+        }
      
  }
  const authorDelete = (e)=>{
@@ -129,6 +136,14 @@ const navigate=  useNavigate()
  }
  const authorsChange = (e)=>{
     
+ }
+
+ const saveAuthor = (e)=>{
+
+ }
+
+ const searchAuthors = (e)=>{
+
  }
 
  useEffect(()=>{
@@ -259,21 +274,26 @@ const navigate=  useNavigate()
                 ))}
              </ul>
 
-            <button className='btn btn-primary' onClick = {authorClick}>Add author</button>
+            <button type="button" className='btn btn-primary my-2' onClick = {!addAuthor? authorClick: saveAuthor}>{!addAuthor ? "Add author": " Save Author"}</button>
            {addAuthor &&  <><input onChange={onChangeAuthorText} value={authorText} class="form-control" list="datalistOptions" id="BookTitle" placeholder="Type to search for author by last name and first name" /><datalist id="datalistOptions">
-
+                            {searchAuthors.map((author)=>(
+                                    <option value={`${author.Fname}, ${author.Lname}`}/>
+                            ))}
                           </datalist></>}
-            
+                          <h6>Genres </h6>
                           <ul>
                  {genres.map((genre,index)=>(
-                     <li> {genre} <button onClick = {authorDelete} value= {index} className='btn btn-primary'>Delete</button></li>
+                     <li className='my-2'> {genre} <button onClick = {genreDelete} value= {index} className='btn btn-primary'>Delete</button></li>
 
                 ))}
              </ul>
             
-            <button className='btn btn-primary' onClick = {!addGenre ? genreButton : saveGenre}>{!addGenre ? "Add genre" : "Save genre"}</button>
-            {addGenre && <><label htmlFor="Genre" className="form-label">Rating </label><input onChange={onChangeGenreText} value={genreText} type="text" className="w-50 form-control" id="Genre" /></> }
-          <button type="submit" onClick = {onSubmit} className="btn btn-secondary">Submit</button>
+            <button type="button" className='btn btn-primary my-2' onClick = {!addGenre ? genreButton : saveGenre}>{!addGenre ? "Add genre" : "Save genre"}</button>
+            {addGenre && <div className='d-flex justify-content-center mb-1'><label htmlFor="Genre" className="form-label me-1">Genre: </label>
+            <input  onChange={onChangeGenreText} value={genreText} type="text" className="justify-content-center mx-1 w-50 form-control" id="Genre" placeholder='add genre' /></div> }
+
+
+          <button type="submit" className="btn btn-secondary">Submit</button>
       </form>
      {error.length !== 0 && <p className='mt-1 text-danger'>{error}</p>}
      

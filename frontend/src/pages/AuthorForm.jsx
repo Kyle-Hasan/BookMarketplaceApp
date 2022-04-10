@@ -27,12 +27,12 @@ function AuthorForm() {
  const onSubmit = async(e)=>{
      e.preventDefault()
      try{
-     await axios.post("http://localhost:8000/author",{
-        data:{
+     await axios.post("http://localhost:8000/author/",{
+      
             FName:formInfo.Fname,
             LName:formInfo.Lname,
             NumBooks:formInfo.NumBooks
-        }
+        
      })
      navigate("/")
     }
