@@ -7,7 +7,7 @@ import axios from "axios";
 
 function BookEntry() {
   let { id } = useParams()
-  const [quantity, setQuanity] = useState(1);
+  const [quantity, setQuanity] = useState(0);
   const navigate = useNavigate()
   const [checkoutOption, setCheckoutOption] = useState("Buy");
   const [edited,setEdited] = useState(null)
@@ -33,9 +33,7 @@ function BookEntry() {
   });
   const [authors,setAuthors] = useState([])
   const [genres,setGenres] = useState([])
-  const [reviews,setReviews] = useState([{
-    
-  }])
+  const [reviews,setReviews] = useState([])
 
   const [editText,setEditText] = useState("")
   const [writeReview,setWriteReview] = useState(false)
@@ -51,7 +49,7 @@ function BookEntry() {
   };
   
   const onSubmit = () => {
-    if (quantity > 0) {
+    if (quantity && bookInfo.Stock > 0) {
       //deal with placing order
       sessionStorage.setItem("orderInfo", JSON.stringify({
         Title: bookInfo.Title,
@@ -145,7 +143,7 @@ function BookEntry() {
       console.log(data.data)
       setBookInfo(data.data)
       setGenres(data2.data)
-      setTotalPrice(data.data.SalePrice)
+      //setTotalPrice(data.data.SalePrice)
       console.log(data3.data)
       setReviews(data3.data)
       console.log(data4.data)
@@ -293,8 +291,9 @@ function BookEntry() {
                         type="number"
                         id="quanity"
                         className="w-25 ms-1 form-control"
-                        min="1"
-                        max={bookInfo.stock}
+                        
+                        min="0"
+                        max={bookInfo.Stock}
                       />
                     </div>
                     <div class="text-start mb-1">

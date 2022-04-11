@@ -75,7 +75,7 @@ function Navbar() {
                     </div>
                   </div>
                 </li>
-              <li className="nav-item">
+                {JSON.parse(localStorage.getItem('AdminFlag')) && <li className="nav-item">
                 <div className="dropdown">
                   <a
                     className="nav-link dropdown-toggle"
@@ -87,17 +87,17 @@ function Navbar() {
                   >
                     Insurance
                   </a>
-                  {localStorage.getItem("AdminFlag")==="true" && <div className="dropdown-menu" aria-labelledby="triggerId2">
-                    <Link className="dropdown-item" to="/addInsurancePlan">
-                      Add Plan
-                    </Link>
-                    <Link className="dropdown-item" to="/addInsuranceProvider">
-                      Add Provider
-                    </Link>
+                  <div className="dropdown-menu" aria-labelledby="triggerId2">
+                  
+                    <><Link className="dropdown-item" to="/addInsurancePlan">
+                        Add Plan
+                      </Link><Link className="dropdown-item" to="/addInsuranceProvider">
+                          Add Provider
+                        </Link></>
 
-                  </div>}
+                  </div>
                 </div>
-              </li><li className="nav-item">
+              </li>}<li className="nav-item">
               <div className="dropdown">
                   <a
                     className="nav-link dropdown-toggle"
@@ -110,7 +110,7 @@ function Navbar() {
                     Publisher
                   </a>
                  <div className="dropdown-menu" aria-labelledby="triggerId2">
-                   {localStorage.getItem("AdminFlag") === "true" &&<><Link className="dropdown-item" to="/addPublisher">
+                   {JSON.parse(localStorage.getItem('AdminFlag'))&&<><Link className="dropdown-item" to="/addPublisher">
                       Add Publisher
                     </Link></>}
                   <Link className="dropdown-item" to = "/viewPublishers">
@@ -131,7 +131,7 @@ function Navbar() {
                     Author
                   </a>
                  <div className="dropdown-menu" aria-labelledby="triggerId2">
-                   {localStorage.getItem("AdminFlag") === "true" &&<><Link className="dropdown-item" to="/addAuthor">
+                   {JSON.parse(localStorage.getItem('AdminFlag')) &&<><Link className="dropdown-item" to="/addAuthor">
                       Add Author
                     </Link></>}
                   <Link className="dropdown-item" to = "/viewAuthors">

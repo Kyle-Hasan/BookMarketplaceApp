@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 function OrderList({purchases,rentals}) {
   return (
-    <><table class="table table-dark mt-1">
+    <><table class="table table-dark mt-1 container">
         
           <thead>
           <caption> Purchases</caption>
@@ -31,7 +31,7 @@ function OrderList({purchases,rentals}) {
                   </tr>
               ))}
           </tbody>
-      </table><table class="table table-dark mt-1">
+      </table><table class="table table-dark mt-1 container">
               
               <thead>
               <caption> Rentals</caption>

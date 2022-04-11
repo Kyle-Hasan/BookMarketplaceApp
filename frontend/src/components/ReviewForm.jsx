@@ -37,11 +37,12 @@ function ReviewForm({setWriteReview,setReviews,id}) {
    setReviews((oldState)=>{
        let copy = oldState.slice()
        copy.push({
-           review: formInfo.comment,
-           rating: formInfo.rating,
+           Comment: formInfo.comment,
+           Rating: formInfo.rating,
            date:new Date().toLocaleDateString(),
-           username: localStorage.getItem("username"),
-           BookID:7
+           User_Email: localStorage.getItem("username"),
+           BookID:id
+           
        })
        return copy
    })

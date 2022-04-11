@@ -76,6 +76,7 @@ function Checkout() {
         let  nextWeekMonth = String(nextWeek.getMonth() + 1).padStart(2, '0')
         let nextWeekYear = nextWeek.getFullYear()
         let nextWeekString = nextWeekYear + '-' +nextWeekMonth + '-' + nextWeekDay 
+        console.log(paymentInfo)
         await axios.post("http://localhost:8000/rentaldetail/",{
             OrderDate: todayDateString,
             CardNo:paymentInfo.CardNo,

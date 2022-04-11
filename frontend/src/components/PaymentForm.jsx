@@ -8,7 +8,7 @@ function PaymentForm({setCheckoutInfo,setShowPaymentForm}) {
  const [error,setError] = useState("")
  const [paymentInfo,setPaymentInfo] = useState({
      cvv:"",
-     cardNo:"",
+     CardNo:"",
      name: "",
      address:""
  })
@@ -27,14 +27,14 @@ function PaymentForm({setCheckoutInfo,setShowPaymentForm}) {
   }
  const onSubmit = async(e)=>{
      e.preventDefault()
-    if(paymentInfo.cvv.length === 0 || paymentInfo.address.length === 0 || paymentInfo.cardNo.length === 0 || paymentInfo.name.length === 0){
+    if(paymentInfo.cvv.length === 0 || paymentInfo.address.length === 0 || paymentInfo.CardNo.length === 0 || paymentInfo.name.length === 0){
         setError("No field can be blank")
         return
     }
     try{
     await axios.post("http://localhost:8000/payment/",{
         User_Email:localStorage.getItem("username"),
-        CardNo:paymentInfo.cardNo,
+        CardNo:paymentInfo.CardNo,
         CVV:paymentInfo.cvv,
         BillingAddress:paymentInfo.address
     })
@@ -65,7 +65,7 @@ function PaymentForm({setCheckoutInfo,setShowPaymentForm}) {
           <div className="mb-3">
               <label htmlFor="cardNo" className="form-label">Card Number</label>
               <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value ={paymentInfo.cardNo} type="number" className="w-50 form-control" id="cardNo" />
+              <input onChange = {onChange} value ={paymentInfo.cardNo} type="number" className="w-50 form-control" id="CardNo" />
               </div>
 
           </div>
