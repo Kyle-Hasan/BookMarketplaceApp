@@ -632,6 +632,16 @@ class ReviewView(APIView):
         serializer = ReviewSerializer(new_review, many=False)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+    # delete review
+    def delete(self, request, *args, **kwargs):
+        if "BookID" in request.GET and "User_Email" in request.GET:
+            review = Review.objects.get(BookID=request.GET['BookID'], User_Email=request.GET['User_Email'])
+            review.delete()
+
+            return Response("", status=status.HTTP_200_OK)
+        
+        return Response("", status=status.HTTP_400_BAD_REQUEST)
+
 
 def BookMarketplaceApp(request):
     return render(request, 'BookMarketplaceApp.html', {})
