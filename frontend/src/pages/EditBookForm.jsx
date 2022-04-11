@@ -12,7 +12,8 @@ const navigate=  useNavigate()
  const [authors,setAuthors] = useState([
      {
          Fname: "micheal",
-         Lname: "jonson"
+         Lname: "jonson",
+         AuthorID:40404
      }
  ])
  const [genres,setGenres] = useState([
@@ -20,6 +21,8 @@ const navigate=  useNavigate()
  const [originalGenres,setOrginalGenres] = useState([
 
  ])
+ const [searchAuthors,setSearchAuthors] = useState([
+])
  const [addAuthor,setAddAuthor] = useState(false)
  const [authorText,setAuthorText] = useState("")
  const [genreText,setGenreText] = useState("")
@@ -41,7 +44,13 @@ const navigate=  useNavigate()
      
  })
  const onChangeAuthorText= (e)=>{
-     setAuthorText(e.target.value)
+    
+    setAuthorText(e.target.value)
+    let r = document.getElementById("datalist-input").value;
+    console.log(shownVal)
+    let dd = document.querySelector("#datalistOptions option[value='"+r+"']").dataset.value
+    setAuthorID(dd)
+    console.log(value2send)
  }
  const onChangeGenreText = (e)=>{
      setGenreText(e.target.value)
@@ -117,10 +126,13 @@ const navigate=  useNavigate()
      
  }
  const authorDelete = (e)=>{
-     let copy = authors.filter((author,index)=>{
-        return index !== +e.target.value
-     })
-     setAuthors(copy)
+    setAllAuthors((oldState)=>{
+        return [...oldState,authors[+e.target.value]]
+    })
+    let copy = authors.filter((author,index)=>{
+       return index !== +e.target.value
+    })
+    setAuthors(copy)
  }
 
  const genreDelete = (e)=>{
@@ -139,12 +151,25 @@ const navigate=  useNavigate()
  }
 
  const saveAuthor = (e)=>{
+    console.log("hi  " + authorText)
+    const s = authorText.split(',')
+   console.log(e.target)
+   console.log("reached here")
+   setAuthors((oldState)=>{return [...oldState,{FName:s[0],LName:s[1],AuthorID:authorID}]})
+   console.log(authorID)
+  
+   setAllAuthors((oldState)=>{
+       const f= oldState.filter((author)=>
+      author.AuthorID !== +authorID
+        )
+        return f
+    })
+    setAuthorText("")
+    setAuthorID(-1)
 
  }
 
- const searchAuthors = (e)=>{
-
- }
+ 
 
  useEffect(()=>{
      let isMounted = true
@@ -163,11 +188,18 @@ const navigate=  useNavigate()
                  BookID:id
              }
          })
+         const allA = await axios.get("http://localhost:8000/author/")
          if(isMounted){
          console.log(data.data)
          setBookInfo(data.data)
          setGenres(g.data)
          setOrginalGenres(g.data)
+         setAllAuthors(oldState=>{
+            const f= allA.data.filter((author)=>
+            !authors.includes(author)
+             )
+             return f
+         })
          }
         }
         catch(err){

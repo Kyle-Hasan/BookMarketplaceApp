@@ -107,3 +107,15 @@ content-type: application/json
 
     
 }
+###
+
+POST http://localhost:8000/writes/
+content-type: application/json
+
+{
+    "BookID":2,
+    "AuthorID":3
+    
+
+    
+}

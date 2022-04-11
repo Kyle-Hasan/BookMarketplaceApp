@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 import Axios from 'axios'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -8,23 +8,19 @@ function BookForm() {
  const navigate = useNavigate()
  const [error,setError] = useState("")
  const [authors,setAuthors] = useState([
-     {
-         Fname: "micheal",
-         Lname: "jonson"
-     }
  ])
  const [genres,setGenres] = useState([
     
  ])
  const [searchAuthors,setSearchAuthors] = useState([
-  
-
  ])
  const [addAuthor,setAddAuthor] = useState(false)
  const [authorText,setAuthorText] = useState("")
  const [genreText,setGenreText] = useState("")
  const [addGenre,setAddGenre] = useState(false)
  const [authorSearch,setAuthorSearch] = useState("888")
+ const [authorID,setAuthorID] = useState(-1)
+ const [allAuthors,setAllAuthors] = useState([])
  const [bookInfo,setBookInfo] = useState({
      ReleaseYear:0,
      PageCount:1,
@@ -41,8 +37,14 @@ function BookForm() {
      AuthorID:""
  })
  const onChangeAuthorText= (e)=>{
-     console.log(authorText)
+     
      setAuthorText(e.target.value)
+     let r = document.getElementById("datalist-input").value;
+     console.log(shownVal)
+     let dd = document.querySelector("#datalistOptions option[value='"+r+"']").dataset.value
+     setAuthorID(dd)
+     console.log(value2send)
+
  }
  const onChangeGenreText = (e)=>{
      setGenreText(e.target.value)
@@ -79,10 +81,18 @@ function BookForm() {
              Description:bookInfo.Description
          })
          
-         for(let i = 0 ; i < genres.length;i++){
+         for(let genre of genres){
              await axios.post(`http://localhost:8000/genre/book/`,{
                  BookID:data.data,
-                 BookGenre: genres[i]
+                 BookGenre: genre
+             })
+         }
+         for(let author of authors){
+             console.log("hello in author")
+             await axios.post(`http://localhost:8000/writes/`,{
+                 BookID:data.data,
+                 AuthorID:author.AuthorID
+
              })
          }
          navigate('/confirmAddBook')
@@ -96,6 +106,9 @@ function BookForm() {
 
  }
  const authorDelete = (e)=>{
+     setAllAuthors((oldState)=>{
+         return [...oldState,authors[+e.target.value]]
+     })
      let copy = authors.filter((author,index)=>{
         return index !== +e.target.value
      })
@@ -116,13 +129,19 @@ function BookForm() {
  const saveAuthor = (e)=>{
      console.log("hi  " + authorText)
      const s = authorText.split(',')
-    for(let i = 0 ; i < authors.length;i++){
-        if(authors[i].Fname === s[0] && authors[i].Lname === s[1]){
-            return
-        }
-    }
-    setAuthors((oldState)=>{return [...oldState,{Fname:s[0],Lname:s[1]}]})
-    setAuthorText("")
+    console.log(e.target)
+    console.log("reached here")
+    setAuthors((oldState)=>{return [...oldState,{FName:s[0],LName:s[1],AuthorID:authorID}]})
+    console.log(authorID)
+   
+    setAllAuthors((oldState)=>{
+        const f= oldState.filter((author)=>
+       author.AuthorID !== +authorID
+         )
+         return f
+     })
+     setAuthorText("")
+     setAuthorID(-1)
 
  }
  const authorsChange = (e)=>{
@@ -131,9 +150,7 @@ function BookForm() {
     setAuthorText("")
     
  }
- if(!localStorage.getItem("username")){
-    return <><Navbar /><div>You arent logged in</div></>
-  }
+
  const saveGenre = (e)=>{
     if(genreText.length > 0){
     setGenres((oldState)=>{return [...oldState,genreText]})
@@ -145,6 +162,36 @@ function BookForm() {
 const onAuthorSearchChange = (e)=>{
     setAuthorSearch(e.target.value)
 }
+useEffect(()=>{
+    let isMounted = true
+    if(!localStorage.getItem("username")){
+        return
+    }
+    const fetchData = async()=>{
+        try{
+            const allA = await axios.get("http://localhost:8000/author/")
+            if(isMounted){
+            setAllAuthors(()=>{
+               const f= allA.data.filter((author)=>
+               !authors.includes(author)
+                )
+                return f
+            })
+            console.log(allA.data)
+        }
+        }
+
+        catch(e){
+
+        }
+
+    }
+    fetchData()
+    return ()=>{isMounted=false}
+},[])
+if(!localStorage.getItem("username")){
+    return <><Navbar /><div>You arent logged in</div></>
+  }
   return (
     <><Navbar />
       <div className = "container">
@@ -232,15 +279,16 @@ const onAuthorSearchChange = (e)=>{
               <h6>Authors </h6>
              <ul>
                  {authors.map((author,index)=>(
-                     <li>{author.Lname} , {author.Fname} <button onClick = {authorDelete} value= {index} className='btn btn-primary'>Delete</button></li>
+                     <li>{author.LName} , {author.FName} <button onClick = {authorDelete} value= {index} className='btn btn-primary'>Delete</button></li>
 
                 ))}
              </ul>
 
             <button type="button" className='btn btn-primary my-2' onClick = {!addAuthor? authorClick: saveAuthor}>{!addAuthor ? "Add author": " Save Author"}</button>
-           {addAuthor &&  <><input onChange={onChangeAuthorText} value={authorText} class="form-control" list="datalistOptions" id="BookTitle" placeholder="Type to search for author by last name and first name" /><datalist id="datalistOptions">
-                            {searchAuthors.map((author)=>(
-                                    <option value={`${author.Fname}, ${author.Lname}`}/>
+           {addAuthor &&  <><input onChange={onChangeAuthorText} value={authorText} class="form-control" list="datalistOptions" id="datalist-input"placeholder="Type to search for author by last name and first name" />
+           <datalist id="datalistOptions">
+                            {allAuthors.map((author)=>(
+                                    <option value={`${author.FName}, ${author.LName}`} data-value={author.AuthorID}/>
                             ))}
                           </datalist></>}
                           <h6>Genres </h6>
@@ -254,7 +302,9 @@ const onAuthorSearchChange = (e)=>{
             <button type="button" className='btn btn-primary my-2' onClick = {!addGenre ? genreButton : saveGenre}>{!addGenre ? "Add genre" : "Save genre"}</button>
             {addGenre && <div className='d-flex justify-content-center mb-1'><label htmlFor="Genre" className="form-label me-1">Genre: </label>
             <input  onChange={onChangeGenreText} value={genreText} type="text" className="justify-content-center mx-1 w-50 form-control" id="Genre" placeholder='add genre' /></div> }
+            <div>
           <button type="submit" className="btn btn-secondary">Submit</button>
+          </div>
       </form>
      {error.length !== 0 && <p className='mt-1 text-danger'>{error}</p>}
      

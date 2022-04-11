@@ -13,7 +13,7 @@ function PublisherList({publishers}) {
         <tbody>
         {publishers.map((publisher)=>(
             <tr>
-                <td><Link to = {`publisher/${publisher.Name}`}>{publisher.Name}</Link></td>
+                <td><Link to = {`/publisher/${publisher.Name}`}>{publisher.Name}</Link></td>
                 
             </tr>))}
         </tbody>

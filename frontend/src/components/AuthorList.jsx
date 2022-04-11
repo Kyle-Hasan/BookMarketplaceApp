@@ -14,7 +14,7 @@ function AuthorList({authors}) {
         <tbody>
         {authors.map((author)=>(
             <tr>
-                <td><Link to = {`author/${author.AuthorID}`}>{author.AuthorID}</Link></td>
+                <td><Link to = {`/author/${author.AuthorID}/${author.FName}+${author.LName}`}>{author.AuthorID}</Link></td>
                 <td>{author.FName}</td>
                 <td>{author.LName}</td>
             </tr>))}

@@ -23,6 +23,8 @@ import LocationForm from './pages/LocationForm'
 import ShowOrders from './pages/ShowOrders';
 import ViewAuthors from './pages/ViewAuthors';
 import ViewPublishers from './pages/ViewPublishers';
+import BooksByAuthor from './pages/BooksByAuthor';
+import BooksByPublisher from './pages/BooksByPublisher';
 function App() {
   return (
     <div className="App">
@@ -49,6 +51,8 @@ function App() {
           <Route path = "/orders" element = {<ShowOrders/>}/>
           <Route path = "/viewAuthors" element = {<ViewAuthors/>}/>
           <Route path = "/viewPublishers" element= {<ViewPublishers/>}/>
+          <Route path = "/author/:id/:FName+:LName" element = {<BooksByAuthor/>}/>
+          <Route path = "/publisher/:name" element = {<BooksByPublisher/>}/>
           
         </Routes>
    

@@ -29,7 +29,7 @@ function BookList({books,setBooks}) {
       </div>)
   }
   return (
-    <table className='table table-dark mt-2'>
+    <table className='table table-dark mt-2 container'>
         <thead>
             <tr>
             <th>Image</th>
