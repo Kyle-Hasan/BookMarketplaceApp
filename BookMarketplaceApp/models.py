@@ -141,8 +141,11 @@ class Writes(models.Model):
         unique_together = ('Book_ID', 'Author_ID')
 
 class Wants(models.Model):
-    Book_ID = models.OneToOneField(Book, primary_key=True, on_delete=models.CASCADE)
-    User_Email = models.OneToOneField(Login, on_delete=models.CASCADE)
+    Wants_ID = models.AutoField(primary_key=True)
+    Book_ID = models.ForeignKey(Book, on_delete=models.CASCADE)
+    User_Email = models.ForeignKey(Login, on_delete=models.CASCADE)
+    class Meta:
+        unique_together = ('Book_ID', 'User_Email')
 
 class Book_Genres(models.Model):
     Genre_ID = models.AutoField(primary_key=True)

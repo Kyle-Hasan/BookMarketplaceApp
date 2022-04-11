@@ -113,6 +113,7 @@ class UserView(APIView):
         serializer = UserSerializer(user_to_update,many=False)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
+    # get user info
     def get(self, request, *args, **kwargs):
         User_Email = request.GET["User_Email"]
         user_to_return = User.objects.get(Email=User_Email)
