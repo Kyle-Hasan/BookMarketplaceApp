@@ -40,10 +40,10 @@ function BookForm() {
      
      setAuthorText(e.target.value)
      let r = document.getElementById("datalist-input").value;
-     console.log(shownVal)
+     
      let dd = document.querySelector("#datalistOptions option[value='"+r+"']").dataset.value
      setAuthorID(dd)
-     console.log(value2send)
+    
 
  }
  const onChangeGenreText = (e)=>{

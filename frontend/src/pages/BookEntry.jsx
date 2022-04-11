@@ -111,34 +111,8 @@ function BookEntry() {
     setEditText(e.target.value)
   }
 
-  let authorsList = [];
-  for (let i = 0; i < authors.length; i++) {
-    if (i !== authors.length - 1) {
-      console.log("author");
-      authorsList.push(
-        <Link
-          key={authors[i].id}
-          to={`/authors/${authors[i].id}`}
-          style={{ textDecoration: "none" }}
-        >
-          {" "}
-          {bookInfo.authors[i].name},{" "}
-        </Link>
-      );
-    } else {
-      authorsList.push(
-        <Link
-          key={authors[i].id}
-          to={`/authors/${authors[i].id}`}
-          style={{ textDecoration: "none" }}
-        >
-          {" "}
-          {authors[i].name}{" "}
-        </Link>
-      );
-    }
-  }
-  console.log(authorsList.length);
+ 
+ 
   const reviewButtonClick = (e)=>{
     setWriteReview(oldState=>!oldState)
   }
@@ -159,6 +133,13 @@ function BookEntry() {
         params:{
           BookID:id
         }
+    
+      })
+
+      const data4 = await axios.get('http://localhost:8000/writes/',{
+        params:{
+          BookID:id
+        }
       })
       if(isMounted){
       console.log(data.data)
@@ -167,7 +148,39 @@ function BookEntry() {
       setTotalPrice(data.data.SalePrice)
       console.log(data3.data)
       setReviews(data3.data)
+      console.log(data4.data)
+      let authorsList = [];
+      for (let i = 0; i < data4.data.length; i++) {
+        if (i !== data4.data.length - 1) {
+          console.log("author");
+          authorsList.push(
+            <Link
+              key={authors[i].AuthorID}
+              to={`/author/${data4.data[i].AuthorID}/${data4.data[i].FName}+${data4.data[i].LName}`}
+              style={{ textDecoration: "none" }}
+            >
+              {" "}
+              {`${data4.data[i].FName} ${data4.data[i].LName} ,`}
+            </Link>
+          );
+        } else {
+          authorsList.push(
+            <Link
+              key={data4.data[i].AuthorID}
+              to={`/author/${data4.data[i].AuthorID}/${data4.data[i].FName}+${data4.data[i].LName}`}
+              style={{ textDecoration: "none" }}
+            >
+              {" "}
+              {`${data4.data[i].FName} ${data4.data[i].LName}`}
+            </Link>
+          );
+        }
       }
+      console.log(authorsList)
+      setAuthors(authorsList)
+      }
+
+     
 
     }
     fetchData()
@@ -223,7 +236,7 @@ function BookEntry() {
             <div className="col-md-5">
               <h1 className="text-center "> {bookInfo.Title} </h1>
               <span><b>By:</b> </span>
-              {authorsList}
+              {authors}
               <div class><b>Rating :</b> {bookInfo.Rating}</div>
               <div><b>In stock: </b>{bookInfo.Stock}</div>
             { localStorage.getItem("username") &&  <div className="d-flex justify-content-center mt-2">

@@ -10,17 +10,14 @@ let { id } = useParams()
 const navigate=  useNavigate()
  const [error,setError] = useState("")
  const [authors,setAuthors] = useState([
-     {
-         Fname: "micheal",
-         Lname: "jonson",
-         AuthorID:40404
-     }
+    
  ])
  const [genres,setGenres] = useState([
  ])
  const [originalGenres,setOrginalGenres] = useState([
 
  ])
+ const [originalAuthors,setOriginalAuthors] = useState([])
  const [searchAuthors,setSearchAuthors] = useState([
 ])
  const [addAuthor,setAddAuthor] = useState(false)
@@ -28,6 +25,8 @@ const navigate=  useNavigate()
  const [genreText,setGenreText] = useState("")
  const [addGenre,setAddGenre] = useState(false)
  const [authorSearch,setAuthorSearch] = useState("")
+ const [authorID,setAuthorID] = useState(-1)
+ const [allAuthors,setAllAuthors] = useState([])
  const [bookInfo,setBookInfo] = useState({
      ReleaseYear:0,
      PageCount:1,
@@ -47,10 +46,10 @@ const navigate=  useNavigate()
     
     setAuthorText(e.target.value)
     let r = document.getElementById("datalist-input").value;
-    console.log(shownVal)
+    
     let dd = document.querySelector("#datalistOptions option[value='"+r+"']").dataset.value
     setAuthorID(dd)
-    console.log(value2send)
+    
  }
  const onChangeGenreText = (e)=>{
      setGenreText(e.target.value)
@@ -107,6 +106,37 @@ const navigate=  useNavigate()
                 })
             }
         }
+
+        let authorsToDelete = []
+        for(let author of originalAuthors){
+           const found = authors.find(element => element===author)
+           if(!found){
+               authorsToDelete.push(author)
+           }
+        }
+
+        for(let author of authorsToDelete){
+            await axios.delete("http://localhost:8000/writes/",{
+                params:{
+                    BookID:id,
+                    AuthorID:author.AuthorID
+
+                }
+            })
+
+        }
+
+        for(let author of authors){
+            if(!originalAuthors.find(element=>element===author)){
+                await axios.post('http://localhost:8000/author/',{
+                   
+                        BookID:id,
+                        Author:author.AuthorID
+                
+                })
+            }
+        }
+
 
         navigate("/")
 
@@ -189,11 +219,18 @@ const navigate=  useNavigate()
              }
          })
          const allA = await axios.get("http://localhost:8000/author/")
+         const wr = await axios.get("http://localhost:8000/writes/",{
+             params:{
+                 BookID:id
+             }
+         })
          if(isMounted){
          console.log(data.data)
          setBookInfo(data.data)
          setGenres(g.data)
          setOrginalGenres(g.data)
+         setOriginalAuthors(wr.data)
+         setAuthors(wr.data)
          setAllAuthors(oldState=>{
             const f= allA.data.filter((author)=>
             !authors.includes(author)
@@ -301,7 +338,7 @@ const navigate=  useNavigate()
               <h6>Authors </h6>
              <ul>
                  {authors.map((author,index)=>(
-                     <li>{author.Lname} , {author.Fname} <button onClick = {authorDelete} value= {index} className='btn btn-primary'>Delete</button></li>
+                     <li>{author.LName} , {author.FName} <button onClick = {authorDelete} value= {index} className='btn btn-primary'>Delete</button></li>
 
                 ))}
              </ul>
@@ -309,7 +346,7 @@ const navigate=  useNavigate()
             <button type="button" className='btn btn-primary my-2' onClick = {!addAuthor? authorClick: saveAuthor}>{!addAuthor ? "Add author": " Save Author"}</button>
            {addAuthor &&  <><input onChange={onChangeAuthorText} value={authorText} class="form-control" list="datalistOptions" id="BookTitle" placeholder="Type to search for author by last name and first name" /><datalist id="datalistOptions">
                             {searchAuthors.map((author)=>(
-                                    <option value={`${author.Fname}, ${author.Lname}`}/>
+                                    <option value={`${author.FName}, ${author.LName}`} data-value= {author.AuthorID}/>
                             ))}
                           </datalist></>}
                           <h6>Genres </h6>

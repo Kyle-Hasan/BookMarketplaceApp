@@ -366,16 +366,26 @@ class WritesView(APIView):
         elif "BookID" in request.GET:
             a = Writes.objects.filter(Book_ID = request.GET['BookID'])
             authors = []
+            print("hello")
+            print(a)
             for author in a:
-                serializer = AuthorSerializer(a.Author_ID,many=False)
+                print(author)
+                serializer = AuthorSerializer(author.Author_ID ,many=False)
                 a1 = {
                     "FName": serializer.data['FName'],
                     "LName": serializer.data['LName'],
+                    'AuthorID': serializer.data['AuthorID']
                 }
                 authors.append(a1)
             return Response(authors,status=status.HTTP_200_OK)
         else:
             return Response("", status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, *args, **kwargs):
+        toBeDeleted = Writes.objects.filter(Book_ID=request.GET["BookID"],Author_ID=request.GET['AuthorID'])
+        for t in toBeDeleted:
+            t.delete()
+        return Response("deleted",status=status.HTTP_200_OK)
 
 
 class PaymentView(APIView):
