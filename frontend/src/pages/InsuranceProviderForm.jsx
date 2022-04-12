@@ -30,7 +30,7 @@ function InsuranceProviderForm() {
        Location_ID:formInfo.locationID,
        Name:formInfo.Name
      })
-     navigate("/")
+     navigate("/confirmPublisher")
      }
      catch{
        setError("error occurred")

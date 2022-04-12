@@ -34,7 +34,7 @@ function AuthorForm() {
             NumBooks:formInfo.NumBooks
         
      })
-     navigate("/")
+     navigate("/confirmPlan")
     }
     catch(err){
         console.log(err)

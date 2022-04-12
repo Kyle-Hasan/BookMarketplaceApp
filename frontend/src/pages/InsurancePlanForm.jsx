@@ -36,7 +36,7 @@ function InsurancePlanForm() {
          CoverageDuration:formInfo.CoverageDuration,
          Details:formInfo.Details
        })
-       navigate("/")
+       navigate("/confirmPlan")
 
      }
      catch{

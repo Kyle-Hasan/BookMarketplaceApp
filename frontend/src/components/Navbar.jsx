@@ -180,8 +180,8 @@ function Navbar() {
                       {localStorage.getItem("username")}
                     </a>
                     <div className="dropdown-menu" aria-labelledby="triggerId">
-                      <Link className="dropdown-item" to="/">
-                        Reviews
+                      <Link className="dropdown-item" to="/wishlist">
+                        Wishlist
                       </Link>
                       <Link className="dropdown-item" to="/orders">
                         Orders

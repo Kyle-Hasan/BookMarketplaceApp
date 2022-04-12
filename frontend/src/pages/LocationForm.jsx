@@ -39,7 +39,7 @@ function LocationForm({setWriteReview,setReviews}) {
             StreetNum:formInfo.StreetNum,
             PostalCode:formInfo.PostalCode
         })
-        navigate("/")
+        navigate("/confirmLocation")
     }
     catch{
         setError("error occurred")

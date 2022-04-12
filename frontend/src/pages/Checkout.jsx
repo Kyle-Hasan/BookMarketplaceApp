@@ -95,7 +95,7 @@ function Checkout() {
 
         })
        }
-       navigate("/")
+       navigate("/confirmOrder")
     }
     catch(e){
         console.log(e)

@@ -126,17 +126,47 @@ class WishlistUserView(APIView):
     serializer_class = UserSerializer
 
     def post(self, request, *args, **kwargs):
-        user_id = request.GET
+        print(request.data)
         wishlist_data = request.data
-        print(user_id)
+        
         print(wishlist_data)
 
         book_to_add = Book.objects.get(BookID=wishlist_data['BookID'])
-        login = Login.objects.get(User_Email=user_id['Email'])
+        login = Login.objects.get(User_Email=wishlist_data['User_Email'])
         new_wishlist = Wants(Book_ID=book_to_add, User_Email=login)
         new_wishlist.save()
 
+        return Response("", status=status.HTTP_201_CREATED)
+    def get(self, request,*args,**kwargs):
+        print("hello")
+        print(request.GET)
+        if 'BookID' not in request.GET:
+            books = Wants.objects.filter(User_Email=request.GET['User_Email'])
+            print(books)
+            print(Wants.objects.all())
+            to_return = []
+            for b in books:
+                print(b.User_Email)
+                serializer = BookSerializer(b.Book_ID, many=False)
+            
+                to_return.append(serializer.data)
+        else:
+            if Wants.objects.filter(User_Email = request.GET['User_Email'],Book_ID = request.GET['BookID']).exists():
+                return Response("found",status=status.HTTP_200_OK)
+            else:
+                return Response("not found",status=status.HTTP_200_OK)
+
+
+        return Response(to_return, status=status.HTTP_200_OK)
+
+    def delete(self,request,*args,**kwargs):
+        print(request.data)
+        User_Email = request.data['User_Email']
+        Book_ID = request.data['BookID']
+        entry = Wants.objects.get(Book_ID=Book_ID,User_Email=User_Email)
+        entry.delete()
         return Response("", status=status.HTTP_200_OK)
+
 
 class BookView(APIView):
     serializer_class = BookSerializer
@@ -162,6 +192,7 @@ class BookView(APIView):
         p = book_data['Publisher_Name']
         print(request.data)
         p2 = Publisher.objects.get(Name=p)
+        l = Location.objects.get(LocationID=book_data['LocationID'])
         new_book = Book(
             #BookID=book_data['BookID'],
             ReleaseYear=book_data['ReleaseYear'],
@@ -172,7 +203,7 @@ class BookView(APIView):
             Rating=book_data['Rating'],
             Stock=book_data['Stock'],
             Damage=book_data['Damage'],
-            LocationID=book_data['LocationID'],
+            LocationID=l,
             Description = book_data['Description'],
             Image=book_data['Image'],
             Publisher_Name=p2,

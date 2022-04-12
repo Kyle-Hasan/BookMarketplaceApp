@@ -35,7 +35,7 @@ function BooksByAuthor() {
 
 
   return (
-    <div><Navbar/><h3 className='mt-1'>Books by {FName} {LName}</h3><BookList books = {books} /></div>
+    <div><Navbar/><h3 className='mt-1'>Books by {FName} {LName}</h3><BookList books = {books} setBooks={setBooks} /></div>
   )
 }
 

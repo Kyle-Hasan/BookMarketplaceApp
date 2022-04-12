@@ -44,7 +44,7 @@ function PaymentForm({setCheckoutInfo,setShowPaymentForm}) {
         setShowPaymentForm(false)
     }
     else{
-    navigate("/")
+    navigate("/confirmPayment")
     }
 }
     catch(e){

@@ -11,6 +11,7 @@ function BookEntry() {
   const navigate = useNavigate();
   const [checkoutOption, setCheckoutOption] = useState("Buy");
   const [edited, setEdited] = useState(null);
+  const [wishlist,setWishlist] = useState(false)
   const [bookInfo, setBookInfo] = useState({
     BookID: 23,
     Title: "Title of book ",
@@ -152,68 +153,112 @@ function BookEntry() {
   const reviewButtonClick = (e) => {
     setWriteReview((oldState) => !oldState);
   };
+
+  const wishlistAdd = async(e)=>{
+    try{
+    await axios.post("http://localhost:8000/wishlist/user/",{
+      
+      User_Email:localStorage.getItem("username"),
+      BookID:id
+    })
+    setWishlist(true)
+  }
+  catch(e){
+    console.log(e)
+  }
+  }
+  const wishlistDelete = async(e)=>{
+    try{
+    await axios.delete("http://localhost:8000/wishlist/user/",
+    {data:{
+      User_Email:localStorage.getItem("username"),
+      BookID:id
+    }})
+    setWishlist(false)
+  }
+  catch(e){
+    console.log(e)
+  }
+
+  }
   useEffect(() => {
     let isMounted = true;
     const fetchData = async () => {
-      const data = await axios.get("http://localhost:8000/book/", {
+      try{
+      const bookData = await axios.get("http://localhost:8000/book/", {
         params: {
           BookID: id,
         },
       });
-      const data2 = await axios.get("http://localhost:8000/genre/book/", {
+      const genreData= await axios.get("http://localhost:8000/genre/book/", {
         params: {
           BookID: id,
         },
       });
-      const data3 = await axios.get("http://localhost:8000/review/book/", {
+      const reviewData = await axios.get("http://localhost:8000/review/book/", {
         params: {
           BookID: id,
         },
       });
 
-      const data4 = await axios.get("http://localhost:8000/writes/", {
+      const writeData = await axios.get("http://localhost:8000/writes/", {
         params: {
           BookID: id,
         },
       });
+      const wishlistData = await axios.get("http://localhost:8000/wishlist/user/",{
+        params:{
+          User_Email:localStorage.getItem("username"),
+          BookID:id,
+          
+        }
+      })
       if (isMounted) {
-        console.log(data.data);
-        setBookInfo(data.data);
-        setGenres(data2.data);
+        console.log(bookData.data);
+        
+        setGenres(genreData.data);
         //setTotalPrice(data.data.SalePrice)
-        console.log(data3.data);
-        setReviews(data3.data);
-        console.log(data4.data);
+        
+        setReviews(reviewData.data);
+        console.log(writeData.data);
         let authorsList = [];
-        for (let i = 0; i < data4.data.length; i++) {
-          if (i !== data4.data.length - 1) {
+        for (let i = 0; i < writeData.data.length; i++) {
+          if (i !== writeData.data.length - 1) {
             console.log("author");
             authorsList.push(
               <Link
                 key={authors[i].AuthorID}
-                to={`/author/${data4.data[i].AuthorID}/${data4.data[i].FName}+${data4.data[i].LName}`}
+                to={`/author/${writeData.data[i].AuthorID}/${writeData.data[i].FName}+${writeData.data[i].LName}`}
                 style={{ textDecoration: "none" }}
               >
                 {" "}
-                {`${data4.data[i].FName} ${data4.data[i].LName} ,`}
+                {`${writeData.data[i].FName} ${writeData.data[i].LName} ,`}
               </Link>
             );
           } else {
             authorsList.push(
               <Link
-                key={data4.data[i].AuthorID}
-                to={`/author/${data4.data[i].AuthorID}/${data4.data[i].FName}+${data4.data[i].LName}`}
+                key={writeData.data[i].AuthorID}
+                to={`/author/${writeData.data[i].AuthorID}/${writeData.data[i].FName}+${writeData.data[i].LName}`}
                 style={{ textDecoration: "none" }}
               >
                 {" "}
-                {`${data4.data[i].FName} ${data4.data[i].LName}`}
+                {`${writeData.data[i].FName} ${writeData.data[i].LName}`}
               </Link>
             );
           }
         }
         console.log(authorsList);
         setAuthors(authorsList);
+        console.log(wishlist.data)
+        if(wishlist.data === "found"){
+          setWishlist(true)
+        }
       }
+    }
+    catch(e){
+      console.log(e)
+    }
     };
     fetchData();
     return () => {
@@ -342,7 +387,8 @@ function BookEntry() {
                     </button>
                   </form>
                 </div>
-              </div>
+                <button type = "button" onClick={wishlist ? wishlistDelete : wishlistAdd} className="btn btn-dark mt-1">{wishlist ? "Remove from wishlist" : "Add to wishlist"} </button>
+              </div> 
             </div>
           </div>
           <div className="row mt-1 justify-content-center">

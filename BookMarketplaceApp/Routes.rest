@@ -39,18 +39,19 @@ content-type: application/json
     "Rating":3,
     "Stock":44,
     "Damage":"heavy",
-    "LocationID":2,
+    "LocationID":1,
     "Image":"https://i.pinimg.com/originals/2c/25/28/2c2528244450fcf743ac2eff3b9f914d.jpg",
-    "Publisher_Name":"Yae publishing house"
+    "Publisher_Name":"Yae publishing house",
+    "Description":" the greatest book ever. Very good and stuff happens in it"
 
     
 }
 ###
-GET http://localhost:8080/book?BookID=2
+GET http://localhost:8000/book/?BookID=9
 
 
 ###
-POST http://localhost:8080/author/
+POST http://localhost:8000/author/
 content-type: application/json
 
 {
@@ -63,7 +64,7 @@ content-type: application/json
 }
 
 ###
-GET http://localhost:8080/author
+GET http://localhost:8000/author/
 
 ###
 
@@ -71,8 +72,8 @@ POST http://localhost:8000/genre/book/
 content-type: application/json
 
 {
-    "BookID":2,
-    "Book_Genre":"sfzsfs"
+    "BookID":9,
+    "BookGenre":"sfzsfs"
     
 
     
@@ -80,7 +81,13 @@ content-type: application/json
 
 ###
 
-GET http://localhost:8000/genre/book/?BookID=2
+GET HTTP/1.1 http://localhost:8000/genre/book/?BookID=9
+
+
+
+###
+
+GET http://localhost:8000/location/
 
 
 ###
@@ -119,3 +126,36 @@ content-type: application/json
 
     
 }
+
+
+###
+
+DELETE http://localhost:8000/book/?BookID=14
+
+###
+POST http://localhost:8000/wishlist/user/
+content-type: application/json
+
+{
+    "User_Email":"test@gmail.com",
+    "BookID":9
+
+}
+
+###
+
+GET http://localhost:8000/wishlist/user/?User_Email=test@gmail.com
+
+###
+
+DELETE http://localhost:8000/wishlist/user/
+content-type: application/json
+
+{
+    "User_Email":"test@gmail.com",
+    "BookID":9
+
+}
+
+###
+GET http://localhost:8000/wishlist/user/?User_Email=test@gmail.com&BookID=9

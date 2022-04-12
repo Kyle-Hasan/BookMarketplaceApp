@@ -27,7 +27,7 @@ function PublisherForm() {
       await axios.post("http://localhost:8000/publisher/",{
         Name:formInfo.Name
       })
-      navigate("/")
+      navigate("/confirmPublisher")
     }
     catch(erro){
       setError("error")

@@ -32,7 +32,7 @@ function BooksByPublisher() {
 
 
   return (
-    <div><Navbar/><h3 className='mt-1'>Books from {name}</h3><BookList books = {books} /></div>
+    <div><Navbar/><h3 className='mt-1'>Books from {name}</h3><BookList books = {books}  setBooks={setBooks}  /></div>
   )
 }
 

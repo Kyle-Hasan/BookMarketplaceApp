@@ -76,7 +76,8 @@ class Book(models.Model):
     Rating = models.IntegerField()
     Stock = models.IntegerField()
     Damage = models.CharField(max_length=50)
-    LocationID = models.IntegerField()
+   # LocationID = models.ForeignKey(Location, on_delete=models.CASCADE,null=True,default=NULL)
+    LocationID = models.ForeignKey(Location,on_delete=models.CASCADE,null=True,default=NULL)
     Image = models.CharField(max_length=50, null=True)
     Publisher_Name = models.ForeignKey(Publisher, on_delete=models.CASCADE,null=True,default=NULL)
 
@@ -153,3 +154,4 @@ class Book_Genres(models.Model):
     BookGenre = models.CharField(max_length=20)
     class Meta:
         unique_together = ('Book_ID', 'BookGenre')
+

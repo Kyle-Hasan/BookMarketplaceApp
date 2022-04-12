@@ -1,12 +1,12 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
 
-function ConfirmBook() {
+function Confirm({text}) {
   return (
     <div><Navbar></Navbar>
-    Book input successfully
+   <p className='mt-1'> {text} </p>
     </div>
   )
 }
 
-export default ConfirmBook
+export default Confirm
