@@ -43,14 +43,15 @@ const navigate=  useNavigate()
      
  })
  const onChangeAuthorText= (e)=>{
-    
+     
     setAuthorText(e.target.value)
     let r = document.getElementById("datalist-input").value;
     
     let dd = document.querySelector("#datalistOptions option[value='"+r+"']").dataset.value
     setAuthorID(dd)
-    
- }
+   
+
+}
  const onChangeGenreText = (e)=>{
      setGenreText(e.target.value)
  }
@@ -127,13 +128,15 @@ const navigate=  useNavigate()
         }
 
         for(let author of authors){
-            if(!originalAuthors.find(element=>element===author)){
-                await axios.post('http://localhost:8000/author/',{
-                   
-                        BookID:id,
-                        Author:author.AuthorID
-                
-                })
+            console.log(author)
+            if(!originalAuthors.find(element=>element.AuthorID===author.AuthorID)){
+                console.log(author.AuthorID + " in the post ")
+                console.log("hello in author")
+             await axios.post(`http://localhost:8000/writes/`,{
+                 BookID:id,
+                 AuthorID:+author.AuthorID
+
+             })
             }
         }
 
@@ -163,24 +166,20 @@ const navigate=  useNavigate()
        return index !== +e.target.value
     })
     setAuthors(copy)
- }
+}
 
- const genreDelete = (e)=>{
-    let copy = genres.filter((author,index)=>{
-        return index !== +e.target.value
-     })
-     setGenres(copy)
+const genreDelete = (e)=>{
+   let copy = genres.filter((author,index)=>{
+       return index !== +e.target.value
+    })
+    setGenres(copy)
 
- }
- const authorClick = (e)=>{
-     setAddAuthor(true)
- 
- }
- const authorsChange = (e)=>{
-    
- }
+}
+const authorClick = (e)=>{
+    setAddAuthor(true)
 
- const saveAuthor = (e)=>{
+}
+const saveAuthor = (e)=>{
     console.log("hi  " + authorText)
     const s = authorText.split(',')
    console.log(e.target)
@@ -197,8 +196,7 @@ const navigate=  useNavigate()
     setAuthorText("")
     setAuthorID(-1)
 
- }
-
+}
  
 
  useEffect(()=>{
@@ -256,7 +254,7 @@ const navigate=  useNavigate()
       <div className = "container">
           <div class = "card mt-4">
           <div class="card-header">
-          <h1 className = "mb-3">Edit Book</h1>
+          <h1 className = "mb-3">Add Book</h1>
           </div>
           <div class = "card-body">
       <form onSubmit={onSubmit} >
@@ -344,9 +342,10 @@ const navigate=  useNavigate()
              </ul>
 
             <button type="button" className='btn btn-primary my-2' onClick = {!addAuthor? authorClick: saveAuthor}>{!addAuthor ? "Add author": " Save Author"}</button>
-           {addAuthor &&  <><input onChange={onChangeAuthorText} value={authorText} class="form-control" list="datalistOptions" id="BookTitle" placeholder="Type to search for author by last name and first name" /><datalist id="datalistOptions">
-                            {searchAuthors.map((author)=>(
-                                    <option value={`${author.FName}, ${author.LName}`} data-value= {author.AuthorID}/>
+           {addAuthor &&  <><input onChange={onChangeAuthorText} value={authorText} class="form-control" list="datalistOptions" id="datalist-input"placeholder="Type to search for author by last name and first name" />
+           <datalist id="datalistOptions">
+                            {allAuthors.map((author)=>(
+                                    <option value={`${author.FName}, ${author.LName}`} data-value={author.AuthorID}/>
                             ))}
                           </datalist></>}
                           <h6>Genres </h6>
@@ -360,9 +359,9 @@ const navigate=  useNavigate()
             <button type="button" className='btn btn-primary my-2' onClick = {!addGenre ? genreButton : saveGenre}>{!addGenre ? "Add genre" : "Save genre"}</button>
             {addGenre && <div className='d-flex justify-content-center mb-1'><label htmlFor="Genre" className="form-label me-1">Genre: </label>
             <input  onChange={onChangeGenreText} value={genreText} type="text" className="justify-content-center mx-1 w-50 form-control" id="Genre" placeholder='add genre' /></div> }
-
-
+            <div>
           <button type="submit" className="btn btn-secondary">Submit</button>
+          </div>
       </form>
      {error.length !== 0 && <p className='mt-1 text-danger'>{error}</p>}
      

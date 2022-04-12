@@ -32,20 +32,22 @@ function EditUserForm() {
         return
     }
     try{
-    console.log(formInfo.AdminFlag)
     
-  
+       
+    
     const userData = await axios.patch("http://localhost:8000/user/",{
         DOB:formInfo.DOB,
         FName:formInfo.FName,
         LName:formInfo.LName,
         Address:formInfo.Address,
-        AdminFlag:formInfo.AdminFlag,
+        AdminFlag:(formInfo.AdminFlag === "true"),
         Email:localStorage.getItem("username")
     })
     console.log(userData.data)
     setFormInfo(userData.data)
+    localStorage.setItem("AdminFlag", userData.data.AdminFlag ? true : false)
     setError("Updated")
+    window.location.reload()
     }
     catch(e){
         console.log(e)
@@ -122,8 +124,8 @@ catch(e){
               <label htmlFor="AdminFlag" className="form-label">Admin</label>
               <div className = "d-flex justify-content-center ">
               <select onChange = {onChange} value = {formInfo.AdminFlag} type="date" className=" w-50 form-control" id="AdminFlag">
-                  <option value = "False">Not an admin</option>
-                  <option value = "True">Admin</option>
+                  <option value = {false}>Not an admin</option>
+                  <option value = {true}>Admin</option>
               </select>
               </div>
           </div>
