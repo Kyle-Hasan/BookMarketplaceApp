@@ -641,6 +641,22 @@ class ReviewView(APIView):
             return Response("", status=status.HTTP_200_OK)
         
         return Response("", status=status.HTTP_400_BAD_REQUEST)
+    # edit review
+    def patch(self, request, *args, **kwargs):
+        print(request.data)
+        if("BookID" in request.data and "User_Email" in request.data and "Comment" in request.data and "Rating" in request.data):
+            BookID = request.data['BookID']
+            User_Email = request.data['User_Email']
+            Rating = request.data['Rating']
+            Comment = request.data['Comment']
+            review = Review.objects.get(BookID=BookID,User_Email=User_Email)
+            review.Comment = Comment
+            review.Rating = Rating
+            review.save()
+            return Response("", status=status.HTTP_200_OK)
+        return Response("", status=status.HTTP_400_BAD_REQUEST)
+        
+
 
 
 def BookMarketplaceApp(request):
