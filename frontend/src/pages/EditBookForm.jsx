@@ -5,6 +5,7 @@ import Axios from 'axios'
 import {useNavigate,useParams} from 'react-router-dom'
 import { useEffect } from 'react'
 import axios from 'axios'
+import UseSearchDebounced from './UseSearchDebounced'
 function EditBookForm() {
 let { id } = useParams()
 const navigate=  useNavigate()
@@ -42,13 +43,34 @@ const navigate=  useNavigate()
      PublisherName:"",
      
  })
+ const authorApiSearch = async(text)=>{
+    return await axios.get("http://localhost:8000/author/",{
+        params:{
+            Name:text
+        }
+    })
+ }
+ const searchADebounced = ()=> UseSearchDebounced(text=>authorApiSearch(text),200)
+ const a= searchADebounced();
+ const aText = a.input
+ const setAText = a.setInput
+ const aResults = a.results
  const onChangeAuthorText= (e)=>{
-     
+      
     setAuthorText(e.target.value)
-    let r = document.getElementById("datalist-input").value;
+    setAText(e.target.value)
+    console.log(aResults)
     
+    
+    let r = document.getElementById("datalist-input").value;
+   try{
     let dd = document.querySelector("#datalistOptions option[value='"+r+"']").dataset.value
     setAuthorID(dd)
+   }
+   catch{
+
+   }
+   
    
 
 }
@@ -185,6 +207,7 @@ const saveAuthor = (e)=>{
     const s = authorText.split(',')
    console.log(e.target)
    console.log("reached here")
+   if(authorID !== -1){
    setAuthors((oldState)=>{return [...oldState,{FName:s[0],LName:s[1],AuthorID:authorID}]})
    console.log(authorID)
   
@@ -196,6 +219,7 @@ const saveAuthor = (e)=>{
     })
     setAuthorText("")
     setAuthorID(-1)
+}
 
 }
  
@@ -346,10 +370,10 @@ const saveAuthor = (e)=>{
                 <button type="button" className='btn btn-primary my-2' onClick = {!addAuthor? authorClick: saveAuthor}>{!addAuthor ? "Add author": " Save Author"}</button>
                {addAuthor &&  <><input onChange={onChangeAuthorText} value={authorText} class="form-control" list="datalistOptions" id="datalist-input"placeholder="Type to search for author by last name and first name" />
                <datalist id="datalistOptions">
-                                {allAuthors.map((author)=>(
-                                        <option value={`${author.FName}, ${author.LName}`} data-value={author.AuthorID}/>
-                                ))}
-                              </datalist></>}
+               {aResults.result && aResults.result.data && (aResults.result.data.map((author)=>(
+                                  !authors.find((a)=>a.AuthorID===author.AuthorID) && <option key={author.AuthorID} value={`${author.FName}, ${author.LName}`} data-value={author.AuthorID}/>
+                            )))}
+                          </datalist></>}
                               <h6>Genres </h6>
                               <ul>
                      {genres.map((genre,index)=>(

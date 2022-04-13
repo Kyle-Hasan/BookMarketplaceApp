@@ -42,7 +42,7 @@ catch(error){
           <tbody>
               {
                   books.map((book)=>(
-                      <tr>
+                      <tr key= {book.BookID}>
                           <td><img className = "comment-img" src={book.Image}/></td>
                           <td><Link to = {`/book/${book.BookID}`}> {book.Title}</Link></td>
                           <td>{book.BookID}</td>

@@ -227,7 +227,7 @@ function BookEntry() {
             console.log("author");
             authorsList.push(
               <Link
-                key={authors[i].AuthorID}
+                key={writeData.data[i].AuthorID}
                 to={`/author/${writeData.data[i].AuthorID}/${writeData.data[i].FName}+${writeData.data[i].LName}`}
                 style={{ textDecoration: "none" }}
               >

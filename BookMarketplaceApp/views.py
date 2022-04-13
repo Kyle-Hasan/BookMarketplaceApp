@@ -407,8 +407,9 @@ class WritesView(APIView):
     # Endpoint 14
     def post(self, request, *args, **kwargs):
         writes_data = request.data
-        print("hello ")
-        print(writes_data)
+        print("hello author id below")
+        
+        print(writes_data['AuthorID'])
         book = Book.objects.get(BookID=writes_data['BookID'])
         author = Author.objects.get(AuthorID=writes_data['AuthorID'])
         new_writes = Writes(Book_ID=book, Author_ID=author)

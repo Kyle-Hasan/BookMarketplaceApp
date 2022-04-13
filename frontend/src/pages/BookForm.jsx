@@ -4,6 +4,7 @@ import {useState,useEffect} from 'react'
 import Axios from 'axios'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import UseSearchDebounced from './UseSearchDebounced'
 function BookForm() {
  const navigate = useNavigate()
  const [error,setError] = useState("")
@@ -36,16 +37,61 @@ function BookForm() {
      PublisherName:"",
      AuthorID:""
  })
- const onChangeAuthorText= (e)=>{
+ const authorApiSearch = async(text)=>{
+    return await axios.get("http://localhost:8000/author/",{
+        params:{
+            Name:text
+        }
+    })
+ }
+ const searchADebounced = ()=> UseSearchDebounced(text=>authorApiSearch(text),200)
+ const a= searchADebounced();
+ const aText = a.input
+ const setAText = a.setInput
+ const aResults = a.results
+
+ const publisherApiSearch = async(text)=>{
+    return await axios.get("http://localhost:8000/publisher/",{
+        params:{
+            Name:text
+        }
+    })
+
+ }
+ const searchPDebounced = ()=> UseSearchDebounced(text=>publisherApiSearch(text),200)
+ const p = searchPDebounced(text=>publisherApiSearch(text),200)
+ const pText = p.input
+ const setPText = p.setInput
+ const pResults = p.results
+ const onChangeAuthorText= async (e)=>{
      
      setAuthorText(e.target.value)
-     let r = document.getElementById("datalist-input").value;
+     setAText(e.target.value)
+     console.log(aResults)
      
+     
+     let r = document.getElementById("datalist-input").value;
+    try{
      let dd = document.querySelector("#datalistOptions option[value='"+r+"']").dataset.value
      setAuthorID(dd)
+     
+    }
+    catch{
+
+    }
+    
     
 
  }
+ const onChangePublisherText= async (e)=>{
+     
+    
+    setPText(e.target.value)
+    console.log(pResults)
+   
+   
+
+}
  const onChangeGenreText = (e)=>{
      setGenreText(e.target.value)
  }
@@ -66,6 +112,14 @@ function BookForm() {
  const onSubmit = async(e)=>{
      e.preventDefault()
      try{
+        if(bookInfo.Title.length === 0 || pText.length === 0){
+            setError("Cannot be blank")
+            return 
+        }
+        else if(!pResults.result.data.find((p)=>{ return p.Name===pText})){
+            setError("Invalid publisher")
+            return
+        }
         const data =  await axios.post("http://localhost:8000/book/", {
              ReleaseYear:bookInfo.ReleaseYear,
              PageCount:bookInfo.PageCount,
@@ -75,8 +129,8 @@ function BookForm() {
              Rating:bookInfo.Rating,
              Stock:bookInfo.Stock,
              Damage:bookInfo.Damage,
-             LocationID:bookInfo.locationID,
-             Publisher_Name : bookInfo.PublisherName,
+             LocationID:1,
+             Publisher_Name : pText,
              Image:bookInfo.Image,
              Description:bookInfo.Description
          })
@@ -131,6 +185,7 @@ function BookForm() {
      const s = authorText.split(',')
     console.log(e.target)
     console.log("reached here")
+    if( authorID !==-1){
     setAuthors((oldState)=>{return [...oldState,{FName:s[0],LName:s[1],AuthorID:authorID}]})
     console.log(authorID)
    
@@ -142,6 +197,7 @@ function BookForm() {
      })
      setAuthorText("")
      setAuthorID(-1)
+    }
 
  }
  const authorsChange = (e)=>{
@@ -230,7 +286,12 @@ if(!localStorage.getItem("username")){
           <div className="mb-3 ">
               <label htmlFor="PublisherName" className="form-label">Publisher name</label>
               <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value = {bookInfo.PublisherName} type="text" className=" w-50 form-control" id="PublisherName" />
+              <input onChange={onChangePublisherText} value={pText} className="w-50 form-control" list="datalistOptions2" id="PublisherName"placeholder="search publisher name" />
+           <datalist id="datalistOptions2">
+                            {pResults.result && pResults.result.data && (pResults.result.data.map((p)=>(
+                                 <option key={p.Name} value={p.Name} />
+                            )))}
+                          </datalist>
               </div>
           </div>
           <div className="mb-3 ">
@@ -285,12 +346,12 @@ if(!localStorage.getItem("username")){
              </ul>
 
             <button type="button" className='btn btn-primary my-2' onClick = {!addAuthor? authorClick: saveAuthor}>{!addAuthor ? "Add author": " Save Author"}</button>
-           {addAuthor &&  <><input onChange={onChangeAuthorText} value={authorText} class="form-control" list="datalistOptions" id="datalist-input"placeholder="Type to search for author by last name and first name" />
+           {addAuthor &&  <div className='d-flex justify-content-center'><input onChange={onChangeAuthorText} value={aText} class="form-control w-50" list="datalistOptions" id="datalist-input"placeholder="Type to search for author by last name and first name" />
            <datalist id="datalistOptions">
-                            {allAuthors.map((author)=>(
-                                    <option value={`${author.FName}, ${author.LName}`} data-value={author.AuthorID}/>
-                            ))}
-                          </datalist></>}
+                            {aResults.result && aResults.result.data && (aResults.result.data.map((author)=>(
+                                  !authors.find((a)=>a.AuthorID==author.AuthorID) && <option key={author.AuthorID} value={`${author.FName}, ${author.LName}`} data-value={author.AuthorID}/>
+                            )))}
+                          </datalist></div>}
                           <h6>Genres </h6>
                           <ul>
                  {genres.map((genre,index)=>(
