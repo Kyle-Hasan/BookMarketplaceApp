@@ -446,6 +446,7 @@ class PaymentView(APIView):
             CardNo = payment_data['CardNo'],
             CVV = payment_data['CVV'],
             BillingAddress = payment_data['BillingAddress'],
+            NameOnCard = payment_data['NameOnCard'],
             User_Email = p2
         )
         p.save()
