@@ -85,7 +85,7 @@ function Navbar() {
                     </div>
                   </div>
                 </li>
-                {JSON.parse(localStorage.getItem('AdminFlag')) && <li className="nav-item">
+                 <li className="nav-item">
                 <div className="dropdown">
                   <a
                     className="nav-link dropdown-toggle"
@@ -98,16 +98,17 @@ function Navbar() {
                     Insurance
                   </a>
                   <div className="dropdown-menu" aria-labelledby="triggerId2">
-                  
-                    <><Link className="dropdown-item" to="/addInsurancePlan">
-                        Add Plan
-                      </Link><Link className="dropdown-item" to="/addInsuranceProvider">
-                          Add Provider
-                        </Link></>
+                  <Link className="dropdown-item" to ="/viewInsurancePlans">View plans</Link>
+                  <Link className="dropdown-item" to = "/viewInsuranceProviders">View providers</Link>
+                  {JSON.parse(localStorage.getItem('AdminFlag')) && <><Link className="dropdown-item" to="/addInsurancePlan">
+                      Add Plan
+                    </Link><Link className="dropdown-item" to="/addInsuranceProvider">
+                        Add Provider
+                      </Link></>}
 
                   </div>
                 </div>
-              </li>}<li className="nav-item">
+              </li><li className="nav-item">
               <div className="dropdown">
                   <a
                     className="nav-link dropdown-toggle"

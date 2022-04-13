@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 function OrderList({purchases,rentals}) {
   return (
     <><table class="table table-dark mt-1 container">
-        
+        <caption> Purchases</caption>
           <thead>
-          <caption> Purchases</caption>
+          
               <tr>
                   <th>Order ID</th>
                   <th>Order Date</th>
@@ -32,9 +32,9 @@ function OrderList({purchases,rentals}) {
               ))}
           </tbody>
       </table><table class="table table-dark mt-1 container">
-              
+      <caption> Rentals</caption>
               <thead>
-              <caption> Rentals</caption>
+             
                   <tr>
                       <th>Order ID</th>
                       <th>Order Date</th>

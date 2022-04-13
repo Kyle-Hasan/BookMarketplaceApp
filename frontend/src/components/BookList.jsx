@@ -145,8 +145,9 @@ function BookList({books,setBooks}) {
   }
   return (
     <table className='table table-dark mt-2 container'>
+          <caption>Books</caption>
         <thead>
-        <caption>Books</caption>
+      
             <tr>
             
             <th>Image</th>

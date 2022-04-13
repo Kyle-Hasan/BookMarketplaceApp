@@ -29,6 +29,9 @@ import ViewWishlist from './pages/ViewWishlist';
 import SearchBook from './pages/SearchBook';
 import SearchAuthor from './pages/SearchAuthor';
 import SearchPublisher from './pages/SearchPublisher';
+import ViewPlans from './pages/ViewPlans';
+import Viewproviders from './pages/ViewProviders';
+import ViewProviderPlans from './pages/ViewProviderPlans';
 function App() {
   return (
     <div className="App">
@@ -68,6 +71,9 @@ function App() {
           <Route path = "/searchBook/:text" element = {<SearchBook/>}/>
           <Route path = "/searchAuthor/:text" element = {<SearchAuthor/>}/>
           <Route path = "/searchPublisher/:text" element = {<SearchPublisher/>}/>
+          <Route path = "/viewInsurancePlans" element = {<ViewPlans/>}/>
+          <Route path = "/viewInsuranceProviders" element = {<Viewproviders/>}/>
+          <Route path = "/provider/:name" element = {<ViewProviderPlans/>}/>
         </Routes>
    
       </Router>

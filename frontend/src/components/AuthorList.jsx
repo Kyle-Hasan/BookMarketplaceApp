@@ -3,8 +3,9 @@ import {Link} from 'react-router-dom'
 function AuthorList({authors}) {
   return (
     <div className='container'><table class="table table-dark mt-1">
+           <caption>Authors</caption>
         <thead>
-            <caption>Authors</caption>
+         
             <tr>
                 <th>Author ID</th>
                 <th>First name</th>

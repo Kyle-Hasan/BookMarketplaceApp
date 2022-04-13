@@ -343,7 +343,7 @@ const saveAuthor = (e)=>{
               <div className="mb-3 ">
                   <label htmlFor="Rating"  className="form-label">Rating </label>
                   <div className = "d-flex justify-content-center ">
-                  <input onChange = {onChange} value = {bookInfo.Rating} min= "0" max="10" type="number" className=" w-50 form-control" id="Rating" />
+                  <input onChange = {onChange} value = {bookInfo.Rating} min= "1" max="10" type="number" className=" w-50 form-control" id="Rating" />
                   </div>
               </div>
              

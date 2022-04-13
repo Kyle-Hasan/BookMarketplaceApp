@@ -3,8 +3,9 @@ import {Link} from 'react-router-dom'
 function PublisherList({publishers}) {
   return (
     <div className='container'><table class="table table-dark mt-1">
+        <caption>Publishers</caption>
         <thead>
-            <caption>Publishers</caption>
+            
             <tr>
                 <th>Name</th>
                 

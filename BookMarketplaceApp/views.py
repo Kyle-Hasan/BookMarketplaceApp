@@ -642,6 +642,10 @@ class InsurancePlanView(APIView):
         if "PolicyNo" in request.GET:
             insurancePlan_to_return = InsurancePlan.objects.get(PolicyNo=request.GET['PolicyNo'])
             serializer = InsurancePlanSerializer(insurancePlan_to_return, many=False)
+        elif "ProviderName" in request.GET:
+            insurancePlans = InsurancePlan.objects.filter(InsuranceProvider_Name=request.GET['ProviderName'])
+            serializer = InsurancePlanSerializer(insurancePlans,many=True)
+
         # Endpoint 40
         else:
             insurancePlans = InsurancePlan.objects.all()

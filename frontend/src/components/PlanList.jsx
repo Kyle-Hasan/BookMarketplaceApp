@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 function PlanList({plans}) {
   return (
     <><table class="table table-dark mt-1 container">
-        
+        <caption> Insurance Plans</caption>
           <thead>
-          <caption> Insurance Plans</caption>
+          
               <tr>
                   <th>Policy No</th>
                   <th>Price($)</th>

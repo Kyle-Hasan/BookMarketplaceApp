@@ -32,3 +32,8 @@ code {
 ul{
   list-style: none;
 }
+
+caption {
+ caption-side:top;
+  
+}
