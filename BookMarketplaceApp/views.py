@@ -192,7 +192,7 @@ class BookView(APIView):
         p = book_data['Publisher_Name']
         print(request.data)
         p2 = Publisher.objects.get(Name=p)
-        l = Location.objects.get(LocationID=book_data['LocationID'])
+        l1 = Location.objects.get(LocationID=book_data['LocationID'])
         new_book = Book(
             #BookID=book_data['BookID'],
             ReleaseYear=book_data['ReleaseYear'],
@@ -203,7 +203,7 @@ class BookView(APIView):
             Rating=book_data['Rating'],
             Stock=book_data['Stock'],
             Damage=book_data['Damage'],
-            LocationID=l,
+            LocationID=l1,
             Description = book_data['Description'],
             Image=book_data['Image'],
             Publisher_Name=p2,
@@ -218,6 +218,7 @@ class BookView(APIView):
             book_data = request.data
             p2 = Publisher.objects.get(Name=book_data['Publisher_Name'])
             b = Book.objects.get(BookID=book_id)
+            l1 = Location.objects.get(LocationID=book_data['LocationID'])
             b.ReleaseYear=book_data['ReleaseYear']
             b.PageCount=book_data['PageCount']
             b.RentPrice=book_data['RentPrice']
@@ -227,7 +228,7 @@ class BookView(APIView):
             b.Rating=book_data['Rating']
             b.Stock=book_data['Stock']
             b.Damage=book_data['Damage']
-            b.LocationID=book_data['LocationID']
+            b.LocationID=l1
             b.Image=book_data['Image']
             b.Publisher_Name=p2
             b.save()

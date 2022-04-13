@@ -182,7 +182,7 @@ useEffect(()=>{
         }
 
         catch(e){
-
+            console.log(e)
         }
 
     }
@@ -240,7 +240,7 @@ if(!localStorage.getItem("username")){
               </div>
           </div>
           <div className="mb-3 ">
-              <label htmlFor="Stock" className="form-label">Stock</label>
+              <label htmlFor="Stock" min="0" className="form-label">Stock</label>
               <div className = "d-flex justify-content-center ">
               <input onChange = {onChange} value = {bookInfo.Stock} min= "1" type="number" className=" w-50 form-control" id="Stock" />
               </div>
@@ -258,9 +258,9 @@ if(!localStorage.getItem("username")){
               </div>
           </div>
           <div className="mb-3 ">
-              <label htmlFor="Rating" className="form-label">Rating </label>
+              <label htmlFor="Rating"  className="form-label">Rating </label>
               <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value = {bookInfo.Rating} min= "0" type="number" className=" w-50 form-control" id="Rating" />
+              <input onChange = {onChange} value = {bookInfo.Rating} min= "0" max="10" type="number" className=" w-50 form-control" id="Rating" />
               </div>
           </div>
           <div className="mb-3 ">

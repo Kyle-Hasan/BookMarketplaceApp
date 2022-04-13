@@ -218,7 +218,7 @@ function BookEntry() {
         
         setGenres(genreData.data);
         //setTotalPrice(data.data.SalePrice)
-        
+        setBookInfo(bookData.data)
         setReviews(reviewData.data);
         console.log(writeData.data);
         let authorsList = [];
@@ -250,8 +250,9 @@ function BookEntry() {
         }
         console.log(authorsList);
         setAuthors(authorsList);
-        console.log(wishlist.data)
-        if(wishlist.data === "found"){
+        console.log(wishlistData.data)
+        if(wishlistData.data === "found"){
+          console.log("hi")
           setWishlist(true)
         }
       }

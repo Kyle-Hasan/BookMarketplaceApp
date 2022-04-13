@@ -249,127 +249,128 @@ const saveAuthor = (e)=>{
   }
  
   
-  return (
-    <><Navbar />
-      <div className = "container">
-          <div class = "card mt-4">
-          <div class="card-header">
-          <h1 className = "mb-3">Add Book</h1>
-          </div>
-          <div class = "card-body">
-      <form onSubmit={onSubmit} >
-          <div className="mb-3">
-              <label htmlFor="Title" className="form-label">Title</label>
-              <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value ={bookInfo.Title} type="text" className="w-50 form-control" id="Title" />
+ 
+    return (
+        <><Navbar />
+          <div className = "container">
+              <div class = "card mt-4">
+              <div class="card-header">
+              <h1 className = "mb-3">Add Book</h1>
               </div>
-
-          </div>
-          <div className="mb-3">
-              <label htmlFor="Image" className="form-label">Link to image</label>
-              <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value ={bookInfo.Image} type="text" className="w-50 form-control" id="Image" />
+              <div class = "card-body">
+          <form onSubmit={onSubmit} >
+              <div className="mb-3">
+                  <label htmlFor="Title" className="form-label">Title</label>
+                  <div className = "d-flex justify-content-center ">
+                  <input onChange = {onChange} value ={bookInfo.Title} type="text" className="w-50 form-control" id="Title" />
+                  </div>
+    
               </div>
-
-          </div>
-          <div className="mb-3 ">
-              <label htmlFor="Description" className="form-label">Description</label>
-              <div className = "d-flex justify-content-center ">
-              <textarea onChange = {onChange} value = {bookInfo.Description} type="text" className=" w-50 form-control" id="Description" />
+              <div className="mb-3">
+                  <label htmlFor="Image" className="form-label">Link to image</label>
+                  <div className = "d-flex justify-content-center ">
+                  <input onChange = {onChange} value ={bookInfo.Image} type="text" className="w-50 form-control" id="Image" />
+                  </div>
+    
               </div>
-          </div>
-          <div className="mb-3 ">
-              <label htmlFor="Damage" className="form-label">Damage</label>
-              <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value = {bookInfo.Damage} type="text" className=" w-50 form-control" id="Damage" />
+              <div className="mb-3 ">
+                  <label htmlFor="Description" className="form-label">Description</label>
+                  <div className = "d-flex justify-content-center ">
+                  <textarea onChange = {onChange} value = {bookInfo.Description} type="text" className=" w-50 form-control" id="Description" />
+                  </div>
               </div>
-          </div>
-          <div className="mb-3 ">
-              <label htmlFor="PublisherName" className="form-label">Publisher name</label>
-              <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value = {bookInfo.PublisherName} type="text" className=" w-50 form-control" id="PublisherName" />
+              <div className="mb-3 ">
+                  <label htmlFor="Damage" className="form-label">Damage</label>
+                  <div className = "d-flex justify-content-center ">
+                  <input onChange = {onChange} value = {bookInfo.Damage} type="text" className=" w-50 form-control" id="Damage" />
+                  </div>
               </div>
-          </div>
-          <div className="mb-3 ">
-              <label htmlFor="PageCount" className="form-label">Page Count</label>
-              <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value = {bookInfo.PageCount} min= "1" type="number" className=" w-50 form-control" id="PageCount" />
+              <div className="mb-3 ">
+                  <label htmlFor="PublisherName" className="form-label">Publisher name</label>
+                  <div className = "d-flex justify-content-center ">
+                  <input onChange = {onChange} value = {bookInfo.PublisherName} type="text" className=" w-50 form-control" id="PublisherName" />
+                  </div>
               </div>
-          </div>
-          <div className="mb-3 ">
-              <label htmlFor="Stock" className="form-label">Stock</label>
-              <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value = {bookInfo.Stock} min= "1" type="number" className=" w-50 form-control" id="Stock" />
+              <div className="mb-3 ">
+                  <label htmlFor="PageCount" className="form-label">Page Count</label>
+                  <div className = "d-flex justify-content-center ">
+                  <input onChange = {onChange} value = {bookInfo.PageCount} min= "1" type="number" className=" w-50 form-control" id="PageCount" />
+                  </div>
               </div>
-          </div>
-          <div className="mb-3 ">
-              <label htmlFor="RentPrice" className="form-label">Rent Price($)</label>
-              <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value = {bookInfo.RentPrice} min= "0" type="number" className=" w-50 form-control" id="RentPrice" />
+              <div className="mb-3 ">
+                  <label htmlFor="Stock" className="form-label">Stock</label>
+                  <div className = "d-flex justify-content-center ">
+                  <input onChange = {onChange} value = {bookInfo.Stock} min= "0" type="number" className=" w-50 form-control" id="Stock" />
+                  </div>
               </div>
-          </div>
-          <div className="mb-3 ">
-              <label htmlFor="SalePrice" className="form-label">Sale Price($)</label>
-              <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value = {bookInfo.SalePrice} min= "0" type="number" className=" w-50 form-control" id="SalePrice" />
+              <div className="mb-3 ">
+                  <label htmlFor="RentPrice" className="form-label">Rent Price($)</label>
+                  <div className = "d-flex justify-content-center ">
+                  <input onChange = {onChange} value = {bookInfo.RentPrice} min= "0" type="number" className=" w-50 form-control" id="RentPrice" />
+                  </div>
               </div>
-          </div>
-          <div className="mb-3 ">
-              <label htmlFor="Rating" className="form-label">Rating </label>
-              <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value = {bookInfo.Rating} min= "0" type="number" className=" w-50 form-control" id="Rating" />
+              <div className="mb-3 ">
+                  <label htmlFor="SalePrice" className="form-label">Sale Price($)</label>
+                  <div className = "d-flex justify-content-center ">
+                  <input onChange = {onChange} value = {bookInfo.SalePrice} min= "0" type="number" className=" w-50 form-control" id="SalePrice" />
+                  </div>
               </div>
-          </div>
-          <div className="mb-3 ">
-              <label htmlFor="locationID" className="form-label">Location ID </label>
-              <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value = {bookInfo.locationID} min= "0" type="number" className=" w-50 form-control" id="locationID" />
+              <div className="mb-3 ">
+                  <label htmlFor="Rating"  className="form-label">Rating </label>
+                  <div className = "d-flex justify-content-center ">
+                  <input onChange = {onChange} value = {bookInfo.Rating} min= "0" max="10" type="number" className=" w-50 form-control" id="Rating" />
+                  </div>
               </div>
-              
-          </div>
-          <div className="mb-3 ">
-              <label htmlFor="ReleaseYear" className="form-label">Release Year</label>
-              <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value = {bookInfo.ReleaseYear} min= "0" type="number" className=" w-50 form-control" id="ReleaseYear" />
+              <div className="mb-3 ">
+                  <label htmlFor="locationID" className="form-label">Location ID </label>
+                  <div className = "d-flex justify-content-center ">
+                  <input onChange = {onChange} value = {bookInfo.locationID} min= "0" type="number" className=" w-50 form-control" id="locationID" />
+                  </div>
+                  
               </div>
+              <div className="mb-3 ">
+                  <label htmlFor="ReleaseYear" className="form-label">Release Year</label>
+                  <div className = "d-flex justify-content-center ">
+                  <input onChange = {onChange} value = {bookInfo.ReleaseYear} min= "0" type="number" className=" w-50 form-control" id="ReleaseYear" />
+                  </div>
+                  </div>
+                  <h6>Authors </h6>
+                 <ul>
+                     {authors.map((author,index)=>(
+                         <li>{author.LName} , {author.FName} <button onClick = {authorDelete} value= {index} className='btn btn-primary'>Delete</button></li>
+    
+                    ))}
+                 </ul>
+    
+                <button type="button" className='btn btn-primary my-2' onClick = {!addAuthor? authorClick: saveAuthor}>{!addAuthor ? "Add author": " Save Author"}</button>
+               {addAuthor &&  <><input onChange={onChangeAuthorText} value={authorText} class="form-control" list="datalistOptions" id="datalist-input"placeholder="Type to search for author by last name and first name" />
+               <datalist id="datalistOptions">
+                                {allAuthors.map((author)=>(
+                                        <option value={`${author.FName}, ${author.LName}`} data-value={author.AuthorID}/>
+                                ))}
+                              </datalist></>}
+                              <h6>Genres </h6>
+                              <ul>
+                     {genres.map((genre,index)=>(
+                         <li className='my-2'> {genre} <button onClick = {genreDelete} value= {index} className='btn btn-primary'>Delete</button></li>
+    
+                    ))}
+                 </ul>
+                
+                <button type="button" className='btn btn-primary my-2' onClick = {!addGenre ? genreButton : saveGenre}>{!addGenre ? "Add genre" : "Save genre"}</button>
+                {addGenre && <div className='d-flex justify-content-center mb-1'><label htmlFor="Genre" className="form-label me-1">Genre: </label>
+                <input  onChange={onChangeGenreText} value={genreText} type="text" className="justify-content-center mx-1 w-50 form-control" id="Genre" placeholder='add genre' /></div> }
+                <div>
+              <button type="submit" className="btn btn-secondary">Submit</button>
               </div>
-              <h6>Authors </h6>
-             <ul>
-                 {authors.map((author,index)=>(
-                     <li>{author.LName} , {author.FName} <button onClick = {authorDelete} value= {index} className='btn btn-primary'>Delete</button></li>
-
-                ))}
-             </ul>
-
-            <button type="button" className='btn btn-primary my-2' onClick = {!addAuthor? authorClick: saveAuthor}>{!addAuthor ? "Add author": " Save Author"}</button>
-           {addAuthor &&  <><input onChange={onChangeAuthorText} value={authorText} class="form-control" list="datalistOptions" id="datalist-input"placeholder="Type to search for author by last name and first name" />
-           <datalist id="datalistOptions">
-                            {allAuthors.map((author)=>(
-                                    <option value={`${author.FName}, ${author.LName}`} data-value={author.AuthorID}/>
-                            ))}
-                          </datalist></>}
-                          <h6>Genres </h6>
-                          <ul>
-                 {genres.map((genre,index)=>(
-                     <li className='my-2'> {genre} <button onClick = {genreDelete} value= {index} className='btn btn-primary'>Delete</button></li>
-
-                ))}
-             </ul>
-            
-            <button type="button" className='btn btn-primary my-2' onClick = {!addGenre ? genreButton : saveGenre}>{!addGenre ? "Add genre" : "Save genre"}</button>
-            {addGenre && <div className='d-flex justify-content-center mb-1'><label htmlFor="Genre" className="form-label me-1">Genre: </label>
-            <input  onChange={onChangeGenreText} value={genreText} type="text" className="justify-content-center mx-1 w-50 form-control" id="Genre" placeholder='add genre' /></div> }
-            <div>
-          <button type="submit" className="btn btn-secondary">Submit</button>
+          </form>
+         {error.length !== 0 && <p className='mt-1 text-danger'>{error}</p>}
+         
+         </div>
+         </div>
           </div>
-      </form>
-     {error.length !== 0 && <p className='mt-1 text-danger'>{error}</p>}
-     
-     </div>
-     </div>
-      </div>
-      </>
-  )
+          </>
+      )
 }
 
 export default EditBookForm
