@@ -26,6 +26,9 @@ import ViewPublishers from './pages/ViewPublishers';
 import BooksByAuthor from './pages/BooksByAuthor';
 import BooksByPublisher from './pages/BooksByPublisher';
 import ViewWishlist from './pages/ViewWishlist';
+import SearchBook from './pages/SearchBook';
+import SearchAuthor from './pages/SearchAuthor';
+import SearchPublisher from './pages/SearchPublisher';
 function App() {
   return (
     <div className="App">
@@ -62,6 +65,9 @@ function App() {
           <Route path = "/confirmPayment"  element = {<Confirm text={"Payment input successfully"}/>}/>
           <Route path = "/confirmLocation"  element = {<Confirm text={"Location input successfully"}/>}/>
           <Route path = "/wishlist" element = {<ViewWishlist/>}/>
+          <Route path = "/searchBook/:text" element = {<SearchBook/>}/>
+          <Route path = "/searchAuthor/:text" element = {<SearchAuthor/>}/>
+          <Route path = "/searchPublisher/:text" element = {<SearchPublisher/>}/>
         </Routes>
    
       </Router>

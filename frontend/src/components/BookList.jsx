@@ -146,7 +146,9 @@ function BookList({books,setBooks}) {
   return (
     <table className='table table-dark mt-2 container'>
         <thead>
+        <caption>Books</caption>
             <tr>
+            
             <th>Image</th>
             <th>Title{sortTitle ? <i onClick={onTitle} className="fas fa-arrow-up mx-1"></i>:<i onClick={onTitle} className="fas fa-arrow-down mx-1"></i>}</th>
             <th>Book ID</th>

@@ -55,8 +55,8 @@ POST http://localhost:8000/author/
 content-type: application/json
 
 {
-    "FName":"Yor",
-    "LName":"Forger",
+    "FName":"Forger Yor",
+    "LName":"None",
     "NumBooks":123
     
 
@@ -159,3 +159,23 @@ content-type: application/json
 
 ###
 GET http://localhost:8000/wishlist/user/?User_Email=test@gmail.com&BookID=9
+
+
+###
+
+GET http://localhost:8000/book/?Title=8
+
+###
+
+GET http://localhost:8000/book/
+
+###
+
+
+GET http://localhost:8000/author/?Name=o
+
+
+###
+
+
+GET http://localhost:8000/publisher/?Name=Yae

@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from BookMarketplaceApp import serializers
 from rest_framework import status
+from django.db.models import Q
 from datetime import datetime
 class LoginView(APIView):
     serializer_class = LoginSerializer
@@ -175,10 +176,14 @@ class BookView(APIView):
     def get(self, request, *args, **kwargs):
         #print(request.GET)
         # if request.GET is not empty return 1 book specified by request.GET
-        if request.GET:
+        if 'BookID' in request.GET:
             book_id = request.GET
             book_to_return = Book.objects.get(BookID=book_id['BookID'])
             serializer = BookSerializer(book_to_return, many=False)
+        
+        elif 'Title' in request.GET:
+            books_to_return = Book.objects.filter(Title__icontains=request.GET['Title'])
+            serializer = BookSerializer(books_to_return,many=True)
         # if request.GET is empty return all books
         else:
             books_to_return = Book.objects.all()
@@ -314,6 +319,11 @@ class PublisherView(APIView):
                 }
                 publishers.append(book)
             return Response(publishers, status=status.HTTP_200_OK)
+        #get all publishers containing the query string in their name
+        elif "Name" in request.GET:
+            p = Publisher.objects.filter(Name__icontains=request.GET['Name'])
+            serializer = PublisherSerializer(p,many = True)
+            return Response(serializer.data,status=status.HTTP_200_OK)
         # get all publishes
         else:
             all_publishers = Publisher.objects.all()
@@ -339,15 +349,17 @@ class AuthorView(APIView):
 
     def get(self,request,*args,**kwargs):
         
-        if "FName" in request.GET and "LName" in request.GET:
-            auts = Author.objects.filter(FName=request.GET['FName'], LName = request.GET['LName'])
-
-            authors = []
-            for a in auts:
-                serializer = AuthorSerializer(a, many=True)
-                authors.append(serializer.data)
+        if "Name" in request.GET:
+            
+            print()
+            for value in request.GET['Name'].split():
+                authors = Author.objects.filter( Q(FName__icontains = value) | Q(LName__icontains = value))
+                
+            serializer = AuthorSerializer(authors,many=True)
+            
+            
                  
-            return Response(authors, status=status.HTTP_200_OK)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
         elif "AuthorID" in request.GET:
             author = Author.objects.get(AuthorID=request.get["AuthorID"])

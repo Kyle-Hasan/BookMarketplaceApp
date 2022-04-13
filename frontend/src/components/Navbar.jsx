@@ -9,7 +9,7 @@ function Navbar() {
     sessionStorage.clear()
   };
   let [searchText,setSearchText]= useState("")
-  let [searchOption,setSearchOption] = useState("All")
+  let [searchOption,setSearchOption] = useState("Books")
 
   let searchChange = (e)=>{
     setSearchText(e.target.value)
@@ -24,7 +24,17 @@ function Navbar() {
       return
     }
     else {
-      navigate('/')
+      if(searchOption === "Books" ){
+      navigate(`/searchBook/${searchText}`)
+      setSearchText("")
+      }
+      else if(searchOption === "Authors"){
+        navigate(`/searchAuthor/${searchText}`)
+        setSearchText("")
+      }
+      else if(searchOption === "Publishers"){
+        navigate(`/searchPublisher/${searchText}`)
+      }
     }
   }
   return (
@@ -203,7 +213,7 @@ function Navbar() {
             </ul>
             <form className="d-flex mx-1" onSubmit = {searchSubmit}>
               <select className="mx-2" onChange = {selectChange} value = {searchOption}>
-                <option value="All">All</option>
+                
                 <option value="Books">Books</option>
                 <option value="Authors">Authors</option>
                 <option value="Publishers">Publishers</option>
