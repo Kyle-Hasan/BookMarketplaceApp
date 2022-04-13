@@ -22,17 +22,13 @@ class Payment(models.Model):
 
 
 
-class Location(models.Model):
-    LocationID = models.AutoField(primary_key=True)
-    Country = models.CharField(max_length=20)
-    City = models.CharField(max_length=20)
-    StreetNum = models.IntegerField()
-    PostalCode = models.CharField(max_length=6)
+
 
 class InsuranceProvider(models.Model):
     #Insurance_Prov_ID = models.IntegerField(primary_key=True)
     Name = models.CharField(primary_key=True, max_length=50)
-    Location_ID = models.ForeignKey(Location, on_delete=models.CASCADE)
+    
+    
 
 class InsurancePlan(models.Model):
     PolicyNo = models.IntegerField(primary_key=True)
@@ -77,7 +73,7 @@ class Book(models.Model):
     Stock = models.IntegerField()
     Damage = models.CharField(max_length=50)
    # LocationID = models.ForeignKey(Location, on_delete=models.CASCADE,null=True,default=NULL)
-    LocationID = models.ForeignKey(Location,on_delete=models.CASCADE,null=True,default=NULL)
+    
     Image = models.CharField(max_length=50, null=True)
     Publisher_Name = models.ForeignKey(Publisher, on_delete=models.CASCADE,null=True,default=NULL)
 

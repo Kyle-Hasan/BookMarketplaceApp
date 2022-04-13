@@ -37,7 +37,7 @@ const navigate=  useNavigate()
      Rating:0,
      Stock:1,
      Damage:"",
-     locationID:0,
+    
      SalePrice:0,
      Image:"",
      PublisherName:"",
@@ -346,13 +346,7 @@ const saveAuthor = (e)=>{
                   <input onChange = {onChange} value = {bookInfo.Rating} min= "0" max="10" type="number" className=" w-50 form-control" id="Rating" />
                   </div>
               </div>
-              <div className="mb-3 ">
-                  <label htmlFor="locationID" className="form-label">Location ID </label>
-                  <div className = "d-flex justify-content-center ">
-                  <input onChange = {onChange} value = {bookInfo.locationID} min= "0" type="number" className=" w-50 form-control" id="locationID" />
-                  </div>
-                  
-              </div>
+             
               <div className="mb-3 ">
                   <label htmlFor="ReleaseYear" className="form-label">Release Year</label>
                   <div className = "d-flex justify-content-center ">

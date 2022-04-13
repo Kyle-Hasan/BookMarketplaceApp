@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book, Book_Genres, InsurancePlan, Login, Payment, Publisher, Author, Purchase_Detail, Rental_Detail, Purchase_Detail, InsurancePlan, InsuranceProvider, Location, Review, Wants
+from .models import Book, Book_Genres, InsurancePlan, Login, Payment, Publisher, Author, Purchase_Detail, Rental_Detail, Purchase_Detail, InsurancePlan, InsuranceProvider, Review, Wants
 from .models import User
 
 class LoginSerializer(serializers.ModelSerializer):
@@ -16,7 +16,7 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = ('BookID', 'ReleaseYear', 'PageCount', 'Description', 'RentPrice', 
-        'Title', 'SalePrice', 'Rating', 'Stock', 'Damage', 'LocationID', 'Image','Publisher_Name')
+        'Title', 'SalePrice', 'Rating', 'Stock', 'Damage', 'Image','Publisher_Name')
 
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
@@ -51,17 +51,14 @@ class PurchaseDetailSerializer(serializers.ModelSerializer):
 class InsuranceProviderSerializer(serializers.ModelSerializer):
     class Meta:
         model = InsuranceProvider
-        fields = ("Name","Location_ID")
+        fields = ("Name",)
 
 class InsurancePlanSerializer(serializers.ModelSerializer):
     class Meta:
         model = InsurancePlan
         fields = ("PolicyNo","Price","CoverageDuration","Details","InsuranceProvider_Name")
 
-class LocationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Location
-        fields = ("LocationID","Country","City","StreetNum","PostalCode")
+
         
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:

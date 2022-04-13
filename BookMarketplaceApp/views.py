@@ -2,8 +2,8 @@
 # https://documenter.getpostman.com/view/17627955/UVyysCuN
 
 from django.shortcuts import render
-from .serializers import BookSerializer, LoginSerializer, UserSerializer, PublisherSerializer, GenreSerializer, AuthorSerializer, PaymentSerializer, RentalDetailSerializer, PurchaseDetailSerializer, InsurancePlanSerializer, InsuranceProviderSerializer, LocationSerializer, ReviewSerializer
-from .models import InsuranceProvider, Location, Login, Payment, Publisher, User, Wants, Book, Book_Genres, Author, Rental_Detail, Purchase_Detail, InsurancePlan, InsuranceProvider, Location, Review, Writes
+from .serializers import BookSerializer, LoginSerializer, UserSerializer, PublisherSerializer, GenreSerializer, AuthorSerializer, PaymentSerializer, RentalDetailSerializer, PurchaseDetailSerializer, InsurancePlanSerializer, InsuranceProviderSerializer, ReviewSerializer
+from .models import InsuranceProvider, Login, Payment, Publisher, User, Wants, Book, Book_Genres, Author, Rental_Detail, Purchase_Detail, InsurancePlan, InsuranceProvider, Review, Writes
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from BookMarketplaceApp import serializers
@@ -207,7 +207,7 @@ class BookView(APIView):
         p = book_data['Publisher_Name']
         print(request.data)
         p2 = Publisher.objects.get(Name=p)
-        l1 = Location.objects.get(LocationID=book_data['LocationID'])
+        
         new_book = Book(
             #BookID=book_data['BookID'],
             ReleaseYear=book_data['ReleaseYear'],
@@ -218,7 +218,7 @@ class BookView(APIView):
             Rating=book_data['Rating'],
             Stock=book_data['Stock'],
             Damage=book_data['Damage'],
-            LocationID=l1,
+          
             Description = book_data['Description'],
             Image=book_data['Image'],
             Publisher_Name=p2,
@@ -233,7 +233,7 @@ class BookView(APIView):
             book_data = request.data
             p2 = Publisher.objects.get(Name=book_data['Publisher_Name'])
             b = Book.objects.get(BookID=book_id)
-            l1 = Location.objects.get(LocationID=book_data['LocationID'])
+            
             b.ReleaseYear=book_data['ReleaseYear']
             b.PageCount=book_data['PageCount']
             b.RentPrice=book_data['RentPrice']
@@ -243,7 +243,7 @@ class BookView(APIView):
             b.Rating=book_data['Rating']
             b.Stock=book_data['Stock']
             b.Damage=book_data['Damage']
-            b.LocationID=l1
+            
             b.Image=book_data['Image']
             b.Publisher_Name=p2
             b.save()
@@ -579,36 +579,7 @@ class PurchaseDetailView(APIView):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-class LocationView(APIView):
-    serializer_class = LocationSerializer
 
-    # Endpoint 35
-    def post(self,request,*args,**kwargs):
-        print(request)
-        location_data = request.data
-
-        print(location_data)
-        l = Location(
-           # LocationID = location_data['LocationID'],
-            Country = location_data['Country'],
-            City = location_data['City'],
-            StreetNum = location_data['StreetNum'],
-            PostalCode = location_data['PostalCode']
-        )
-        l.save()
-        serializer = LocationSerializer(l,many=False)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    
-    def get(self,request,*args,**kwargs):
-        # Endpoint 36
-        if "LocationID" in request.GET:
-            location = Location.objects.get(LocationID=request.GET['LocationID'])
-            serializer = LocationSerializer(location, many=False)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        else:
-            locations = Location.objects.all()
-            serializer = LocationSerializer(locations,many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 
@@ -621,11 +592,11 @@ class InsuranceProviderView(APIView):
         insuranceProvider_data = request.data
         
         print(insuranceProvider_data)
-        p1 = insuranceProvider_data['Location_ID']
-        p2 = Location.objects.get(LocationID=p1)
+        
+       
         p = InsuranceProvider(
             Name = insuranceProvider_data['Name'],
-            Location_ID = p2
+            
         )
         p.save()
         serializer = InsuranceProviderSerializer(p,many=False)

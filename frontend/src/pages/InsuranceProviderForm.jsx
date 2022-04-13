@@ -8,8 +8,8 @@ function InsuranceProviderForm() {
  const [error,setError] = useState("")
  const [formInfo,setFormInfo] = useState({
      Name: "",
-     Address: "",
-     locationID:0
+     
+    
 
  })
  const navigate = useNavigate()
@@ -27,10 +27,10 @@ function InsuranceProviderForm() {
      e.preventDefault()
      try{
      await axios.post("http://localhost:8000/insuranceprovider/",{
-       Location_ID:formInfo.locationID,
+       
        Name:formInfo.Name
      })
-     navigate("/confirmPublisher")
+     navigate("/confirmProvider")
      }
      catch{
        setError("error occurred")
@@ -56,20 +56,8 @@ function InsuranceProviderForm() {
               </div>
 
           </div>
-          <div className="mb-3">
-              <label htmlFor="Address" className="form-label">Address</label>
-              <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value ={formInfo.Address} type="text" className="w-50 form-control" id="Address" />
-              </div>
-
-          </div>
-          <div className="mb-3">
-              <label htmlFor="locationID" className="form-label">Location ID</label>
-              <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value ={formInfo.locationID} type="number" className="w-50 form-control" id="locationID" />
-              </div>
-
-          </div>
+          
+          
           
           
           <button type="submit" className="btn btn-secondary">Submit</button>

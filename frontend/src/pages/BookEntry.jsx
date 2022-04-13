@@ -300,10 +300,7 @@ function BookEntry() {
                     <th>Release Year: </th>
                     <td>{bookInfo.ReleaseYear}</td>
                   </tr>
-                  <tr>
-                    <th>Location: </th>
-                    <td>{bookInfo.LocationID}</td>
-                  </tr>
+                  
                   <tr>
                     <th>Damage: </th>
                     <td>{bookInfo.Damage}</td>

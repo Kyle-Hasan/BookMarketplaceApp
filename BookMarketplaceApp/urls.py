@@ -17,7 +17,7 @@ from django import urls
 from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework import routers
-from BookMarketplaceApp.views import LoginView, SignupView, UserView, WishlistUserView, BookView, GenreView, PublisherView, AuthorView, PaymentView, RentalDetailView, PurchaseDetailView, InsurancePlanView, InsuranceProviderView, LocationView, ReviewView, WritesView
+from BookMarketplaceApp.views import LoginView, SignupView, UserView, WishlistUserView, BookView, GenreView, PublisherView, AuthorView, PaymentView, RentalDetailView, PurchaseDetailView, InsurancePlanView, InsuranceProviderView, ReviewView, WritesView
 
 
 router = routers.DefaultRouter()
@@ -39,7 +39,7 @@ urlpatterns = [
     path('purchasedetail/', PurchaseDetailView.as_view()),
     path("insuranceplan/", InsurancePlanView.as_view()),
     path("insuranceprovider/", InsuranceProviderView.as_view()),
-    path("location/",LocationView.as_view()),
+    
     path("review/book/", ReviewView.as_view()),
     path("writes/", WritesView.as_view()),
     path("books/author/", WritesView.as_view()),
