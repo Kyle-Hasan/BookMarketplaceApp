@@ -48,6 +48,7 @@ function EditUserForm() {
     localStorage.setItem("AdminFlag", userData.data.AdminFlag ? true : false)
     setError("Updated")
     window.location.reload()
+    window.confirm("User edited successfully")
     }
     catch(e){
         console.log(e)

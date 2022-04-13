@@ -142,6 +142,7 @@ const navigate=  useNavigate()
 
 
         navigate("/")
+        window.confirm("Book edited successfully")
 
     }
     catch(e){
