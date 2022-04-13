@@ -9,113 +9,12 @@
 			"name": "author",
 			"item": [
 				{
-					"name": "assign author to book",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "BookID",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "AuthorID",
-									"value": "2",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://127.0.0.1:8000/writes/",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"writes",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get all books for an author",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:8000/books/author/?AuthorID=1",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"books",
-								"author",
-								""
-							],
-							"query": [
-								{
-									"key": "AuthorID",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "searching authors by name",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:8000/author/?FName=Bob&LName=Joe",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"author",
-								""
-							],
-							"query": [
-								{
-									"key": "FName",
-									"value": "Bob"
-								},
-								{
-									"key": "LName",
-									"value": "Joe"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Endpoint 12",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/books/author/?BookID=3",
+							"raw": "http://127.0.0.1:8000/books/author/?BookID=5",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -132,12 +31,92 @@
 							"query": [
 								{
 									"key": "BookID",
-									"value": "3"
+									"value": "5",
+									"description": "integer"
 								}
 							]
-						}
+						},
+						"description": "#### Description\n\nGet author info for a book"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Endpoint 12",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/books/author/?BookID=3",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"books",
+										"author",
+										""
+									],
+									"query": [
+										{
+											"key": "BookID",
+											"value": "3",
+											"description": "integer"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 07:41:41 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "90"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"FName\": \"Bob\",\n        \"LName\": \"Joe\",\n        \"AuthorID\": 1\n    },\n    {\n        \"FName\": \"Yor\",\n        \"LName\": \"Forger\",\n        \"AuthorID\": 4\n    }\n]"
+						}
+					]
 				},
 				{
 					"name": "Endpoint 13",
@@ -187,15 +166,958 @@
 								"author",
 								""
 							]
-						}
+						},
+						"description": "#### Description\n\nAdd new author to the database"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Endpoint 13",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "NumBooks",
+											"value": "0",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "FName",
+											"value": "Bob",
+											"description": "varchar(50)",
+											"type": "text"
+										},
+										{
+											"key": "LName",
+											"value": "Joe",
+											"description": "varchar(50)",
+											"type": "text"
+										},
+										{
+											"key": "AuthorID",
+											"value": "1",
+											"description": "integer",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/author/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"author",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 07:42:24 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "55"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"AuthorID\": 7,\n    \"FName\": \"Bob\",\n    \"LName\": \"Joe\",\n    \"NumBooks\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "Endpoint 14",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "BookID",
+									"value": "8",
+									"description": "integer",
+									"type": "text"
+								},
+								{
+									"key": "AuthorID",
+									"value": "3",
+									"description": "integer",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/writes/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"writes",
+								""
+							]
+						},
+						"description": "#### Description\n\nAssign author to a book"
+					},
+					"response": [
+						{
+							"name": "Endpoint 14",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "BookID",
+											"value": "8",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "AuthorID",
+											"value": "2",
+											"description": "integer",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/writes/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"writes",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 07:44:15 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "25"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "\"Author assigned to book\""
+						}
+					]
+				},
+				{
+					"name": "Endpoint 15",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/writes/?BookID=5&AuthorID=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"writes",
+								""
+							],
+							"query": [
+								{
+									"key": "BookID",
+									"value": "5",
+									"description": "integer"
+								},
+								{
+									"key": "AuthorID",
+									"value": "1",
+									"description": "integer"
+								}
+							]
+						},
+						"description": "#### Description\n\nDeletes an author from a book"
+					},
+					"response": [
+						{
+							"name": "Endpoint 15",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/writes/?BookID=5&AuthorID=1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"writes",
+										""
+									],
+									"query": [
+										{
+											"key": "BookID",
+											"value": "5",
+											"description": "integer"
+										},
+										{
+											"key": "AuthorID",
+											"value": "1",
+											"description": "integer"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 08:51:54 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "9"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "\"deleted\""
+						}
+					]
+				},
+				{
+					"name": "Endpoint 33",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/books/author/?AuthorID=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"books",
+								"author",
+								""
+							],
+							"query": [
+								{
+									"key": "AuthorID",
+									"value": "1",
+									"description": "integer"
+								}
+							]
+						},
+						"description": "#### Description\n\nGets all books for an author"
+					},
+					"response": [
+						{
+							"name": "Endpoint 33",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/books/author/?AuthorID=1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"books",
+										"author",
+										""
+									],
+									"query": [
+										{
+											"key": "AuthorID",
+											"value": "1",
+											"description": "integer"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 08:29:35 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "173"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"BookID\": 5,\n        \"Title\": \"a\",\n        \"Rating\": 1,\n        \"Image\": \"https://pa1.narvii.com/7329/061b825b65222f25684b74768ac7892c9547311ar1-676-769_hq.gif\",\n        \"SalePrice\": 12,\n        \"RentPrice\": 12,\n        \"Stock\": 5\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Endpoint 38",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/author/?Name=Bob",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"author",
+								""
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "Bob",
+									"description": "varchar (50)"
+								}
+							]
+						},
+						"description": "#### Description\n\nUsed to get all authors with a certain name. Name can be first name or last name."
+					},
+					"response": [
+						{
+							"name": "Endpoint 38",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/author/?Name=Bob",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"author",
+										""
+									],
+									"query": [
+										{
+											"key": "Name",
+											"value": "Bob",
+											"description": "varchar (50)"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 08:43:37 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "171"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"AuthorID\": 1,\n        \"FName\": \"Bob\",\n        \"LName\": \"Joe\",\n        \"NumBooks\": 0\n    },\n    {\n        \"AuthorID\": 2,\n        \"FName\": \"Bob\",\n        \"LName\": \"Steve\",\n        \"NumBooks\": 0\n    },\n    {\n        \"AuthorID\": 7,\n        \"FName\": \"Bob\",\n        \"LName\": \"Joe\",\n        \"NumBooks\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Endpoint 39",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/author/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"author",
+								""
+							]
+						},
+						"description": "#### Description\n\nUsed to get all authors"
+					},
+					"response": [
+						{
+							"name": "Endpoint 39",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/author/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"author",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 08:44:56 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "418"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"AuthorID\": 1,\n        \"FName\": \"Bob\",\n        \"LName\": \"Joe\",\n        \"NumBooks\": 0\n    },\n    {\n        \"AuthorID\": 2,\n        \"FName\": \"Bob\",\n        \"LName\": \"Steve\",\n        \"NumBooks\": 0\n    },\n    {\n        \"AuthorID\": 3,\n        \"FName\": \"w35\",\n        \"LName\": \"wetwet\",\n        \"NumBooks\": 0\n    },\n    {\n        \"AuthorID\": 4,\n        \"FName\": \"Yor\",\n        \"LName\": \"Forger\",\n        \"NumBooks\": 123\n    },\n    {\n        \"AuthorID\": 5,\n        \"FName\": \"Forger\",\n        \"LName\": \"Yor\",\n        \"NumBooks\": 123\n    },\n    {\n        \"AuthorID\": 6,\n        \"FName\": \"Forger Yor\",\n        \"LName\": \"None\",\n        \"NumBooks\": 123\n    },\n    {\n        \"AuthorID\": 7,\n        \"FName\": \"Bob\",\n        \"LName\": \"Joe\",\n        \"NumBooks\": 0\n    }\n]"
+						}
+					]
 				}
 			]
 		},
 		{
 			"name": "user",
 			"item": [
+				{
+					"name": "Endpoint 1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Email",
+									"value": "a@gmail.com",
+									"description": "varchar (50)",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "a",
+									"description": "varchar (50)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/login/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"login",
+								""
+							]
+						},
+						"description": "#### Description\n\nUser/Admin logging in"
+					},
+					"response": [
+						{
+							"name": "Endpoint 1",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Email",
+											"value": "b@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "Password",
+											"value": "a",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/login/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"login",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 11 Apr 2022 04:57:14 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "5"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "false"
+						}
+					]
+				},
+				{
+					"name": "Endpoint 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Email",
+									"value": "b@gmail.com",
+									"description": "varchar (50)",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "a",
+									"description": "varchar (50)",
+									"type": "text"
+								},
+								{
+									"key": "FName",
+									"value": "Bill",
+									"description": "varchar (5)",
+									"type": "text"
+								},
+								{
+									"key": "LName",
+									"value": "Gates",
+									"description": "varchar (5)",
+									"type": "text"
+								},
+								{
+									"key": "AdminFlag",
+									"value": "False",
+									"description": "bool",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/signup/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"signup",
+								""
+							]
+						},
+						"description": "#### Description\n\nInput User/Admin Information"
+					},
+					"response": [
+						{
+							"name": "Endpoint 1",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Email",
+											"value": "b@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "Password",
+											"value": "a",
+											"type": "text"
+										},
+										{
+											"key": "FName",
+											"value": "Bill",
+											"type": "text"
+										},
+										{
+											"key": "LName",
+											"value": "Gates",
+											"type": "text"
+										},
+										{
+											"key": "AdminFlag",
+											"value": "False",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/signup/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"signup",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 11 Apr 2022 04:52:33 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "7"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "\"False\""
+						}
+					]
+				},
 				{
 					"name": "Endpoint 3",
 					"request": {
@@ -218,12 +1140,91 @@
 							"query": [
 								{
 									"key": "User_Email",
-									"value": "a@gmail.com"
+									"value": "a@gmail.com",
+									"description": "varchar (50)"
 								}
 							]
-						}
+						},
+						"description": "#### Description\n\nGet User/Admin Information"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Endpoint 3",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/?User_Email=a@gmail.com",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										""
+									],
+									"query": [
+										{
+											"key": "User_Email",
+											"value": "a@gmail.com",
+											"description": "varchar (50)"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 07:26:03 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, PATCH, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "103"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Email\": \"a@gmail.com\",\n    \"Address\": \"\",\n    \"DOB\": null,\n    \"FName\": \"a\",\n    \"LName\": \"a\",\n    \"AdminFlag\": false,\n    \"CardNo\": null\n}"
+						}
+					]
 				},
 				{
 					"name": "Endpoint 4",
@@ -236,36 +1237,43 @@
 								{
 									"key": "Email\n",
 									"value": "a@gmail.com",
+									"description": "varchar (50)",
 									"type": "text"
 								},
 								{
 									"key": "Address",
 									"value": "102",
+									"description": "varchar (50)",
 									"type": "text"
 								},
 								{
 									"key": "DOB",
 									"value": "2001-10-10",
+									"description": "date",
 									"type": "text"
 								},
 								{
 									"key": "FName",
 									"value": "Charlie",
+									"description": "varchar (50)",
 									"type": "text"
 								},
 								{
 									"key": "LName",
 									"value": "Sheen",
+									"description": "varchar (50)",
 									"type": "text"
 								},
 								{
 									"key": "AdminFlag",
 									"value": "False",
+									"description": "bool",
 									"type": "text"
 								},
 								{
 									"key": "CardNo",
 									"value": "23",
+									"description": "integer",
 									"type": "text"
 								}
 							]
@@ -284,9 +1292,127 @@
 								"user",
 								""
 							]
-						}
+						},
+						"description": "#### Description\n\nEdit user info"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Endpoint 4",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Email\n",
+											"value": "a@gmail.com",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "Address",
+											"value": "102",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "DOB",
+											"value": "2001-10-10",
+											"description": "date",
+											"type": "text"
+										},
+										{
+											"key": "FName",
+											"value": "Charlie",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "LName",
+											"value": "Sheen",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "AdminFlag",
+											"value": "False",
+											"description": "bool",
+											"type": "text"
+										},
+										{
+											"key": "CardNo",
+											"value": "23",
+											"description": "integer",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 07:26:20 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, PATCH, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "124"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Email\": \"a@gmail.com\",\n    \"Address\": \"102\",\n    \"DOB\": \"2001-10-10\",\n    \"FName\": \"Charlie\",\n    \"LName\": \"Sheen\",\n    \"AdminFlag\": false,\n    \"CardNo\": null\n}"
+						}
+					]
 				},
 				{
 					"name": "Endpoint 5",
@@ -299,12 +1425,19 @@
 								{
 									"key": "BookID",
 									"value": "3",
+									"description": "integer",
+									"type": "text"
+								},
+								{
+									"key": "User_Email",
+									"value": "a@gmail.com",
+									"description": "varchar (50)",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/wishlist/user/?Email=a@gmail.com",
+							"raw": "http://127.0.0.1:8000/wishlist/user/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -317,16 +1450,99 @@
 								"wishlist",
 								"user",
 								""
-							],
-							"query": [
-								{
-									"key": "Email",
-									"value": "a@gmail.com"
-								}
 							]
-						}
+						},
+						"description": "#### Description\n\nUser adds a book to their wishlist"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Endpoint 5",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "BookID",
+											"value": "3",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "User_Email",
+											"value": "a@gmail.com",
+											"description": "varchar (50)",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/wishlist/user/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"wishlist",
+										"user",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 07:33:41 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "\"\""
+						}
+					]
 				}
 			]
 		},
@@ -339,7 +1555,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/book/?BookID=2",
+							"raw": "http://127.0.0.1:8000/book/?BookID=3",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -355,12 +1571,91 @@
 							"query": [
 								{
 									"key": "BookID",
-									"value": "2"
+									"value": "3",
+									"description": "integer"
 								}
 							]
-						}
+						},
+						"description": "#### Description\n\nGets 1 book in database"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Endpoint 6",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/book/?BookID=3",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"book",
+										""
+									],
+									"query": [
+										{
+											"key": "BookID",
+											"value": "3",
+											"description": "integer"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 07:34:51 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, PATCH, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "272"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"BookID\": 3,\n    \"ReleaseYear\": 8,\n    \"PageCount\": 1,\n    \"Description\": \"\",\n    \"RentPrice\": 4,\n    \"Title\": \"dddd\",\n    \"SalePrice\": 4,\n    \"Rating\": 0,\n    \"Stock\": 1,\n    \"Damage\": \"twttw\",\n    \"LocationID\": 1,\n    \"Image\": \"https://pa1.narvii.com/7329/061b825b65222f25684b74768ac7892c9547311ar1-676-769_hq.gif\",\n    \"Publisher_Name\": \"a\"\n}"
+						}
+					]
 				},
 				{
 					"name": "Endpoint 7",
@@ -381,9 +1676,80 @@
 								"book",
 								""
 							]
-						}
+						},
+						"description": "#### Description\n\nGets every book in database"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Endpoint 7",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/book/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"book",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 07:35:44 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, PATCH, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2121"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"BookID\": 3,\n        \"ReleaseYear\": 8,\n        \"PageCount\": 1,\n        \"Description\": \"\",\n        \"RentPrice\": 4,\n        \"Title\": \"dddd\",\n        \"SalePrice\": 4,\n        \"Rating\": 0,\n        \"Stock\": 1,\n        \"Damage\": \"twttw\",\n        \"LocationID\": 1,\n        \"Image\": \"https://pa1.narvii.com/7329/061b825b65222f25684b74768ac7892c9547311ar1-676-769_hq.gif\",\n        \"Publisher_Name\": \"a\"\n    },\n    {\n        \"BookID\": 4,\n        \"ReleaseYear\": 8,\n        \"PageCount\": 1,\n        \"Description\": \"\",\n        \"RentPrice\": 4,\n        \"Title\": \"dddd\",\n        \"SalePrice\": 4,\n        \"Rating\": 0,\n        \"Stock\": 0,\n        \"Damage\": \"twttw\",\n        \"LocationID\": 1,\n        \"Image\": \"https://pa1.narvii.com/7329/061b825b65222f25684b74768ac7892c9547311ar1-676-769_hq.gif\",\n        \"Publisher_Name\": \"a\"\n    },\n    {\n        \"BookID\": 5,\n        \"ReleaseYear\": 0,\n        \"PageCount\": 3,\n        \"Description\": \"\",\n        \"RentPrice\": 12,\n        \"Title\": \"a\",\n        \"SalePrice\": 12,\n        \"Rating\": 1,\n        \"Stock\": 5,\n        \"Damage\": \"qdqwd\",\n        \"LocationID\": 1,\n        \"Image\": \"https://pa1.narvii.com/7329/061b825b65222f25684b74768ac7892c9547311ar1-676-769_hq.gif\",\n        \"Publisher_Name\": \"a\"\n    },\n    {\n        \"BookID\": 6,\n        \"ReleaseYear\": 0,\n        \"PageCount\": 3,\n        \"Description\": \"\",\n        \"RentPrice\": 12,\n        \"Title\": \"a\",\n        \"SalePrice\": 12,\n        \"Rating\": 1,\n        \"Stock\": 9,\n        \"Damage\": \"qdqwd\",\n        \"LocationID\": 1,\n        \"Image\": \"https://pa1.narvii.com/7329/061b825b65222f25684b74768ac7892c9547311ar1-676-769_hq.gif\",\n        \"Publisher_Name\": \"a\"\n    },\n    {\n        \"BookID\": 7,\n        \"ReleaseYear\": 0,\n        \"PageCount\": 3,\n        \"Description\": \"\",\n        \"RentPrice\": 12,\n        \"Title\": \"a\",\n        \"SalePrice\": 12,\n        \"Rating\": 1,\n        \"Stock\": 11,\n        \"Damage\": \"qdqwd\",\n        \"LocationID\": 1,\n        \"Image\": \"https://pa1.narvii.com/7329/061b825b65222f25684b74768ac7892c9547311ar1-676-769_hq.gif\",\n        \"Publisher_Name\": \"a\"\n    },\n    {\n        \"BookID\": 8,\n        \"ReleaseYear\": 7,\n        \"PageCount\": 1,\n        \"Description\": \"efwefpjfwe efwefefpwefwef ewfpwoefjwpffjpef wfpowefwepofepofjopfe wefpowefjepgojgpweogjow wegpojgjogwjpowg8w0ggwghwgwphgwgwkjgjwg\",\n        \"RentPrice\": 0,\n        \"Title\": \"new title\",\n        \"SalePrice\": 0,\n        \"Rating\": 8,\n        \"Stock\": 16,\n        \"Damage\": \"fwfef\",\n        \"LocationID\": 1,\n        \"Image\": \"https://pa1.narvii.com/7329/061b825b65222f25684b74768ac7892c9547311ar1-676-769_hq.gif\",\n        \"Publisher_Name\": \"a\"\n    },\n    {\n        \"BookID\": 9,\n        \"ReleaseYear\": 2005,\n        \"PageCount\": 1532,\n        \"Description\": \" the greatest book ever. Very good and stuff happens in it\",\n        \"RentPrice\": 45,\n        \"Title\": \"899\",\n        \"SalePrice\": 33,\n        \"Rating\": 3,\n        \"Stock\": 22,\n        \"Damage\": \"heavy\",\n        \"LocationID\": 1,\n        \"Image\": \"https://i.pinimg.com/originals/2c/25/28/2c2528244450fcf743ac2eff3b9f914d.jpg\",\n        \"Publisher_Name\": \"Yae publishing house\"\n    }\n]"
+						}
+					]
 				},
 				{
 					"name": "Endpoint 8",
@@ -396,61 +1762,73 @@
 								{
 									"key": "ReleaseYear",
 									"value": "2002",
+									"description": "integer",
 									"type": "text"
 								},
 								{
 									"key": "PageCount",
 									"value": "304",
+									"description": "integer",
 									"type": "text"
 								},
 								{
 									"key": "RentPrice",
 									"value": "5",
+									"description": "integer",
 									"type": "text"
 								},
 								{
 									"key": "Title",
 									"value": "Book3",
+									"description": "varchar (50)",
 									"type": "text"
 								},
 								{
 									"key": "SalePrice",
 									"value": "45",
+									"description": "integer",
 									"type": "text"
 								},
 								{
 									"key": "Rating",
 									"value": "3",
+									"description": "integer",
 									"type": "text"
 								},
 								{
 									"key": "Stock",
 									"value": "1",
+									"description": "integer",
 									"type": "text"
 								},
 								{
 									"key": "Damage",
 									"value": "3",
+									"description": "varchar (50)",
 									"type": "text"
 								},
 								{
 									"key": "LocationID",
-									"value": "3",
+									"value": "1",
+									"description": "integer",
 									"type": "text"
 								},
 								{
 									"key": "Image",
 									"value": "https://tenor.com/view/yoinky-sploinky-jerma-jerma985-yoinky-sploinky-gif-22804720",
+									"description": "varchar (50)",
 									"type": "text"
 								},
 								{
 									"key": "Publisher_Name",
 									"value": "a",
+									"description": "varchar (50)",
 									"type": "text"
 								},
 								{
 									"key": "Description",
 									"value": "a",
+									"description": "varchar (200)",
 									"type": "text"
 								}
 							]
@@ -469,9 +1847,157 @@
 								"book",
 								""
 							]
-						}
+						},
+						"description": "#### Description\n\nUser posts a book on the website"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Endpoint 8",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "ReleaseYear",
+											"value": "2002",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "PageCount",
+											"value": "304",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "RentPrice",
+											"value": "5",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "Title",
+											"value": "Book3",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "SalePrice",
+											"value": "45",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "Rating",
+											"value": "3",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "Stock",
+											"value": "1",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "Damage",
+											"value": "3",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "LocationID",
+											"value": "1",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "Image",
+											"value": "https://tenor.com/view/yoinky-sploinky-jerma-jerma985-yoinky-sploinky-gif-22804720",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "Publisher_Name",
+											"value": "a",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "Description",
+											"value": "a",
+											"description": "varchar (200)",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/book/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"book",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 07:37:56 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, PATCH, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "11"
+						}
+					]
 				},
 				{
 					"name": "Endpoint 9",
@@ -484,11 +2010,13 @@
 								{
 									"key": "BookID",
 									"value": "1",
+									"description": "integer",
 									"type": "text"
 								},
 								{
 									"key": "BookGenre",
 									"value": "Action",
+									"description": "varchar (50)",
 									"type": "text"
 								}
 							]
@@ -508,7 +2036,8 @@
 								"book",
 								""
 							]
-						}
+						},
+						"description": "#### Description\n\nAssign genre to a book"
 					},
 					"response": [
 						{
@@ -702,10 +2231,12 @@
 							"query": [
 								{
 									"key": "BookID",
-									"value": "3"
+									"value": "3",
+									"description": "integer"
 								}
 							]
-						}
+						},
+						"description": "#### Description\n\nGet genres of a book"
 					},
 					"response": [
 						{
@@ -797,61 +2328,73 @@
 								{
 									"key": "Publisher_Name",
 									"value": "a",
+									"description": "varchar (50)",
 									"type": "text"
 								},
 								{
 									"key": "PageCount",
 									"value": "54",
+									"description": "integer",
 									"type": "text"
 								},
 								{
 									"key": "RentPrice",
 									"value": "4",
+									"description": "integer",
 									"type": "text"
 								},
 								{
 									"key": "Description",
 									"value": "Test",
+									"description": "varchar (200)",
 									"type": "text"
 								},
 								{
 									"key": "Title",
 									"value": "Book3",
+									"description": "varchar (50)",
 									"type": "text"
 								},
 								{
 									"key": "SalePrice",
 									"value": "3",
+									"description": "integer",
 									"type": "text"
 								},
 								{
 									"key": "Rating",
 									"value": "6",
+									"description": "integer",
 									"type": "text"
 								},
 								{
 									"key": "Stock",
 									"value": "1",
+									"description": "integer",
 									"type": "text"
 								},
 								{
 									"key": "Damage",
 									"value": "2",
+									"description": "varchar (50)",
 									"type": "text"
 								},
 								{
 									"key": "LocationID",
 									"value": "1",
+									"description": "integer",
 									"type": "text"
 								},
 								{
 									"key": "Image",
 									"value": "image",
+									"description": "varchar (50)",
 									"type": "text"
 								},
 								{
 									"key": "ReleaseYear",
 									"value": "1980",
+									"description": "integer",
 									"type": "text"
 								}
 							]
@@ -873,7 +2416,2237 @@
 							"query": [
 								{
 									"key": "BookID",
+									"value": "3",
+									"description": "integer"
+								}
+							]
+						},
+						"description": "#### Description\n\nEdit book info"
+					},
+					"response": [
+						{
+							"name": "Endpoint 11",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Publisher_Name",
+											"value": "a",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "PageCount",
+											"value": "54",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "RentPrice",
+											"value": "4",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "Description",
+											"value": "Test",
+											"description": "varchar (200)",
+											"type": "text"
+										},
+										{
+											"key": "Title",
+											"value": "Book3",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "SalePrice",
+											"value": "3",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "Rating",
+											"value": "6",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "Stock",
+											"value": "1",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "Damage",
+											"value": "2",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "LocationID",
+											"value": "1",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "Image",
+											"value": "image",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "ReleaseYear",
+											"value": "1980",
+											"description": "integer",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/book/?BookID=3",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"book",
+										""
+									],
+									"query": [
+										{
+											"key": "BookID",
+											"value": "3",
+											"description": "integer"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 07:40:49 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, PATCH, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "197"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"BookID\": 3,\n    \"ReleaseYear\": 1980,\n    \"PageCount\": 54,\n    \"Description\": \"Test\",\n    \"RentPrice\": 4,\n    \"Title\": \"Book3\",\n    \"SalePrice\": 3,\n    \"Rating\": 6,\n    \"Stock\": 1,\n    \"Damage\": \"2\",\n    \"LocationID\": 1,\n    \"Image\": \"image\",\n    \"Publisher_Name\": \"a\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Endpoint 28",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/book/?BookID=3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"book",
+								""
+							],
+							"query": [
+								{
+									"key": "BookID",
 									"value": "3"
+								}
+							]
+						},
+						"description": "#### Description\n\nAdmin remove a book"
+					},
+					"response": [
+						{
+							"name": "Endpoint 28",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/book/?BookID=3",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"book",
+										""
+									],
+									"query": [
+										{
+											"key": "BookID",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 08:16:21 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, PATCH, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "\"\""
+						}
+					]
+				},
+				{
+					"name": "Endpoint 37",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/book/?Title=a",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"book",
+								""
+							],
+							"query": [
+								{
+									"key": "Title",
+									"value": "a",
+									"description": "varchar (50)"
+								}
+							]
+						},
+						"description": "#### Description\n\nUsed to get all books with a certain title"
+					},
+					"response": [
+						{
+							"name": "Endpoint 37",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/book/?Title=a",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"book",
+										""
+									],
+									"query": [
+										{
+											"key": "Title",
+											"value": "a"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 08:41:01 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, PATCH, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "818"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"BookID\": 5,\n        \"ReleaseYear\": 0,\n        \"PageCount\": 3,\n        \"Description\": \"\",\n        \"RentPrice\": 12,\n        \"Title\": \"a\",\n        \"SalePrice\": 12,\n        \"Rating\": 1,\n        \"Stock\": 5,\n        \"Damage\": \"qdqwd\",\n        \"LocationID\": 1,\n        \"Image\": \"https://pa1.narvii.com/7329/061b825b65222f25684b74768ac7892c9547311ar1-676-769_hq.gif\",\n        \"Publisher_Name\": \"a\"\n    },\n    {\n        \"BookID\": 6,\n        \"ReleaseYear\": 0,\n        \"PageCount\": 3,\n        \"Description\": \"\",\n        \"RentPrice\": 12,\n        \"Title\": \"a\",\n        \"SalePrice\": 12,\n        \"Rating\": 1,\n        \"Stock\": 9,\n        \"Damage\": \"qdqwd\",\n        \"LocationID\": 1,\n        \"Image\": \"https://pa1.narvii.com/7329/061b825b65222f25684b74768ac7892c9547311ar1-676-769_hq.gif\",\n        \"Publisher_Name\": \"a\"\n    },\n    {\n        \"BookID\": 7,\n        \"ReleaseYear\": 0,\n        \"PageCount\": 3,\n        \"Description\": \"\",\n        \"RentPrice\": 12,\n        \"Title\": \"a\",\n        \"SalePrice\": 12,\n        \"Rating\": 1,\n        \"Stock\": 11,\n        \"Damage\": \"qdqwd\",\n        \"LocationID\": 1,\n        \"Image\": \"https://pa1.narvii.com/7329/061b825b65222f25684b74768ac7892c9547311ar1-676-769_hq.gif\",\n        \"Publisher_Name\": \"a\"\n    }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "publisher",
+			"item": [
+				{
+					"name": "Endpoint 16",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Name",
+									"value": "NewPublisher",
+									"description": "varchar (50)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/publisher/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"publisher",
+								""
+							]
+						},
+						"description": "#### Description\n\nAdd publisher"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Name",
+											"value": "NewPublisher",
+											"description": "varchar (50)",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/publisher/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"publisher",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 07:46:07 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "14"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "\"NewPublisher\""
+						}
+					]
+				},
+				{
+					"name": "Endpoint 34",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/books/publisher/?Publisher_Name=a",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"books",
+								"publisher",
+								""
+							],
+							"query": [
+								{
+									"key": "Publisher_Name",
+									"value": "a",
+									"description": "varchar (50)"
+								}
+							]
+						},
+						"description": "#### Description\n\nGets all books for a publisher"
+					},
+					"response": [
+						{
+							"name": "Endpoint 34",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/books/publisher/?Publisher_Name=a",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"books",
+										"publisher",
+										""
+									],
+									"query": [
+										{
+											"key": "Publisher_Name",
+											"value": "a",
+											"description": "varchar (50)"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 08:31:25 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1043"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"BookID\": 4,\n        \"Title\": \"dddd\",\n        \"Rating\": 0,\n        \"Image\": \"https://pa1.narvii.com/7329/061b825b65222f25684b74768ac7892c9547311ar1-676-769_hq.gif\",\n        \"SalePrice\": 4,\n        \"RentPrice\": 4,\n        \"Stock\": 0\n    },\n    {\n        \"BookID\": 5,\n        \"Title\": \"a\",\n        \"Rating\": 1,\n        \"Image\": \"https://pa1.narvii.com/7329/061b825b65222f25684b74768ac7892c9547311ar1-676-769_hq.gif\",\n        \"SalePrice\": 12,\n        \"RentPrice\": 12,\n        \"Stock\": 5\n    },\n    {\n        \"BookID\": 6,\n        \"Title\": \"a\",\n        \"Rating\": 1,\n        \"Image\": \"https://pa1.narvii.com/7329/061b825b65222f25684b74768ac7892c9547311ar1-676-769_hq.gif\",\n        \"SalePrice\": 12,\n        \"RentPrice\": 12,\n        \"Stock\": 9\n    },\n    {\n        \"BookID\": 7,\n        \"Title\": \"a\",\n        \"Rating\": 1,\n        \"Image\": \"https://pa1.narvii.com/7329/061b825b65222f25684b74768ac7892c9547311ar1-676-769_hq.gif\",\n        \"SalePrice\": 12,\n        \"RentPrice\": 12,\n        \"Stock\": 11\n    },\n    {\n        \"BookID\": 8,\n        \"Title\": \"new title\",\n        \"Rating\": 8,\n        \"Image\": \"https://pa1.narvii.com/7329/061b825b65222f25684b74768ac7892c9547311ar1-676-769_hq.gif\",\n        \"SalePrice\": 0,\n        \"RentPrice\": 0,\n        \"Stock\": 16\n    },\n    {\n        \"BookID\": 11,\n        \"Title\": \"Book3\",\n        \"Rating\": 3,\n        \"Image\": \"https://tenor.com/view/yoinky-sploinky-jerma-jerma985-yoinky-sploinky-gif-22804720\",\n        \"SalePrice\": 45,\n        \"RentPrice\": 5,\n        \"Stock\": 1\n    }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "payment",
+			"item": [
+				{
+					"name": "Endpoint 18",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "CardNo",
+									"value": "2345469459",
+									"description": "varchar (50)",
+									"type": "text"
+								},
+								{
+									"key": "CVV",
+									"value": "345",
+									"description": "integer",
+									"type": "text"
+								},
+								{
+									"key": "BillingAddress",
+									"value": "10 Ash Grove Lane",
+									"description": "varchar (50)",
+									"type": "text"
+								},
+								{
+									"key": "NameOnCard",
+									"value": "Jeremy",
+									"description": "varchar (50)",
+									"type": "text"
+								},
+								{
+									"key": "User_Email",
+									"value": "a@gmail.com",
+									"description": "varchar (50)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/payment/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"payment",
+								""
+							]
+						},
+						"description": "#### Description\n\nInput User/Admin Payment Info"
+					},
+					"response": [
+						{
+							"name": "Endpoint 18",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "CardNo",
+											"value": "2345469459",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "CVV",
+											"value": "345",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "BillingAddress",
+											"value": "10 Ash Grove Lane",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "NameOnCard",
+											"value": "Jeremy",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "User_Email",
+											"value": "a@gmail.com",
+											"description": "varchar (50)",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/payment/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"payment",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 07:52:35 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "117"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"CardNo\": 2345469459,\n    \"CVV\": 345,\n    \"BillingAddress\": \"10 Ash Grove Lane\",\n    \"NameOnCard\": \"Jeremy\",\n    \"User_Email\": \"a@gmail.com\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Endpoint 19",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/payment/?User_Email=a@gmail.com",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"payment",
+								""
+							],
+							"query": [
+								{
+									"key": "User_Email",
+									"value": "a@gmail.com",
+									"description": "varchar (50)"
+								}
+							]
+						},
+						"description": "#### Description\n\nGet User/Admin Payment options"
+					},
+					"response": [
+						{
+							"name": "Endpoint 19",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/payment/?User_Email=a@gmail.com",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"payment",
+										""
+									],
+									"query": [
+										{
+											"key": "User_Email",
+											"value": "a@gmail.com",
+											"description": "varchar (50)"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 07:54:07 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "117"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"CardNo\": 2345469459,\n    \"CVV\": 345,\n    \"BillingAddress\": \"10 Ash Grove Lane\",\n    \"NameOnCard\": \"Jeremy\",\n    \"User_Email\": \"a@gmail.com\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "order",
+			"item": [
+				{
+					"name": "Endpoint 22",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "OrderDate",
+									"value": "2002-01-01",
+									"description": "date",
+									"type": "text"
+								},
+								{
+									"key": "CardNo",
+									"value": "2345469459",
+									"description": "varchar (50)",
+									"type": "text"
+								},
+								{
+									"key": "User_Email",
+									"value": "a@gmail.com",
+									"description": "varchar (50)",
+									"type": "text"
+								},
+								{
+									"key": "Book_ID",
+									"value": "3",
+									"description": "integer",
+									"type": "text"
+								},
+								{
+									"key": "Quantity",
+									"value": "1",
+									"description": "integer",
+									"type": "text"
+								},
+								{
+									"key": "PolicyNo",
+									"value": "3",
+									"description": "integer",
+									"type": "text"
+								},
+								{
+									"key": "InsuranceProvider_Name",
+									"value": "a",
+									"description": "varchar (50)",
+									"type": "text"
+								},
+								{
+									"key": "StartDate",
+									"value": "2022-04-13",
+									"description": "date",
+									"type": "text"
+								},
+								{
+									"key": "EndDate",
+									"value": "2022-05-13",
+									"description": "data",
+									"type": "text"
+								},
+								{
+									"key": "RentAmt",
+									"value": "20",
+									"description": "integer",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/rentaldetail/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"rentaldetail",
+								""
+							]
+						},
+						"description": "#### Description\n\nAdd new rental info"
+					},
+					"response": [
+						{
+							"name": "Endpoint 22",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "OrderDate",
+											"value": "2002-01-01",
+											"description": "date",
+											"type": "text"
+										},
+										{
+											"key": "CardNo",
+											"value": "2345469459",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "User_Email",
+											"value": "a@gmail.com",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "Book_ID",
+											"value": "3",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "Quantity",
+											"value": "1",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "PolicyNo",
+											"value": "3",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "InsuranceProvider_Name",
+											"value": "a",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "StartDate",
+											"value": "2022-04-13",
+											"description": "date",
+											"type": "text"
+										},
+										{
+											"key": "EndDate",
+											"value": "2022-05-13",
+											"description": "data",
+											"type": "text"
+										},
+										{
+											"key": "RentAmt",
+											"value": "20",
+											"description": "integer",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/rentaldetail/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"rentaldetail",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 08:03:24 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "213"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"User_Email\": \"a@gmail.com\",\n    \"OrderID\": 8,\n    \"StartDate\": \"2022-04-13\",\n    \"EndDate\": \"2022-05-13\",\n    \"RentAmt\": 20,\n    \"BookID\": 3,\n    \"Policy_no\": 3,\n    \"InsuranceProvider_Name\": \"a\",\n    \"Quantity\": 1,\n    \"CardNo\": 2345469459,\n    \"OrderDate\": \"2002-01-01\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Endpoint 23",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "OrderDate",
+									"value": "2002-01-01",
+									"type": "text"
+								},
+								{
+									"key": "CardNo",
+									"value": "2345469459",
+									"type": "text"
+								},
+								{
+									"key": "User_Email",
+									"value": "a@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "Book_ID",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "Quantity",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "PolicyNo",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "InsuranceProvider_Name",
+									"value": "a",
+									"type": "text"
+								},
+								{
+									"key": "StartDate",
+									"value": "2022-04-13",
+									"type": "text"
+								},
+								{
+									"key": "EndDate",
+									"value": "2022-05-13",
+									"type": "text"
+								},
+								{
+									"key": "PurchaseAmt",
+									"value": "20",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/purchasedetail/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"purchasedetail",
+								""
+							]
+						},
+						"description": "#### Description\n\nAdd new purchase info"
+					},
+					"response": [
+						{
+							"name": "Endpoint 23",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "OrderDate",
+											"value": "2002-01-01",
+											"type": "text"
+										},
+										{
+											"key": "CardNo",
+											"value": "2345469459",
+											"type": "text"
+										},
+										{
+											"key": "User_Email",
+											"value": "a@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "Book_ID",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "Quantity",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "PolicyNo",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "InsuranceProvider_Name",
+											"value": "a",
+											"type": "text"
+										},
+										{
+											"key": "StartDate",
+											"value": "2022-04-13",
+											"type": "text"
+										},
+										{
+											"key": "EndDate",
+											"value": "2022-05-13",
+											"type": "text"
+										},
+										{
+											"key": "PurchaseAmt",
+											"value": "20",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/purchasedetail/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"purchasedetail",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 08:05:14 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "170"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"User_Email\": \"a@gmail.com\",\n    \"OrderID\": 15,\n    \"PurchaseAmt\": 20,\n    \"BookID\": 3,\n    \"Policy_no\": 3,\n    \"InsuranceProvider_Name\": \"a\",\n    \"Quantity\": 1,\n    \"OrderDate\": \"2002-01-01\",\n    \"CardNo\": 2345469459\n}"
+						}
+					]
+				},
+				{
+					"name": "Endpoint 31",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/rentaldetail/?User_Email=e@gmail.com",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"rentaldetail",
+								""
+							],
+							"query": [
+								{
+									"key": "User_Email",
+									"value": "e@gmail.com",
+									"description": "varchar (50)"
+								}
+							]
+						},
+						"description": "#### Description\n\nGets all purchase information for a user"
+					},
+					"response": [
+						{
+							"name": "Endpoint 31",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/rentaldetail/?User_Email=e@gmail.com",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"rentaldetail",
+										""
+									],
+									"query": [
+										{
+											"key": "User_Email",
+											"value": "e@gmail.com",
+											"description": "varchar (50)"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 08:22:04 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "207"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"User_Email\": \"e@gmail.com\",\n        \"OrderID\": 1,\n        \"StartDate\": \"2022-04-09\",\n        \"EndDate\": \"2022-04-16\",\n        \"RentAmt\": 4,\n        \"BookID\": 4,\n        \"Policy_no\": 0,\n        \"InsuranceProvider_Name\": \"a\",\n        \"Quantity\": 1,\n        \"CardNo\": 224,\n        \"OrderDate\": \"2022-04-09\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Endpoint 32",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/purchasedetail/?User_Email=e@gmail.com",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"purchasedetail",
+								""
+							],
+							"query": [
+								{
+									"key": "User_Email",
+									"value": "e@gmail.com",
+									"description": "varchar (20)"
+								}
+							]
+						},
+						"description": "#### Description\n\nGets all purchase information for a user"
+					},
+					"response": [
+						{
+							"name": "Endpoint 32",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/purchasedetail/?User_Email=e@gmail.com",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"purchasedetail",
+										""
+									],
+									"query": [
+										{
+											"key": "User_Email",
+											"value": "e@gmail.com",
+											"description": "varchar (20)"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 08:23:08 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "164"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"User_Email\": \"e@gmail.com\",\n        \"OrderID\": 4,\n        \"PurchaseAmt\": 19,\n        \"BookID\": 5,\n        \"Policy_no\": 0,\n        \"InsuranceProvider_Name\": \"a\",\n        \"Quantity\": 1,\n        \"OrderDate\": \"2022-04-08\",\n        \"CardNo\": 224\n    }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "insurance",
+			"item": [
+				{
+					"name": "Endpoint 24",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Location_ID",
+									"value": "1",
+									"description": "integer",
+									"type": "text"
+								},
+								{
+									"key": "Name",
+									"value": "NewInsuranceProvider",
+									"description": "varchar (50)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/insuranceprovider/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"insuranceprovider",
+								""
+							]
+						},
+						"description": "#### Description\n\nAdd new insurance provider"
+					},
+					"response": [
+						{
+							"name": "Endpoint 24",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Location_ID",
+											"value": "1",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "Name",
+											"value": "NewInsuranceProvider",
+											"description": "varchar (50)",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/insuranceprovider/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"insuranceprovider",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 08:07:49 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "47"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Name\": \"NewInsuranceProvider\",\n    \"Location_ID\": 1\n}"
+						}
+					]
+				},
+				{
+					"name": "Endpoint 25",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "PolicyNo",
+									"value": "2",
+									"description": "integer",
+									"type": "text"
+								},
+								{
+									"key": "Price",
+									"value": "15",
+									"description": "integer",
+									"type": "text"
+								},
+								{
+									"key": "CoverageDuration",
+									"value": "24",
+									"description": "integer",
+									"type": "text"
+								},
+								{
+									"key": "InsuranceProvider_name",
+									"value": "NewInsuranceProvider",
+									"description": "varchar (50)",
+									"type": "text"
+								},
+								{
+									"key": "Details",
+									"value": "Plan Details",
+									"description": "varchar (50)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/insuranceplan/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"insuranceplan",
+								""
+							]
+						},
+						"description": "#### Description\n\nAdd new insurance plan"
+					},
+					"response": [
+						{
+							"name": "Endpoint 25",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "PolicyNo",
+											"value": "2",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "Price",
+											"value": "15",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "CoverageDuration",
+											"value": "24",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "InsuranceProvider_name",
+											"value": "NewInsuranceProvider",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "Details",
+											"value": "Plan Details",
+											"description": "varchar (50)",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/insuranceplan/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"insuranceplan",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 08:10:12 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "120"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"PolicyNo\": 2,\n    \"Price\": 15,\n    \"CoverageDuration\": 24,\n    \"Details\": \"Plan Details\",\n    \"InsuranceProvider_Name\": \"NewInsuranceProvider\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Endpoint 40",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/insuranceplan/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"insuranceplan",
+								""
+							]
+						},
+						"description": "#### Description\n\nUsed to get all insurance plans"
+					},
+					"response": [
+						{
+							"name": "Endpoint 40",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/insuranceplan/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"insuranceplan",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 08:46:47 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "328"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"PolicyNo\": 0,\n        \"Price\": 1000000000000,\n        \"CoverageDuration\": 1,\n        \"Details\": \"blah blah blah\",\n        \"InsuranceProvider_Name\": \"miku\"\n    },\n    {\n        \"PolicyNo\": 2,\n        \"Price\": 15,\n        \"CoverageDuration\": 24,\n        \"Details\": \"Plan Details\",\n        \"InsuranceProvider_Name\": \"NewInsuranceProvider\"\n    },\n    {\n        \"PolicyNo\": 3,\n        \"Price\": 1,\n        \"CoverageDuration\": 1,\n        \"Details\": \"a\",\n        \"InsuranceProvider_Name\": \"a\"\n    }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "review",
+			"item": [
+				{
+					"name": "Endpoint 26",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/review/book/?BookID=4",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"review",
+								"book",
+								""
+							],
+							"query": [
+								{
+									"key": "BookID",
+									"value": "4",
+									"description": "integer"
+								}
+							]
+						},
+						"description": "#### Description\n\nGet review for book"
+					},
+					"response": [
+						{
+							"name": "Endpoint 26",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/review/book/?BookID=4",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"review",
+										"book",
+										""
+									],
+									"query": [
+										{
+											"key": "BookID",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 08:12:02 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, PATCH, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "79"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"BookID\": 4,\n        \"User_Email\": \"s@s.com\",\n        \"Rating\": 3,\n        \"Comment\": \"wdad\",\n        \"Review_ID\": 5\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Endpoint 27",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "BookID",
+									"value": "4",
+									"description": "integer",
+									"type": "text"
+								},
+								{
+									"key": "User_Email",
+									"value": "e@gmail.com",
+									"description": "varchar (50)",
+									"type": "text"
+								},
+								{
+									"key": "Rating",
+									"value": "3",
+									"description": "integer",
+									"type": "text"
+								},
+								{
+									"key": "Comment",
+									"value": "Adding Review",
+									"description": "varchar (100)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/review/book/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"review",
+								"book",
+								""
+							]
+						},
+						"description": "#### Description\n\nPost a review for a book"
+					},
+					"response": [
+						{
+							"name": "Endpoint 27",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "BookID",
+											"value": "4",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "User_Email",
+											"value": "e@gmail.com",
+											"description": "varchar (50)",
+											"type": "text"
+										},
+										{
+											"key": "Rating",
+											"value": "3",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "Comment",
+											"value": "Adding Review",
+											"description": "varchar (100)",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/review/book/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"review",
+										"book",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 08:13:56 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, PATCH, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "91"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"BookID\": 4,\n    \"User_Email\": \"e@gmail.com\",\n    \"Rating\": 3,\n    \"Comment\": \"Adding Review\",\n    \"Review_ID\": 17\n}"
+						}
+					]
+				},
+				{
+					"name": "delete review",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/review/book/?BookID=9&User_Email=e@gmail.com",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"review",
+								"book",
+								""
+							],
+							"query": [
+								{
+									"key": "BookID",
+									"value": "9"
+								},
+								{
+									"key": "User_Email",
+									"value": "e@gmail.com"
 								}
 							]
 						}
@@ -883,65 +4656,44 @@
 			]
 		},
 		{
-			"name": "Endpoint 1",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "Email",
-							"value": "b@gmail.com",
-							"type": "text"
-						},
-						{
-							"key": "Password",
-							"value": "a",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8000/login/",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"login",
-						""
-					]
-				},
-				"description": "#### Description\n\nUser/Admin logging in"
-			},
-			"response": [
+			"name": "location",
+			"item": [
 				{
-					"name": "Endpoint 1",
-					"originalRequest": {
+					"name": "Endpoint 35",
+					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "Email",
-									"value": "b@gmail.com",
+									"key": "Country",
+									"value": "Canada",
+									"description": "varchar (20)",
 									"type": "text"
 								},
 								{
-									"key": "Password",
-									"value": "a",
+									"key": "City",
+									"value": "Regina",
+									"description": "varchar (20)",
+									"type": "text"
+								},
+								{
+									"key": "StreetNum",
+									"value": "4",
+									"description": "integer",
+									"type": "text"
+								},
+								{
+									"key": "PostalCode",
+									"value": "R5G1K9",
+									"description": "varchar (6)",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/login/",
+							"raw": "http://127.0.0.1:8000/location/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -951,150 +4703,120 @@
 							],
 							"port": "8000",
 							"path": [
-								"login",
+								"location",
 								""
 							]
-						}
+						},
+						"description": "#### Description\n\nUsed to add a location"
 					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "json",
-					"header": [
+					"response": [
 						{
-							"key": "Date",
-							"value": "Mon, 11 Apr 2022 04:57:14 GMT"
-						},
-						{
-							"key": "Server",
-							"value": "WSGIServer/0.2 CPython/3.9.12"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Vary",
-							"value": "Accept, Origin, Cookie"
-						},
-						{
-							"key": "Allow",
-							"value": "GET, POST, HEAD, OPTIONS"
-						},
-						{
-							"key": "X-Frame-Options",
-							"value": "DENY"
-						},
-						{
-							"key": "Content-Length",
-							"value": "5"
-						},
-						{
-							"key": "X-Content-Type-Options",
-							"value": "nosniff"
-						},
-						{
-							"key": "Referrer-Policy",
-							"value": "same-origin"
-						},
-						{
-							"key": "Cross-Origin-Opener-Policy",
-							"value": "same-origin"
-						}
-					],
-					"cookie": [],
-					"body": "false"
-				}
-			]
-		},
-		{
-			"name": "Endpoint 2",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "Email",
-							"value": "b@gmail.com",
-							"type": "text"
-						},
-						{
-							"key": "Password",
-							"value": "a",
-							"type": "text"
-						},
-						{
-							"key": "FName",
-							"value": "Bill",
-							"type": "text"
-						},
-						{
-							"key": "LName",
-							"value": "Gates",
-							"type": "text"
-						},
-						{
-							"key": "AdminFlag",
-							"value": "False",
-							"type": "text"
+							"name": "Endpoint 35",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Country",
+											"value": "Canada",
+											"description": "varchar (20)",
+											"type": "text"
+										},
+										{
+											"key": "City",
+											"value": "Regina",
+											"description": "varchar (20)",
+											"type": "text"
+										},
+										{
+											"key": "StreetNum",
+											"value": "4",
+											"description": "integer",
+											"type": "text"
+										},
+										{
+											"key": "PostalCode",
+											"value": "R5G1K9",
+											"description": "varchar (6)",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/location/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"location",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 08:35:01 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "87"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"LocationID\": 3,\n    \"Country\": \"Canada\",\n    \"City\": \"Regina\",\n    \"StreetNum\": 4,\n    \"PostalCode\": \"R5G1K9\"\n}"
 						}
 					]
 				},
-				"url": {
-					"raw": "http://127.0.0.1:8000/signup/",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"signup",
-						""
-					]
-				}
-			},
-			"response": [
 				{
-					"name": "Endpoint 1",
-					"originalRequest": {
-						"method": "POST",
+					"name": "Endpoint 36",
+					"request": {
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "Email",
-									"value": "b@gmail.com",
-									"type": "text"
-								},
-								{
-									"key": "Password",
-									"value": "a",
-									"type": "text"
-								},
-								{
-									"key": "FName",
-									"value": "Bill",
-									"type": "text"
-								},
-								{
-									"key": "LName",
-									"value": "Gates",
-									"type": "text"
-								},
-								{
-									"key": "AdminFlag",
-									"value": "False",
-									"type": "text"
-								}
-							]
-						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/signup/",
+							"raw": "http://127.0.0.1:8000/location/?LocationID=1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1104,187 +4826,99 @@
 							],
 							"port": "8000",
 							"path": [
-								"signup",
+								"location",
 								""
+							],
+							"query": [
+								{
+									"key": "LocationID",
+									"value": "1",
+									"description": "integer"
+								}
 							]
-						}
+						},
+						"description": "Used to get a location"
 					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "json",
-					"header": [
+					"response": [
 						{
-							"key": "Date",
-							"value": "Mon, 11 Apr 2022 04:52:33 GMT"
-						},
-						{
-							"key": "Server",
-							"value": "WSGIServer/0.2 CPython/3.9.12"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Vary",
-							"value": "Accept, Origin, Cookie"
-						},
-						{
-							"key": "Allow",
-							"value": "POST, OPTIONS"
-						},
-						{
-							"key": "X-Frame-Options",
-							"value": "DENY"
-						},
-						{
-							"key": "Content-Length",
-							"value": "7"
-						},
-						{
-							"key": "X-Content-Type-Options",
-							"value": "nosniff"
-						},
-						{
-							"key": "Referrer-Policy",
-							"value": "same-origin"
-						},
-						{
-							"key": "Cross-Origin-Opener-Policy",
-							"value": "same-origin"
+							"name": "Endpoint 36",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/location/?LocationID=1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"location",
+										""
+									],
+									"query": [
+										{
+											"key": "LocationID",
+											"value": "1",
+											"description": "integer"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 08:38:48 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "72"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"LocationID\": 1,\n    \"Country\": \"a\",\n    \"City\": \"a\",\n    \"StreetNum\": 0,\n    \"PostalCode\": \"a\"\n}"
 						}
-					],
-					"cookie": [],
-					"body": "\"False\""
+					]
 				}
 			]
-		},
-		{
-			"name": "http://127.0.0.1:8000/review/book/?BookID=2",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "Email",
-							"value": "a@gmail.com",
-							"type": "text"
-						},
-						{
-							"key": "Password",
-							"value": "123",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8000/review/book/?BookID=2",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"review",
-						"book",
-						""
-					],
-					"query": [
-						{
-							"key": "BookID",
-							"value": "2"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://127.0.0.1:8000/review/book/",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "BookID",
-							"value": "1",
-							"type": "text"
-						},
-						{
-							"key": "User_Email",
-							"value": "e@gmail.com",
-							"type": "text"
-						},
-						{
-							"key": "Rating",
-							"value": "3",
-							"type": "text"
-						},
-						{
-							"key": "Comment",
-							"value": "Adding Review",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8000/review/book/",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"review",
-						"book",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get publisher books",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:8000/books/publisher/?Publisher_Name=a",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"books",
-						"publisher",
-						""
-					],
-					"query": [
-						{
-							"key": "Publisher_Name",
-							"value": "a"
-						}
-					]
-				}
-			},
-			"response": []
 		}
 	]
 }
