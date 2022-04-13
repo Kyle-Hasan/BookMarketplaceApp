@@ -18,6 +18,7 @@ class LoginView(APIView):
         return login
 
     # returns all logins
+    # Endpoint 57
     def get(self, request, *args, **kwargs):
         logins = self.get_queryset()
         serializer = LoginSerializer(logins, many=True)

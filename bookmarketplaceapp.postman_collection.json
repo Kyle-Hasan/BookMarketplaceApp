@@ -133,6 +133,100 @@
 							"body": "false"
 						}
 					]
+				},
+				{
+					"name": "Endpoint 57",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/login/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"login",
+								""
+							]
+						},
+						"description": "#### Description\n\nGet all logins"
+					},
+					"response": [
+						{
+							"name": "Endpoint 57",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/login/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"login",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 22:12:19 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "434"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"User_Email\": \"a@a.com\",\n        \"Password\": \"a\"\n    },\n    {\n        \"User_Email\": \"e@gmail.com\",\n        \"Password\": \"a\"\n    },\n    {\n        \"User_Email\": \"fsa@gdff.com\",\n        \"Password\": \"a\"\n    },\n    {\n        \"User_Email\": \"a@gmail.com\",\n        \"Password\": \"a\"\n    },\n    {\n        \"User_Email\": \"test@gmail.com\",\n        \"Password\": \"1\"\n    },\n    {\n        \"User_Email\": \"s@s.com\",\n        \"Password\": \"s\"\n    },\n    {\n        \"User_Email\": \"r@e.com\",\n        \"Password\": \"a\"\n    },\n    {\n        \"User_Email\": \"e@rk.com\",\n        \"Password\": \"a\"\n    },\n    {\n        \"User_Email\": \"ddd@gmail.com\",\n        \"Password\": \"a\"\n    },\n    {\n        \"User_Email\": \"ddddddd@h.com\",\n        \"Password\": \"a\"\n    }\n]"
+						}
+					]
 				}
 			]
 		},
