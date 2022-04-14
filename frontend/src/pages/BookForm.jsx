@@ -335,7 +335,7 @@ if(!JSON.parse(localStorage.getItem('AdminFlag'))){
               <h6>Authors </h6>
              <ul>
                  {authors.map((author,index)=>(
-                     <li>{author.LName} , {author.FName} <button onClick = {authorDelete} value= {index} className='btn btn-primary'>Delete</button></li>
+                     <li>{author.LName} , {author.FName} <button type="button" onClick = {authorDelete} value= {index} className='btn btn-primary'>Delete</button></li>
 
                 ))}
              </ul>
@@ -350,7 +350,7 @@ if(!JSON.parse(localStorage.getItem('AdminFlag'))){
                           <h6>Genres </h6>
                           <ul>
                  {genres.map((genre,index)=>(
-                     <li className='my-2'> {genre} <button onClick = {genreDelete} value= {index} className='btn btn-primary'>Delete</button></li>
+                     <li className='my-2'> {genre} <button type = "button" onClick = {genreDelete} value= {index} className='btn btn-primary'>Delete</button></li>
 
                 ))}
              </ul>
