@@ -103,8 +103,10 @@ const pResults = a.results
               </div>
 
           </div>
+          <label htmlFor="ProviderName" className="form-label">Provider</label>
           <div className="mb-3 d-flex justify-content-center">
-          <input onChange={(e)=>{setPText(e.target.value)}} value={pText} className="w-50 form-control" list="datalistOptions2" id="PublisherName"placeholder="search publisher name" />
+          
+          <input onChange={(e)=>{setPText(e.target.value)}} value={pText} className="w-50 form-control" list="datalistOptions2" id="ProviderName"placeholder="search provider name" />
            <datalist id="datalistOptions2">
                             {pResults.result && pResults.result.data && (pResults.result.data.map((p)=>(
                                  <option key={p.Name} value={p.Name} />
