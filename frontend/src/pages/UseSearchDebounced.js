@@ -2,12 +2,13 @@ import {useState} from 'react'
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import {useAsync} from 'react-async-hook'
 import useConstant from 'use-constant';
-function UseSearchDebounced(search,dTime){
+//referenced from https://stackoverflow.com/questions/23123138/perform-debounce-in-react-js
+function UseSearchDebounced(search,dTime,intial){
 
 
 
    
-    const [input, setInput] = useState("");
+    const [input, setInput] = useState(intial);
   
     
     var d = useConstant(() =>

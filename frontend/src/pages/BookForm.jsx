@@ -44,7 +44,7 @@ function BookForm() {
         }
     })
  }
- const searchADebounced = ()=> UseSearchDebounced(text=>authorApiSearch(text),200)
+ const searchADebounced = ()=> UseSearchDebounced(text=>authorApiSearch(text),200,"")
  const a= searchADebounced();
  const aText = a.input
  const setAText = a.setInput
@@ -58,7 +58,7 @@ function BookForm() {
     })
 
  }
- const searchPDebounced = ()=> UseSearchDebounced(text=>publisherApiSearch(text),200)
+ const searchPDebounced = ()=> UseSearchDebounced(text=>publisherApiSearch(text),200,"")
  const p = searchPDebounced(text=>publisherApiSearch(text),200)
  const pText = p.input
  const setPText = p.setInput

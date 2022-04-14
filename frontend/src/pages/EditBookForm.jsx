@@ -50,11 +50,25 @@ const navigate=  useNavigate()
         }
     })
  }
- const searchADebounced = ()=> UseSearchDebounced(text=>authorApiSearch(text),200)
+ const searchADebounced = ()=> UseSearchDebounced(text=>authorApiSearch(text),200,"")
  const a= searchADebounced();
  const aText = a.input
  const setAText = a.setInput
  const aResults = a.results
+ const publisherApiSearch = async(text)=>{
+    return await axios.get("http://localhost:8000/publisher/",{
+        params:{
+            Name:text
+        }
+    })
+
+ }
+ const searchPDebounced = ()=> UseSearchDebounced(text=>publisherApiSearch(text),200,bookInfo.PublisherName)
+ const p = searchPDebounced(text=>publisherApiSearch(text),200)
+ const pText = p.input
+ const setPText = p.setInput
+ const pResults = p.results
+
  const onChangeAuthorText= (e)=>{
       
     setAuthorText(e.target.value)
@@ -70,6 +84,16 @@ const navigate=  useNavigate()
    catch{
 
    }
+   
+   
+
+   
+}
+const onChangePublisherText= async (e)=>{
+     
+    
+    setPText(e.target.value)
+    console.log(pResults)
    
    
 
@@ -280,7 +304,7 @@ const saveAuthor = (e)=>{
           <div className = "container">
               <div class = "card mt-4">
               <div class="card-header">
-              <h1 className = "mb-3">Add Book</h1>
+              <h1 className = "mb-3">Edit Book</h1>
               </div>
               <div class = "card-body">
           <form onSubmit={onSubmit} >
@@ -311,11 +335,16 @@ const saveAuthor = (e)=>{
                   </div>
               </div>
               <div className="mb-3 ">
-                  <label htmlFor="PublisherName" className="form-label">Publisher name</label>
-                  <div className = "d-flex justify-content-center ">
-                  <input onChange = {onChange} value = {bookInfo.PublisherName} type="text" className=" w-50 form-control" id="PublisherName" />
-                  </div>
+              <label htmlFor="PublisherName" className="form-label">Publisher name</label>
+              <div className = "d-flex justify-content-center ">
+              <input onChange={onChangePublisherText} value={pText} className="w-50 form-control" list="datalistOptions2" id="PublisherName"placeholder="search publisher name" />
+           <datalist id="datalistOptions2">
+                            {pResults.result && pResults.result.data && (pResults.result.data.map((p)=>(
+                                 <option key={p.Name} value={p.Name} />
+                            )))}
+                          </datalist>
               </div>
+          </div>
               <div className="mb-3 ">
                   <label htmlFor="PageCount" className="form-label">Page Count</label>
                   <div className = "d-flex justify-content-center ">
@@ -362,12 +391,12 @@ const saveAuthor = (e)=>{
                  </ul>
     
                 <button type="button" className='btn btn-primary my-2' onClick = {!addAuthor? authorClick: saveAuthor}>{!addAuthor ? "Add author": " Save Author"}</button>
-               {addAuthor &&  <><input onChange={onChangeAuthorText} value={authorText} class="form-control" list="datalistOptions" id="datalist-input"placeholder="Type to search for author by last name and first name" />
-               <datalist id="datalistOptions">
-               {aResults.result && aResults.result.data && (aResults.result.data.map((author)=>(
-                                  !authors.find((a)=>a.AuthorID===author.AuthorID) && <option key={author.AuthorID} value={`${author.FName}, ${author.LName}`} data-value={author.AuthorID}/>
+               {addAuthor &&  <div className='d-flex justify-content-center'><input onChange={onChangeAuthorText} value={aText} class="form-control w-50" list="datalistOptions" id="datalist-input"placeholder="Type to search for author by last name and first name" />
+           <datalist id="datalistOptions">
+                            {aResults.result && aResults.result.data && (aResults.result.data.map((author)=>(
+                                  !authors.find((a)=>a.AuthorID==author.AuthorID) && <option key={author.AuthorID} value={`${author.FName}, ${author.LName}`} data-value={author.AuthorID}/>
                             )))}
-                          </datalist></>}
+                          </datalist></div>}
                               <h6>Genres </h6>
                               <ul>
                      {genres.map((genre,index)=>(
