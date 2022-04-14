@@ -286,7 +286,7 @@ function BookEntry() {
                   </tr>
                   <tr>
                     <th>Publisher: </th>
-                    <td>{bookInfo.Publisher_Name}</td>
+                    <td><Link to={`/publisher/${bookInfo.Publisher_Name}`}>{bookInfo.Publisher_Name}</Link></td>
                   </tr>
                   <tr>
                     <th>Genres: </th>

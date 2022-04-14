@@ -78,7 +78,7 @@ function Navbar() {
                       <Link className="dropdown-item" to="/books">
                         All Books
                       </Link>
-                     {localStorage.getItem("AdminFlag") === "true" && <Link className="dropdown-item" to="/addBook">
+                     {JSON.parse(localStorage.getItem('AdminFlag')) && <Link className="dropdown-item" to="/addBook">
                       Add book
                       </Link>}
                      

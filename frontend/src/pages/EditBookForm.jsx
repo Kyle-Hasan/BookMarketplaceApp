@@ -241,6 +241,7 @@ const saveAuthor = (e)=>{
         )
         return f
     })
+    setAText("")
     setAuthorText("")
     setAuthorID(-1)
 }
@@ -293,7 +294,7 @@ const saveAuthor = (e)=>{
      fetchData()
      return ()=>{isMounted=false}
  },[])
- if(localStorage.getItem("AdminFlag") !== "true"){
+ if(!JSON.parse(localStorage.getItem('AdminFlag'))){
     return <><Navbar /><div>You can't view this</div></>
   }
  

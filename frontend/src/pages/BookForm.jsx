@@ -195,6 +195,7 @@ function BookForm() {
          )
          return f
      })
+     setAText("")
      setAuthorText("")
      setAuthorID(-1)
     }
@@ -245,7 +246,7 @@ useEffect(()=>{
     fetchData()
     return ()=>{isMounted=false}
 },[])
-if(!localStorage.getItem("username")){
+if(!JSON.parse(localStorage.getItem('AdminFlag'))){
     return <><Navbar /><div>You arent logged in</div></>
   }
   return (

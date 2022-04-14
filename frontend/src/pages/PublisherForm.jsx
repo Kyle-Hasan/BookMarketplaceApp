@@ -35,7 +35,7 @@ function PublisherForm() {
     }
 
  }
- if(localStorage.getItem("AdminFlag") !== "true"){
+ if(!JSON.parse(localStorage.getItem('AdminFlag'))){
   return <><Navbar /><div>You can't view this</div></>
 }
   return (
