@@ -36,7 +36,8 @@ function PaymentForm({setCheckoutInfo,setShowPaymentForm}) {
         User_Email:localStorage.getItem("username"),
         CardNo:paymentInfo.CardNo,
         CVV:paymentInfo.cvv,
-        BillingAddress:paymentInfo.address
+        BillingAddress:paymentInfo.address,
+        NameOnCard:paymentInfo.name
     })
     console.log(setCheckoutInfo)
     if(setCheckoutInfo){

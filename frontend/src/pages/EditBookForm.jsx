@@ -358,15 +358,15 @@ const saveAuthor = (e)=>{
                   </div>
               </div>
               <div className="mb-3 ">
-                  <label htmlFor="RentPrice" className="form-label">Rent Price($)</label>
+                  <label htmlFor="RentPrice" className="form-label" >Rent Price($)</label>
                   <div className = "d-flex justify-content-center ">
-                  <input onChange = {onChange} value = {bookInfo.RentPrice} min= "0" type="number" className=" w-50 form-control" id="RentPrice" />
+                  <input onChange = {onChange} value = {bookInfo.RentPrice} min= "0" type="number" className=" w-50 form-control" id="RentPrice" step=".01" />
                   </div>
               </div>
               <div className="mb-3 ">
-                  <label htmlFor="SalePrice" className="form-label">Sale Price($)</label>
+                  <label htmlFor="SalePrice" className="form-label" >Sale Price($)</label>
                   <div className = "d-flex justify-content-center ">
-                  <input onChange = {onChange} value = {bookInfo.SalePrice} min= "0" type="number" className=" w-50 form-control" id="SalePrice" />
+                  <input onChange = {onChange} value = {bookInfo.SalePrice} min= "0" type="number" className=" w-50 form-control" id="SalePrice" step=".01" />
                   </div>
               </div>
               <div className="mb-3 ">

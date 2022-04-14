@@ -82,7 +82,7 @@ function InsurancePlanForm() {
           <div className="mb-3">
               <label htmlFor="price" className="form-label">Price($)</label>
               <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} min = "1" value ={formInfo.price} type="number" className="w-50 form-control" id="price" />
+              <input onChange = {onChange} min = "1" step=".01" value ={formInfo.price} type="number" className="w-50 form-control" id="price" />
               </div>
 
           </div>

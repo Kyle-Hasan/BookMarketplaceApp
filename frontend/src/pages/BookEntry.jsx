@@ -378,7 +378,7 @@ function BookEntry() {
                       />
                     </div>
                     <div class="text-start mb-1">
-                      Total price: {totalPrice}$
+                      Total price: {totalPrice.toFixed(2)}$
                     </div>
                     <button type="submit" className="btn btn-dark mt-1">
                       Add to order

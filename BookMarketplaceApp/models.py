@@ -32,7 +32,7 @@ class InsuranceProvider(models.Model):
 
 class InsurancePlan(models.Model):
     PolicyNo = models.IntegerField(primary_key=True)
-    Price = models.IntegerField()
+    Price = models.FloatField()
     CoverageDuration = models.IntegerField()
     Details = models.CharField(max_length=100)
     InsuranceProvider_Name = models.ForeignKey(InsuranceProvider, on_delete=models.CASCADE)
@@ -66,9 +66,9 @@ class Book(models.Model):
     ReleaseYear = models.IntegerField()
     PageCount = models.IntegerField()
     Description = models.CharField(max_length=200)
-    RentPrice = models.IntegerField(null=True)
+    RentPrice = models.FloatField(null=True)
     Title = models.CharField(max_length=50)
-    SalePrice = models.IntegerField(null=True)
+    SalePrice = models.FloatField(null=True)
     Rating = models.IntegerField()
     Stock = models.IntegerField()
     Damage = models.CharField(max_length=50)
@@ -96,7 +96,7 @@ class Rental_Detail(models.Model):
     Quantity = models.IntegerField()
     StartDate = models.DateField()
     EndDate = models.DateField()
-    RentAmt = models.IntegerField()
+    RentAmt = models.FloatField()
     InsuranceProvider_Name = models.CharField(max_length=50)
 
 class Purchase_Detail(models.Model):
@@ -107,7 +107,7 @@ class Purchase_Detail(models.Model):
     BookID = models.ForeignKey(Book, on_delete=models.CASCADE)
     Policy_no = models.ForeignKey(InsurancePlan, on_delete=models.CASCADE)
     Quantity = models.IntegerField()
-    PurchaseAmt = models.IntegerField()
+    PurchaseAmt = models.FloatField()
     InsuranceProvider_Name = models.CharField(max_length=50)
 
 class Review(models.Model):

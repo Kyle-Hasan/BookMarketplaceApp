@@ -177,7 +177,7 @@ function Checkout() {
                 <p>Price: {insurancePlans[+insuranceChoice].Price}$</p>
                 <p>Details: {insurancePlans[+insuranceChoice].Details}</p>
                 
-                <p>Total price: {insurancePlans[+insuranceChoice].Price + orderInfo2.Price}$ </p>
+                <p>Total price: {(insurancePlans[+insuranceChoice].Price + orderInfo2.Price).toFixed(2)}$ </p>
                 </>
 }
             </div>

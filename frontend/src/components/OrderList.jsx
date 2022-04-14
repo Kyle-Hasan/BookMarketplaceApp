@@ -27,7 +27,7 @@ function OrderList({purchases,rentals}) {
                       <td>{order.Policy_no}</td>
                       <td>{order.InsuranceProvider_Name}</td>
 
-                      <td>{order.PurchaseAmt}</td>
+                      <td>{order.PurchaseAmt.toFixed(2)}</td>
                   </tr>
               ))}
           </tbody>
@@ -57,7 +57,7 @@ function OrderList({purchases,rentals}) {
                           <td>{order.Policy_no}</td>
                           <td>{order.InsuranceProvider_Name}</td>
 
-                          <td>{order.RentAmt}</td>
+                          <td>{order.RentAmt.toFixed(2)}</td>
                           <td>{order.StartDate}</td>
                           <td>{order.EndDate}</td>
                       </tr>
