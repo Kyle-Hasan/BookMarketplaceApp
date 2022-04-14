@@ -630,6 +630,10 @@ class InsuranceProviderView(APIView):
         if "Name" in request.GET:
             insuranceProvider_to_return = InsuranceProvider.objects.get(Name=request.GET['Name'])
             serializer = InsuranceProviderSerializer(insuranceProvider_to_return, many=False)
+        elif "Search" in request.GET:
+            insuranceProviders = InsuranceProvider.objects.filter(Name__icontains = request.GET['Search'])
+            serializer = InsuranceProviderSerializer(insuranceProviders,many=True)
+
         # Endpoint 53
         else:
             insuranceProviders = InsuranceProvider.objects.all()

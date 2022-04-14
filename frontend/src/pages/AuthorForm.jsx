@@ -34,7 +34,7 @@ function AuthorForm() {
             NumBooks:formInfo.NumBooks
         
      })
-     navigate("/confirmPlan")
+     navigate("/confirmAuthor")
     }
     catch(err){
         console.log(err)
@@ -68,12 +68,7 @@ function AuthorForm() {
 
           </div>
         
-          <div className="mb-3 ">
-              <label htmlFor="NumBooks" className="form-label">Number of books</label>
-              <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value = {formInfo.NumBooks} type="text" className=" w-50 form-control" id="NumBooks" />
-              </div>
-          </div>
+          
 
           
           <button type="submit" className="btn btn-secondary">Submit</button>

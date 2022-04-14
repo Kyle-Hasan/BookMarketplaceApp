@@ -4,8 +4,21 @@ import {useState} from 'react'
 import Axios from 'axios'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import UseSearchDebounced from './UseSearchDebounced'
 function InsurancePlanForm() {
  const [error,setError] = useState("")
+ const providerApiSearch = async(text)=>{
+  return await axios.get("http://localhost:8000/insuranceprovider/",{
+      params:{
+          Search:text
+      }
+  })
+}
+const searchADebounced = ()=> UseSearchDebounced(text=>providerApiSearch(text),200,"")
+const a= searchADebounced();
+const pText = a.input
+const setPText = a.setInput
+const pResults = a.results
  const [formInfo,setFormInfo] = useState({
      policy_no:0,
      price:0,
@@ -29,9 +42,13 @@ function InsurancePlanForm() {
  const onSubmit = async(e)=>{
      e.preventDefault()
      try{
+     if(!pResults.result.data.find((p)=>{ return p.Name===pText})){
+        setError("Invalid provider")
+        return
+    }
        await axios.post("http://localhost:8000/insuranceplan/",{
          PolicyNo:formInfo.policy_no,
-         InsuranceProvider_name:formInfo.InsuranceProviderName,
+         InsuranceProvider_name:pText,
          Price:formInfo.price,
          CoverageDuration:formInfo.CoverageDuration,
          Details:formInfo.Details
@@ -86,13 +103,14 @@ function InsurancePlanForm() {
               </div>
 
           </div>
-          <div className="mb-3">
-              <label htmlFor="InsuranceProviderName" className="form-label">Provider name</label>
-              <div className = "d-flex justify-content-center ">
-              <input onChange = {onChange} value ={formInfo.InsuranceProviderName} type="text" className="w-50 form-control" id="InsuranceProviderName" />
-              </div>
-
-          </div>
+          <div className="mb-3 d-flex justify-content-center">
+          <input onChange={(e)=>{setPText(e.target.value)}} value={pText} className="w-50 form-control" list="datalistOptions2" id="PublisherName"placeholder="search publisher name" />
+           <datalist id="datalistOptions2">
+                            {pResults.result && pResults.result.data && (pResults.result.data.map((p)=>(
+                                 <option key={p.Name} value={p.Name} />
+                            )))}
+                          </datalist>
+                          </div>
           
           
           <button type="submit" className="btn btn-secondary">Submit</button>
