@@ -1703,12 +1703,6 @@
 									"type": "text"
 								},
 								{
-									"key": "LocationID",
-									"value": "1",
-									"description": "integer",
-									"type": "text"
-								},
-								{
 									"key": "Image",
 									"value": "image",
 									"description": "varchar (50)",
@@ -1723,7 +1717,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/book/?BookID=3",
+							"raw": "http://127.0.0.1:8000/book/?BookID=4",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1739,7 +1733,7 @@
 							"query": [
 								{
 									"key": "BookID",
-									"value": "3",
+									"value": "4",
 									"description": "integer"
 								}
 							]
@@ -1810,12 +1804,6 @@
 											"type": "text"
 										},
 										{
-											"key": "LocationID",
-											"value": "1",
-											"description": "integer",
-											"type": "text"
-										},
-										{
 											"key": "Image",
 											"value": "image",
 											"description": "varchar (50)",
@@ -1830,7 +1818,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://127.0.0.1:8000/book/?BookID=3",
+									"raw": "http://127.0.0.1:8000/book/?BookID=4",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -1846,7 +1834,7 @@
 									"query": [
 										{
 											"key": "BookID",
-											"value": "3",
+											"value": "4",
 											"description": "integer"
 										}
 									]
@@ -1858,7 +1846,7 @@
 							"header": [
 								{
 									"key": "Date",
-									"value": "Wed, 13 Apr 2022 07:40:49 GMT"
+									"value": "Wed, 13 Apr 2022 23:50:57 GMT"
 								},
 								{
 									"key": "Server",
@@ -1882,7 +1870,7 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "197"
+									"value": "182"
 								},
 								{
 									"key": "X-Content-Type-Options",
@@ -1898,7 +1886,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"BookID\": 3,\n    \"ReleaseYear\": 1980,\n    \"PageCount\": 54,\n    \"Description\": \"Test\",\n    \"RentPrice\": 4,\n    \"Title\": \"Book3\",\n    \"SalePrice\": 3,\n    \"Rating\": 6,\n    \"Stock\": 1,\n    \"Damage\": \"2\",\n    \"LocationID\": 1,\n    \"Image\": \"image\",\n    \"Publisher_Name\": \"a\"\n}"
+							"body": "{\n    \"BookID\": 4,\n    \"ReleaseYear\": 1980,\n    \"PageCount\": 54,\n    \"Description\": \"Test\",\n    \"RentPrice\": 4,\n    \"Title\": \"Book3\",\n    \"SalePrice\": 3,\n    \"Rating\": 6,\n    \"Stock\": 1,\n    \"Damage\": \"2\",\n    \"Image\": \"image\",\n    \"Publisher_Name\": \"a\"\n}"
 						}
 					]
 				},
@@ -3149,6 +3137,114 @@
 					]
 				},
 				{
+					"name": "Endpoint 35",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/author/?AuthorID=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"author",
+								""
+							],
+							"query": [
+								{
+									"key": "AuthorID",
+									"value": "1",
+									"description": "integer"
+								}
+							]
+						},
+						"description": "#### Description\n\nGet author info with AuthorID"
+					},
+					"response": [
+						{
+							"name": "Endpoint 35",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/author/?AuthorID=1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"author",
+										""
+									],
+									"query": [
+										{
+											"key": "AuthorID",
+											"value": "1",
+											"description": "integer"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 23:41:12 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "55"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"AuthorID\": 1,\n    \"FName\": \"Bob\",\n    \"LName\": \"Joe\",\n    \"NumBooks\": 0\n}"
+						}
+					]
+				},
+				{
 					"name": "Endpoint 38",
 					"request": {
 						"method": "GET",
@@ -4097,6 +4193,100 @@
 							"body": "{\n    \"CardNo\": 2345469459,\n    \"CVV\": 345,\n    \"BillingAddress\": \"10 Ash Grove Lane\",\n    \"NameOnCard\": \"Jeremy\",\n    \"User_Email\": \"a@gmail.com\"\n}"
 						}
 					]
+				},
+				{
+					"name": "Endpoint 20",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/payment/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"payment",
+								""
+							]
+						},
+						"description": "#### Description\n\nGet all payments"
+					},
+					"response": [
+						{
+							"name": "Endpoint 20",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/payment/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"payment",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 23:43:24 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "388"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"CardNo\": 1,\n        \"CVV\": 1,\n        \"BillingAddress\": \"1\",\n        \"NameOnCard\": \"\",\n        \"User_Email\": \"test@gmail.com\"\n    },\n    {\n        \"CardNo\": 11,\n        \"CVV\": 222,\n        \"BillingAddress\": \"ssss\",\n        \"NameOnCard\": \"\",\n        \"User_Email\": \"s@s.com\"\n    },\n    {\n        \"CardNo\": 224,\n        \"CVV\": 2414,\n        \"BillingAddress\": \"fwefw\",\n        \"NameOnCard\": \"\",\n        \"User_Email\": \"e@gmail.com\"\n    },\n    {\n        \"CardNo\": 2345469459,\n        \"CVV\": 345,\n        \"BillingAddress\": \"10 Ash Grove Lane\",\n        \"NameOnCard\": \"Jeremy\",\n        \"User_Email\": \"a@gmail.com\"\n    }\n]"
+						}
+					]
 				}
 			]
 		},
@@ -4131,7 +4321,7 @@
 								},
 								{
 									"key": "Book_ID",
-									"value": "3",
+									"value": "4",
 									"description": "integer",
 									"type": "text"
 								},
@@ -5158,365 +5348,6 @@
 			]
 		},
 		{
-			"name": "location",
-			"item": [
-				{
-					"name": "Endpoint 35",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "Country",
-									"value": "Canada",
-									"description": "varchar (20)",
-									"type": "text"
-								},
-								{
-									"key": "City",
-									"value": "Regina",
-									"description": "varchar (20)",
-									"type": "text"
-								},
-								{
-									"key": "StreetNum",
-									"value": "4",
-									"description": "integer",
-									"type": "text"
-								},
-								{
-									"key": "PostalCode",
-									"value": "R5G1K9",
-									"description": "varchar (6)",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://127.0.0.1:8000/location/",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"location",
-								""
-							]
-						},
-						"description": "#### Description\n\nUsed to add a location"
-					},
-					"response": [
-						{
-							"name": "Endpoint 35",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "Country",
-											"value": "Canada",
-											"description": "varchar (20)",
-											"type": "text"
-										},
-										{
-											"key": "City",
-											"value": "Regina",
-											"description": "varchar (20)",
-											"type": "text"
-										},
-										{
-											"key": "StreetNum",
-											"value": "4",
-											"description": "integer",
-											"type": "text"
-										},
-										{
-											"key": "PostalCode",
-											"value": "R5G1K9",
-											"description": "varchar (6)",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "http://127.0.0.1:8000/location/",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"location",
-										""
-									]
-								}
-							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Date",
-									"value": "Wed, 13 Apr 2022 08:35:01 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "WSGIServer/0.2 CPython/3.9.12"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept, Origin, Cookie"
-								},
-								{
-									"key": "Allow",
-									"value": "GET, POST, HEAD, OPTIONS"
-								},
-								{
-									"key": "X-Frame-Options",
-									"value": "DENY"
-								},
-								{
-									"key": "Content-Length",
-									"value": "87"
-								},
-								{
-									"key": "X-Content-Type-Options",
-									"value": "nosniff"
-								},
-								{
-									"key": "Referrer-Policy",
-									"value": "same-origin"
-								},
-								{
-									"key": "Cross-Origin-Opener-Policy",
-									"value": "same-origin"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"LocationID\": 3,\n    \"Country\": \"Canada\",\n    \"City\": \"Regina\",\n    \"StreetNum\": 4,\n    \"PostalCode\": \"R5G1K9\"\n}"
-						}
-					]
-				},
-				{
-					"name": "Endpoint 36",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:8000/location/?LocationID=1",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"location",
-								""
-							],
-							"query": [
-								{
-									"key": "LocationID",
-									"value": "1",
-									"description": "integer"
-								}
-							]
-						},
-						"description": "Used to get a location"
-					},
-					"response": [
-						{
-							"name": "Endpoint 36",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://127.0.0.1:8000/location/?LocationID=1",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"location",
-										""
-									],
-									"query": [
-										{
-											"key": "LocationID",
-											"value": "1",
-											"description": "integer"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Date",
-									"value": "Wed, 13 Apr 2022 08:38:48 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "WSGIServer/0.2 CPython/3.9.12"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept, Origin, Cookie"
-								},
-								{
-									"key": "Allow",
-									"value": "GET, POST, HEAD, OPTIONS"
-								},
-								{
-									"key": "X-Frame-Options",
-									"value": "DENY"
-								},
-								{
-									"key": "Content-Length",
-									"value": "72"
-								},
-								{
-									"key": "X-Content-Type-Options",
-									"value": "nosniff"
-								},
-								{
-									"key": "Referrer-Policy",
-									"value": "same-origin"
-								},
-								{
-									"key": "Cross-Origin-Opener-Policy",
-									"value": "same-origin"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"LocationID\": 1,\n    \"Country\": \"a\",\n    \"City\": \"a\",\n    \"StreetNum\": 0,\n    \"PostalCode\": \"a\"\n}"
-						}
-					]
-				},
-				{
-					"name": "Endpoint 51",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:8000/location/",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"location",
-								""
-							]
-						},
-						"description": "#### Description\n\nGet all locations"
-					},
-					"response": [
-						{
-							"name": "Endpoint 51",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://127.0.0.1:8000/location/",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"location",
-										""
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Date",
-									"value": "Wed, 13 Apr 2022 22:01:14 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "WSGIServer/0.2 CPython/3.9.12"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept, Origin, Cookie"
-								},
-								{
-									"key": "Allow",
-									"value": "GET, POST, HEAD, OPTIONS"
-								},
-								{
-									"key": "X-Frame-Options",
-									"value": "DENY"
-								},
-								{
-									"key": "Content-Length",
-									"value": "235"
-								},
-								{
-									"key": "X-Content-Type-Options",
-									"value": "nosniff"
-								},
-								{
-									"key": "Referrer-Policy",
-									"value": "same-origin"
-								},
-								{
-									"key": "Cross-Origin-Opener-Policy",
-									"value": "same-origin"
-								}
-							],
-							"cookie": [],
-							"body": "[\n    {\n        \"LocationID\": 1,\n        \"Country\": \"a\",\n        \"City\": \"a\",\n        \"StreetNum\": 0,\n        \"PostalCode\": \"a\"\n    },\n    {\n        \"LocationID\": 2,\n        \"Country\": \"1\",\n        \"City\": \"1\",\n        \"StreetNum\": 0,\n        \"PostalCode\": \"1\"\n    },\n    {\n        \"LocationID\": 3,\n        \"Country\": \"Canada\",\n        \"City\": \"Regina\",\n        \"StreetNum\": 4,\n        \"PostalCode\": \"R5G1K9\"\n    }\n]"
-						}
-					]
-				}
-			]
-		},
-		{
 			"name": "insuranceprovider",
 			"item": [
 				{
@@ -5527,12 +5358,6 @@
 						"body": {
 							"mode": "formdata",
 							"formdata": [
-								{
-									"key": "Location_ID",
-									"value": "1",
-									"description": "integer",
-									"type": "text"
-								},
 								{
 									"key": "Name",
 									"value": "NewInsuranceProvider",
@@ -5568,12 +5393,6 @@
 									"mode": "formdata",
 									"formdata": [
 										{
-											"key": "Location_ID",
-											"value": "1",
-											"description": "integer",
-											"type": "text"
-										},
-										{
 											"key": "Name",
 											"value": "NewInsuranceProvider",
 											"description": "varchar (50)",
@@ -5603,7 +5422,7 @@
 							"header": [
 								{
 									"key": "Date",
-									"value": "Wed, 13 Apr 2022 08:07:49 GMT"
+									"value": "Wed, 13 Apr 2022 23:53:07 GMT"
 								},
 								{
 									"key": "Server",
@@ -5627,7 +5446,7 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "47"
+									"value": "31"
 								},
 								{
 									"key": "X-Content-Type-Options",
@@ -5643,7 +5462,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"Name\": \"NewInsuranceProvider\",\n    \"Location_ID\": 1\n}"
+							"body": "{\n    \"Name\": \"NewInsuranceProvider\"\n}"
 						}
 					]
 				},
@@ -6217,6 +6036,114 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"PolicyNo\": 2,\n    \"Price\": 15,\n    \"CoverageDuration\": 24,\n    \"Details\": \"Plan Details\",\n    \"InsuranceProvider_Name\": \"NewInsuranceProvider\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Endpoint 58",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/insuranceplan/?ProviderName=NewInsuranceProvider",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"insuranceplan",
+								""
+							],
+							"query": [
+								{
+									"key": "ProviderName",
+									"value": "NewInsuranceProvider",
+									"description": "varchar (50)"
+								}
+							]
+						},
+						"description": "#### Description\n\nGet insurance plan with a provider name"
+					},
+					"response": [
+						{
+							"name": "Endpoint 58",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/insuranceplan/?ProviderName=NewInsuranceProvider",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"insuranceplan",
+										""
+									],
+									"query": [
+										{
+											"key": "ProviderName",
+											"value": "NewInsuranceProvider",
+											"description": "varchar (50)"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 13 Apr 2022 23:47:13 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "122"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"PolicyNo\": 2,\n        \"Price\": 15,\n        \"CoverageDuration\": 24,\n        \"Details\": \"Plan Details\",\n        \"InsuranceProvider_Name\": \"NewInsuranceProvider\"\n    }\n]"
 						}
 					]
 				}

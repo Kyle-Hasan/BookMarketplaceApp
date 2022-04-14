@@ -89,6 +89,7 @@ class UserView(APIView):
         user = User.objects.all()
         return user
 
+    # Replaced by Endpoint 3
     # returns user info for email in request
     def post(self, request, *args, **kwargs):
         get_data = request.data
@@ -150,6 +151,7 @@ class WishlistUserView(APIView):
     def get(self, request,*args,**kwargs):
         print("hello")
         print(request.GET)
+        # Endpoint 41
         if 'BookID' not in request.GET:
             books = Wants.objects.filter(User_Email=request.GET['User_Email'])
             print(books)
@@ -160,6 +162,7 @@ class WishlistUserView(APIView):
                 serializer = BookSerializer(b.Book_ID, many=False)
             
                 to_return.append(serializer.data)
+        # Endpoint 42
         else:
             if Wants.objects.filter(User_Email = request.GET['User_Email'],Book_ID = request.GET['BookID']).exists():
                 return Response("found",status=status.HTTP_200_OK)
@@ -169,6 +172,7 @@ class WishlistUserView(APIView):
 
         return Response(to_return, status=status.HTTP_200_OK)
 
+    # Endpoint43
     def delete(self,request,*args,**kwargs):
         print(request.data)
         User_Email = request.data['User_Email']
@@ -185,6 +189,7 @@ class BookView(APIView):
     def get(self, request, *args, **kwargs):
         #print(request.GET)
         # if request.GET is not empty return 1 book specified by request.GET
+        # Endpoint 6
         if 'BookID' in request.GET:
             book_id = request.GET
             book_to_return = Book.objects.get(BookID=book_id['BookID'])
@@ -195,6 +200,7 @@ class BookView(APIView):
             books_to_return = Book.objects.filter(Title__icontains=request.GET['Title'])
             serializer = BookSerializer(books_to_return,many=True)
         # if request.GET is empty return all books
+        # Endpiont 7
         else:
             books_to_return = Book.objects.all()
             serializer = BookSerializer(books_to_return, many=True)
@@ -202,6 +208,7 @@ class BookView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     # add a new book to the database
+    # Endpoint 8
     def post(self, request, *args, **kwargs):
         book_data = request.data
         p = book_data['Publisher_Name']
@@ -227,6 +234,7 @@ class BookView(APIView):
         new_book.save()
         return Response(new_book.BookID, status=status.HTTP_201_CREATED)
 
+    # Endpoint 11
     def patch(self, request, *args, **kwargs):
         if request.GET:
             book_id = request.GET['BookID']
@@ -265,6 +273,7 @@ class BookView(APIView):
 class GenreView(APIView):
     serializer_class = GenreSerializer
     # add genre to book
+    # Endpoint 9
     def post(self, request, *args, **kwargs):
         
         book_id = request.data['BookID']
@@ -277,6 +286,7 @@ class GenreView(APIView):
         return Response("", status=status.HTTP_200_OK)
 
     # returns genres of book
+    # Endpoint 10
     def get(self, request, *args, **kwargs):
         genres = []
         if request.GET:
@@ -294,6 +304,7 @@ class GenreView(APIView):
         
         return Response(genres, status=status.HTTP_200_OK)
     #delete genre
+    # Endpoint 44
     def delete(self,request,*args,**kwargs):
         print(request.GET)
         g = Book_Genres.objects.get(Book_ID=request.GET['BookID'],BookGenre=request.GET['BookGenre'])
@@ -304,6 +315,7 @@ class GenreView(APIView):
 class PublisherView(APIView):
     serializer_class = PublisherSerializer
     #add publisher
+    # Endpoint 16
     def post(self, request, *args, **kwargs):
         publiser_data=  request.data
         name = publiser_data["Name"]
@@ -332,11 +344,13 @@ class PublisherView(APIView):
                 publishers.append(book)
             return Response(publishers, status=status.HTTP_200_OK)
         #get all publishers containing the query string in their name
+        # Endpoint 45
         elif "Name" in request.GET:
             p = Publisher.objects.filter(Name__icontains=request.GET['Name'])
             serializer = PublisherSerializer(p,many = True)
             return Response(serializer.data,status=status.HTTP_200_OK)
         # get all publishes
+        # Endpoint 46
         else:
             all_publishers = Publisher.objects.all()
             serializer = PublisherSerializer(all_publishers,many=True)
@@ -370,7 +384,7 @@ class AuthorView(APIView):
             serializer = AuthorSerializer(authors,many=True)              
             return Response(serializer.data, status=status.HTTP_200_OK)
 
-        # Endpoint 33
+        # Endpoint 35
         elif "AuthorID" in request.GET:
             author = Author.objects.get(AuthorID=request.GET["AuthorID"])
             serializer = AuthorSerializer(author,many=False) 
@@ -448,6 +462,8 @@ class WritesView(APIView):
 
 class PaymentView(APIView):
     serializer_class = PaymentSerializer
+
+    # Endpoint 18
     def post(self,request,*args,**kwargs):
         print(request)
         payment_data = request.data
@@ -469,10 +485,11 @@ class PaymentView(APIView):
     def get(self,request,*args,**kwargs):
         #get payment by user email
         print(request.GET)
+        # Endpoint 19
         if "User_Email" in request.GET:
             payment_to_return = Payment.objects.get(User_Email=request.GET['User_Email'])
             serializer = PaymentSerializer(payment_to_return, many=False)
-        
+        # Endpoint 20
         else:
             payments = Payment.objects.all()
             serializer = PaymentSerializer(payments,many=True)
@@ -482,6 +499,7 @@ class PaymentView(APIView):
 class RentalDetailView(APIView):
     serializer_class = RentalDetailSerializer
 
+    # Endpoint 22
     def post(self,request,*args,**kwargs):
         print(request)
         rental_data = request.data
@@ -516,6 +534,7 @@ class RentalDetailView(APIView):
         print("hello")
         print(request.GET)
         
+        # Endpoint 47
         if "OrderID" in request.GET:
             rental_to_return = Rental_Detail.objects.get(OrderID=request.GET['OrderID'])
             serializer = RentalDetailSerializer(rental_to_return, many=False)
@@ -523,7 +542,7 @@ class RentalDetailView(APIView):
         elif "User_Email" in request.GET:
             rental_to_return = Rental_Detail.objects.filter(User_Email=request.GET['User_Email'])
             serializer = RentalDetailSerializer(rental_to_return, many=True)
-            
+        # Endpoint 48
         else:
             rentals = Rental_Detail.objects.all()
             serializer = RentalDetailSerializer(rentals,many=True)
@@ -535,6 +554,7 @@ class RentalDetailView(APIView):
 class PurchaseDetailView(APIView):
     serializer_class = PurchaseDetailSerializer
 
+    # Endpoint 23
     def post(self,request,*args,**kwargs):
         print("hih")
         print(request.data)
@@ -566,6 +586,7 @@ class PurchaseDetailView(APIView):
     def get(self,request,*args,**kwargs):
         #get purchase detail by order ID
         print(request.GET)
+        # Endpoint 49
         if "OrderID" in request.GET:
             purchase_to_return = Purchase_Detail.objects.get(OrderID=request.GET['OrderID'])
             serializer = PurchaseDetailSerializer(purchase_to_return, many=False)
@@ -573,6 +594,7 @@ class PurchaseDetailView(APIView):
         elif "User_Email" in request.GET:
             purchase_to_return = Purchase_Detail.objects.filter(User_Email=request.GET['User_Email'])
             serializer = PurchaseDetailSerializer(purchase_to_return, many=True)
+        # Endpoint 50
         else:
             purchases = Purchase_Detail.objects.all()
             serializer = PurchaseDetailSerializer(purchases,many=True)
@@ -604,10 +626,11 @@ class InsuranceProviderView(APIView):
 
     def get(self,request,*args,**kwargs):
         #get Insurance Provider by name
+        # Endpoint 52
         if "Name" in request.GET:
             insuranceProvider_to_return = InsuranceProvider.objects.get(Name=request.GET['Name'])
             serializer = InsuranceProviderSerializer(insuranceProvider_to_return, many=False)
-        
+        # Endpoint 53
         else:
             insuranceProviders = InsuranceProvider.objects.all()
             serializer = InsuranceProviderSerializer(insuranceProviders,many=True)
@@ -639,9 +662,12 @@ class InsurancePlanView(APIView):
 
     def get(self,request,*args,**kwargs):
         #get insurance plan by policy no
+        # Endpoint 54
         if "PolicyNo" in request.GET:
             insurancePlan_to_return = InsurancePlan.objects.get(PolicyNo=request.GET['PolicyNo'])
             serializer = InsurancePlanSerializer(insurancePlan_to_return, many=False)
+
+        # Endpoint 58
         elif "ProviderName" in request.GET:
             insurancePlans = InsurancePlan.objects.filter(InsuranceProvider_Name=request.GET['ProviderName'])
             serializer = InsurancePlanSerializer(insurancePlans,many=True)
@@ -657,6 +683,7 @@ class InsurancePlanView(APIView):
 class ReviewView(APIView):
     serializer_class = ReviewSerializer
 
+    # Endpoint 26
     def get(self, request, *args, **kwargs):
         if request.GET:
             reviews = Review.objects.filter(BookID=request.GET['BookID'])
@@ -668,6 +695,7 @@ class ReviewView(APIView):
         else:
             return Response("", status=status.HTTP_400_BAD_REQUEST)
 
+    # Endpoint 27
     def post(self, request, *args, **kwargs):
         review_data = request.data
         book = Book.objects.get(BookID=review_data['BookID'])
@@ -679,6 +707,7 @@ class ReviewView(APIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     # delete review
+    # Endpoint 55
     def delete(self, request, *args, **kwargs):
         if "BookID" in request.GET and "User_Email" in request.GET:
             review = Review.objects.get(BookID=request.GET['BookID'], User_Email=request.GET['User_Email'])
@@ -688,6 +717,7 @@ class ReviewView(APIView):
         
         return Response("", status=status.HTTP_400_BAD_REQUEST)
     # edit review
+    # Endpoint 56
     def patch(self, request, *args, **kwargs):
         print(request.data)
         if("BookID" in request.data and "User_Email" in request.data and "Comment" in request.data and "Rating" in request.data):
