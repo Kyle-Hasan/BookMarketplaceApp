@@ -28,7 +28,7 @@ function SearchBook() {
 
     },[])
   return (
-    <div><Navbar/><BookList books={books} setBooks={setBooks}/></div>
+    <div><Navbar/><h1 className='mt-1'>Search for: {text}</h1><BookList books={books} setBooks={setBooks}/></div>
   )
 }
 

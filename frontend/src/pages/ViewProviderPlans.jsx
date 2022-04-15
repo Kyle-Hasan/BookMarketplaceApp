@@ -25,7 +25,7 @@ let { name } = useParams()
 
   },[])
   return (
-    <div><Navbar/><PlanList plans={plans}/></div>
+    <div><Navbar/><h3 className='mt-1'>Plans from {name}</h3><PlanList plans={plans}/></div>
   )
 }
 

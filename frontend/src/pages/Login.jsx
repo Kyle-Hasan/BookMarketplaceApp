@@ -86,7 +86,7 @@ function Login() {
      <Link className = "mt-1" to = "/signup">Sign up here</Link>
      </div>
      <div>
-     <Link className="mt-1" to = "/forgot">Forgot password?</Link>
+     
      </div>
      </div>
      </div>

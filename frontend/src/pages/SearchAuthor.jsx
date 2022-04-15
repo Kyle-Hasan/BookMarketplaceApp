@@ -28,7 +28,7 @@ function SearchAuthor() {
 
     },[])
   return (
-    <div><Navbar/><AuthorList authors={authors}/></div>
+    <div><Navbar/><h1 className='mt-1'>Search for: {text}</h1><AuthorList authors={authors}/></div>
   )
 }
 

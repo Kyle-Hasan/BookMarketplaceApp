@@ -29,7 +29,7 @@ function SearchPublisher() {
 
     },[])
   return (
-    <div><Navbar/><PublisherList publishers={publishers}/></div>
+    <div><Navbar/><h1 className='mt-1'>Search for: {text}</h1><PublisherList publishers={publishers}/></div>
   )
 }
 
